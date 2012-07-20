@@ -68,8 +68,8 @@
 
 			var realValue1 = AnalogValue.AdjustValue(input1, this.Gain, this.Offset);
 			var realValue2 = AnalogValue.AdjustValue(input1, this.Gain, this.Offset);
-
-			/*
+			
+			/* jhhj
 			 * Règle de calcul
 			 *      Si seuil d'enclenchement (DeltaOn) ≥ seuil de déclenchement (DeltaOff), on a :
 			 *          OutputState = 1, si (valeur réelle InputValue1 - valeur réelle InputValue2) > DeltaOn 
