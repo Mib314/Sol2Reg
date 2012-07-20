@@ -30,5 +30,7 @@ namespace Sol2Reg.DataObject
 		///   <c>true</c> if [dynamic value]; otherwise, <c>false</c>.
 		/// </value>
 		bool DynamicValue { get; }
+
+		IValue Initialize();
 	}
 }

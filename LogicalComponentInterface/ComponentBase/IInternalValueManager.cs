@@ -53,7 +53,8 @@ namespace Sol2Reg.LogicalComponent.Interface
 		/// Called when [event output change].
 		/// </summary>
 		/// <param name="newOutputValue">The new output value.</param>
-		void OnEventOutputChange(ValueEventArgs newOutputValue);
+		/// <param name="outputName">Name of the output.</param>
+		void OnEventOutputChange(IValue newOutputValue, string outputName);
 
 		/// <summary>
 		/// Called when [event input change].

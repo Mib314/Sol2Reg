@@ -12,7 +12,6 @@
 		protected AnalogBasicComponent(IValueManager valueManager)
 			: base(valueManager) {}
 
-
 		/// <summary>
 		/// Gets or sets the input 1.
 		/// </summary>
@@ -49,15 +48,14 @@
 		/// Initialize the AnalogAmplifier.
 		/// </summary>
 		/// <param name="code">The code.</param>
-		/// <param name="input1">The input 1.</param>
 		/// <param name="gain">The gain.</param>
 		/// <param name="offset">The offset.</param>
-		public virtual void Initialize(string code, AnalogValue input1, AnalogValue gain, AnalogValue offset)
+		public virtual void Initialize(string code, AnalogValue gain, AnalogValue offset)
 		{
 			base.Initialize(code);
-			this.Input1 = input1;
 			this.Gain = gain;
 			this.Offset = offset;
+			this.Input1 = (AnalogValue)new AnalogValue().Initialize();
 		}
 	}
 }

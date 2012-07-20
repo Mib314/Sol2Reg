@@ -12,8 +12,13 @@
 		public const string PARAM_D_OFF = "D_Off ";
 		public const string OUTPUT1 = "output1 ";
 
+		private bool m_OutputState;
+
 		protected AnalogCompar(IValueManager valueManager)
-			: base(valueManager) { }
+			: base(valueManager)
+		{
+			this.m_OutputState = false;
+		}
 
 		/// <summary>
 		/// Gets or sets the delta value to set off.
@@ -61,6 +66,7 @@
 			// Tous les input doivent avoir le cycle courrant pour pouvoir faire le calcule.
 			var input1 = this.GetParam(INPUT1);
 			var input2 = this.GetParam(INPUT2);
+			var output = new DigitalValue(false);
 			if ((input1 == null || input1.Cycle != this.ValueManager.Cycle) && (input2 == null || input2.Cycle != this.ValueManager.Cycle))
 			{
 				return;
@@ -69,7 +75,7 @@
 			var realValue1 = AnalogValue.AdjustValue(input1, this.Gain, this.Offset);
 			var realValue2 = AnalogValue.AdjustValue(input1, this.Gain, this.Offset);
 			
-			/* jhhj
+			/* 
 			 * Règle de calcul
 			 *      Si seuil d'enclenchement (DeltaOn) ≥ seuil de déclenchement (DeltaOff), on a :
 			 *          OutputState = 1, si (valeur réelle InputValue1 - valeur réelle InputValue2) > DeltaOn 
@@ -79,29 +85,27 @@
 			*/
 			var deltaValue = realValue1 - realValue2;
 
-			this.ValueManager. = this.OutputState;
 			// Si seuil d'enclenchement (DeltaOn) ≥ seuil de déclenchement (DeltaOff),
 			if (this.DeltaValueToSetOn >= this.DeltaValueToSetOff)
 			{
 				// OutputState = 1, si (valeur réelle InputValue1 - valeur réelle InputValue2) > DeltaOn
-				if (deltaValue > this.DeltaOn)
+				if (deltaValue > this.DeltaValueToSetOn)
 				{
-					this.OutputState.Value = true;
+					output.Value = true;
 				}
 				// OutputState = 0, si (valeur réelle InputValue1 - valeur réelle InputValue2) ≤ DeltaOff
-				else if (deltaValue <= this.DeltaOff)
+				else if (deltaValue <= this.DeltaValueToSetOff)
 				{
-					this.OutputState.Value = false;
+					output.Value = false;
 				}
 			}
 			// Si seuil d'enclenchement (DeltaOn) < seuil de déclenchement (DeltaOff),
 			else
 			{
 				// OutputState = 1, si On ≤ (valeur réelle InputValue1 - valeur réelle InputValue2) < DeltaOff.
-				this.OutputState.Value = (deltaValue >= this.DeltaValueToSetOn && deltaValue < this.DeltaValueToSetOff);
+				output.Value = (deltaValue >= this.DeltaValueToSetOn && deltaValue < this.DeltaValueToSetOff);
 			}
-
-			this.InternalValueManager.OnEventOutputChange(this.OutputState);
+			this.InternalValueManager.OnEventOutputChange(output, OUTPUT1);
 			this.StateChange();
 		}
 
@@ -118,6 +122,9 @@
 			base.Initialize(code, gain, offset);
 			this.DeltaValueToSetOff = deltaValueToSetOff;
 			this.DeltaValueToSetOn = deltaValueToSetOn;
+			this.DeltaValueToSetOff = (AnalogValue)new AnalogValue().Initialize();
+			this.DeltaValueToSetOn = (AnalogValue)new AnalogValue().Initialize();
+			this.Output1 = (AnalogValue)new DigitalValue().Initialize();
 		}
 		#endregion
 	}

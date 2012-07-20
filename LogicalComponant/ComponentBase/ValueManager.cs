@@ -84,6 +84,14 @@
 		public Dictionary<int, IDictionary<string, IValue>> HistoryValues { get; private set; }
 
 		/// <summary>
+		/// Gets or sets a value indicating whether [output state].
+		/// </summary>
+		/// <value>
+		///   <c>true</c> if [output state]; otherwise, <c>false</c>.
+		/// </value>
+		public bool OutputState { get; set; }
+
+		/// <summary>
 		/// Gets or sets the duration of the history time.
 		/// If this value is null no history per time.
 		/// </summary>
@@ -123,7 +131,7 @@
 
 			this.Cycle = 0;
 			this.CycleTime = DateTime.MinValue;
-		
+
 			// HistoryFrequency is by default disabled.
 			this.HistoryValues = new Dictionary<int, IDictionary<string, IValue>>();
 			this.HistoryCycleDuration = null;
@@ -140,14 +148,7 @@
 		/// <param name="value">The value.</param>
 		public void SetterParam(string key, IValue value)
 		{
-			if (!this.CurrentParams.ContainsKey(key))
-			{
-				this.CurrentParams.Add(key, value);
-			}
-			else
-			{
-				this.CurrentParams[key] = value;
-			}
+			this.SetterParamWithoutEvent(key,value);
 			this.OnEventInputChange(value, key);
 		}
 
@@ -182,14 +183,18 @@
 
 		#region Manage events.
 
+
 		/// <summary>
 		/// Called when [event output change].
 		/// </summary>
 		/// <param name="newOutputValue">The new output value.</param>
-		public void OnEventOutputChange(ValueEventArgs newOutputValue)
+		/// <param name="outputName">Name of the output.</param>
+		public void OnEventOutputChange(IValue newOutputValue, string outputName)
 		{
+			this.SetterParam(outputName, newOutputValue);
+			var output = new ValueEventArgs(newOutputValue, this.basicComponent.Code, outputName);
 			ValueChangeHandler handler = this.EventOutputChange;
-			if (handler != null) handler(this, newOutputValue);
+			if (handler != null) handler(this, output);
 		}
 
 		/// <summary>
@@ -199,11 +204,11 @@
 		/// <param name="inputName">Name of the input.</param>
 		public void OnEventInputChange(IValue newInputValue, string inputName)
 		{
+			this.SetterParamWithoutEvent(inputName, newInputValue);
 			var args = new ValueEventArgs(newInputValue, this.Code, inputName);
 			ValueChangeHandler handler = this.EventInputChange;
 			if (handler != null) handler(this, args);
 		}
-
 
 		/// <summary>
 		/// Registers the link input.
@@ -214,14 +219,35 @@
 		{
 			valueManagerEventSender.EventOutputChange += (o, args) =>
 			{
-				this.SetterParam(paramName, args);
+				this.SetterParamWithoutEvent(paramName, args);
 				this.helperHistoryIoValue.SaveTheLastParam(paramName, args, this.LastParams);
-				if(this.helperHistoryIoValue.CheckIfAllParamIsUpToDate(this.CurrentParams))
+				if (this.helperHistoryIoValue.CheckIfAllParamIsUpToDate(this.CurrentParams))
 				{
 					this.basicComponent.Calculate();
 				}
 			};
 		}
 		#endregion
+
+		private void SetterParamWithoutEvent(string key, IValue value)
+		{
+			if (!this.CurrentParams.ContainsKey(key))
+			{
+				this.CurrentParams.Add(key, value);
+			}
+			else
+			{
+				this.CurrentParams[key] = value;
+			}
+		}
+
+		private void SetterParamWithoutEvent(string key, ValueEventArgs args)
+		{
+			if (args != null && args.Value != null)
+			{
+				this.SetterParamWithoutEvent(key, args.Value);
+			}
+		}
+
 	}
 }

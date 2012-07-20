@@ -78,7 +78,8 @@
 		/// <returns></returns>
 		public static AnalogValue AdjustValue(IValue value, AnalogValue gain, AnalogValue offset)
 		{
-				return AdjustValue((AnalogValue)value, gain, offset);
+			var valueAnalog = value as AnalogValue;
+			return AdjustValue(valueAnalog, gain, offset);
 		}
 
 		/// <summary>
@@ -93,6 +94,12 @@
 			return (value * gain) + offset;
 		}
 
+		/// <summary>
+		/// Deltas => value1 - value2.
+		/// </summary>
+		/// <param name="value1">The value1.</param>
+		/// <param name="value2">The value2.</param>
+		/// <returns></returns>
 		public AnalogValue DeltaV1V2(AnalogValue value1, AnalogValue value2)
 		{
 			return value1 - value2;
@@ -280,6 +287,12 @@
 		public override string ToString()
 		{
 			return this.Value.ToString(CultureInfo.InvariantCulture);
+		}
+
+		public IValue Initialize()
+		{
+			this.Value = 0M;
+			return this;
 		}
 
 		#region Private helper methode

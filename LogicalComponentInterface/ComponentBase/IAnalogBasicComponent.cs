@@ -8,10 +8,9 @@ namespace Sol2Reg.LogicalComponent.Interface
 		/// Initialize the AnalogAmplifier.
 		/// </summary>
 		/// <param name="code">The code.</param>
-		/// <param name="input1">The input 1.</param>
 		/// <param name="gain">The gain.</param>
 		/// <param name="offset">The offset.</param>
-		void Initialize(string code, AnalogValue input1, AnalogValue gain, AnalogValue offset);
+		void Initialize(string code, AnalogValue gain, AnalogValue offset);
 
 		/// <summary>
 		/// Gets or sets the input 1.

@@ -68,6 +68,12 @@
 		/// </value>
 		public bool DynamicValue { get; private set; }
 
+		public IValue Initialize()
+		{
+			this.Value = false;
+			return this;
+		}
+
 		#region Extension :
 		#region Equals
 		public static bool operator ==(DigitalValue value1, DigitalValue value2)
