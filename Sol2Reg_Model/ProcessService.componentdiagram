@@ -1,0 +1,329 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<componentModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm4="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm5="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/ModelStore" xmlns:dm9="http://schemas.microsoft.com/dsltools/LogicalClassDesigner" dslVersion="1.0.0.0" Id="29583e27-a6df-42ae-8e1a-7a704ecb5cd1" name="Diagramme du process service" linkedPackageId="a8245081-6515-4329-bf0b-6a63dc078b59" xmlns="http://schemas.microsoft.com/VisualStudio/TeamArchitect/ComponentDesigner">
+  <description>Ce diagramme décrit le service Sol2Reg de pilotage de l'installation.
+Ses butes sont :
+1. La création d'un model de calculation.
+2. Le management de cycle de mesure et de calculation des réponses pour les divers sorties,
+3. L'écriture de divers valeurs dans un dépot de données.
+</description>
+  <ownedCommentsInternal>
+    <comment Id="7f1d3c70-9e24-45d7-a7d0-aab5eb87fbd6">
+      <elementDefinition Id="75e4fe19-4c91-4382-892e-3d82b4d9ee30" />
+      <body>Ce diagramme décrit le service Sol2Reg de pilotage de l'installation.
+Ses butes sont :
+1. La création d'un model de calculation.
+2. Le management de cycle de mesure et de calculation des réponses pour les divers sorties,
+3. L'écriture de divers valeurs dans un dépot de données.</body>
+    </comment>
+  </ownedCommentsInternal>
+  <profileInstances>
+    <packageHasProfileInstances Id="10f7ae0c-7017-4e47-9dee-4e0afaf97f61">
+      <profileInstance Id="ab5b254d-7760-4496-8927-571b9522d639" name="StandardProfileL2">
+        <elementDefinition Id="e34d544e-0fea-4ed6-ac5e-1b74119ac791" />
+      </profileInstance>
+      <elementDefinition Id="0caec977-1f8c-4ba3-a7db-8cc9ad9cc73b" />
+    </packageHasProfileInstances>
+    <packageHasProfileInstances Id="2137ed8f-b038-4e3c-ad19-a2a7dd1bea3b">
+      <profileInstance Id="834917a1-2600-4656-b38d-19987114ec96" name="StandardProfileL3">
+        <elementDefinition Id="532ea607-fb19-44b8-8502-3351b05452be" />
+      </profileInstance>
+      <elementDefinition Id="29349502-908c-4fda-9054-c48619c59ed0" />
+    </packageHasProfileInstances>
+  </profileInstances>
+  <packagedElements>
+    <componentModelHasComponents>
+      <component Id="74a21f59-6e8b-4214-ad96-c61cc3ea6172" name="LogicalComponent" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <description>Composants de calcul unitaire.
+
+Leurs fonctionnement sontt identique au description des composant LOGO de siemens (version A07).
+</description>
+        <appliedStereotypesInternal>
+          <stereotypeInstance Id="bc098b56-5e99-4203-9fbb-8647066dce30" name="process" profile="StandardProfileL2">
+            <elementDefinition Id="6340b5e6-27e5-4f08-9d0b-f989904fdf86" />
+          </stereotypeInstance>
+          <stereotypeInstance Id="14d71bb5-7d93-471f-8cf8-4d6d9079502b" name="implement" profile="StandardProfileL2">
+            <elementDefinition Id="d8b70465-db53-4e06-ac1a-e069690d37cf" />
+          </stereotypeInstance>
+        </appliedStereotypesInternal>
+        <elementDefinition Id="4a7eff46-bbe7-40b3-9565-5ec52927e0cb" />
+        <suppliersInternal>
+          <dependency Id="c5b1d5b0-ac5b-4ec6-a4e8-bb927c4f97e3">
+            <componentMoniker Id="c69b53ff-2ba0-4a7e-b442-cbc80261a999" LastKnownName="DataObject" />
+            <elementDefinition Id="f3db6e87-b356-4e92-a0bf-b669419ef4a8" />
+          </dependency>
+        </suppliersInternal>
+        <ownedAttributesInternal>
+          <requiredInterface Id="6cf679b8-5141-4663-a61e-858ed077137a" name="Port11" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isService="false" isBehavior="false">
+            <elementDefinition Id="ac95e0a8-3761-4356-8d80-17934d94a596" />
+            <suppliersInternal>
+              <dependency Id="5360fc22-6dae-471e-847b-1cc06db2a53d">
+                <providedInterfaceMoniker Id="4e41b820-ffbe-4f59-8f59-773679b3fca0" LastKnownName="Port1" />
+                <elementDefinition Id="71898257-2779-4dba-bfd0-672f12b09583" />
+              </dependency>
+            </suppliersInternal>
+            <type_NamedElement>
+              <interfaceMoniker Id="ce7f8cbe-c56a-4bde-a7df-06de0ceb9eed" LastKnownName="ModelStatusInterface" />
+            </type_NamedElement>
+          </requiredInterface>
+          <providedInterface Id="83857917-822e-4cab-8f91-d16110c631a0" name="Port1" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isService="false" isBehavior="false">
+            <elementDefinition Id="dbc27bc7-b969-43f8-a87a-ed810186f2a8" />
+            <type_NamedElement>
+              <interfaceMoniker Id="364c17d0-dae9-4d1c-9f83-3d7f185f6b1a" LastKnownName="LogicalComponentInterface" />
+            </type_NamedElement>
+          </providedInterface>
+        </ownedAttributesInternal>
+      </component>
+    </componentModelHasComponents>
+    <componentModelHasComponents>
+      <component Id="c69b53ff-2ba0-4a7e-b442-cbc80261a999" name="DataObject" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <description>Objet de base pour le transport des données entre les composants.</description>
+        <appliedStereotypesInternal>
+          <stereotypeInstance Id="5362a51c-fc34-4686-ab04-0203e599cb6e" name="metaclass" profile="StandardProfileL2">
+            <elementDefinition Id="e3132b84-85ce-41c9-bb2d-a6296b40fc9c" />
+          </stereotypeInstance>
+          <stereotypeInstance Id="6d7d9b73-197e-4d2b-bff4-ec253e4ebc65" name="entity" profile="StandardProfileL2">
+            <elementDefinition Id="e3a3a2d7-dc17-4ae5-8926-e6d1e269c7e4" />
+          </stereotypeInstance>
+        </appliedStereotypesInternal>
+        <elementDefinition Id="6258ddb7-eb34-4840-bb50-f91ae8a1d43d" />
+      </component>
+    </componentModelHasComponents>
+    <componentModelHasComponents>
+      <component Id="b35d0ff5-acff-4fdd-afa7-53aee77df5a6" name="DriverDataAquisition" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <description>Driver pour la lecture des données externe.
+
+Les données sont fournie par les appareil de mesure.
+
+L'implémentation de ce module est spécifique à un produit.</description>
+        <appliedStereotypesInternal>
+          <stereotypeInstance Id="61d7eed9-ed78-4e18-babc-a8929fc4658c" name="service" profile="StandardProfileL2">
+            <elementDefinition Id="2cdcfa20-b77a-4f7c-8534-7ef19119f006" />
+          </stereotypeInstance>
+        </appliedStereotypesInternal>
+        <elementDefinition Id="2f665d39-d680-47eb-9d48-6de841ceff7c" />
+        <ownedAttributesInternal>
+          <providedInterface Id="2cceb76c-d98f-4fec-a638-71238df30b69" name="Port1" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isService="false" isBehavior="false">
+            <elementDefinition Id="c916682d-8d64-4d17-86d6-b7897ce48651" />
+            <type_NamedElement>
+              <interfaceMoniker Id="43c4bada-35d9-4282-ae26-dffec0a0abe9" LastKnownName="DriverDataAquisitionInterface" />
+            </type_NamedElement>
+          </providedInterface>
+        </ownedAttributesInternal>
+      </component>
+    </componentModelHasComponents>
+    <componentModelHasComponents>
+      <component Id="8e0bf8e5-3707-4430-9201-e9b68ba86208" name="ProcessManager" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <description>Chef d'orchestre.
+
+1. Connais la liste des composants.
+2. Lit les données de DataAcquisition (valeur externe).
+3. Set les valeurs lue et démare un cycle.
+4. Assigne les valeur de sortie (sortie externe).</description>
+        <appliedStereotypesInternal>
+          <stereotypeInstance Id="6a6fed91-1a61-4949-a61b-5137b14e7c88" name="process" profile="StandardProfileL2">
+            <elementDefinition Id="71200784-8423-4adf-bedb-84c16b6950d8" />
+          </stereotypeInstance>
+          <stereotypeInstance Id="40e4c6f2-d977-4470-bc80-312be2547d09" name="realization" profile="StandardProfileL2">
+            <elementDefinition Id="0938f278-34a9-4066-ad31-16753a46c5a3" />
+          </stereotypeInstance>
+        </appliedStereotypesInternal>
+        <elementDefinition Id="5f8ade30-bc7f-4d7f-a833-1416c978b1e4" />
+        <suppliersInternal>
+          <dependency Id="b1935a6c-93e3-466c-840d-974a30de0d82">
+            <componentMoniker Id="334355f3-8890-4f5b-a86f-95b7a8b684cd" LastKnownName="ModelConstructor" />
+            <elementDefinition Id="5b5cf017-7a26-4497-aa18-3b14bf25bb5c" />
+          </dependency>
+        </suppliersInternal>
+        <ownedAttributesInternal>
+          <requiredInterface Id="55e69234-6437-495b-b798-51e6e4018296" name="Port2" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isService="false" isBehavior="false">
+            <elementDefinition Id="33f4d74e-30e3-4bc3-9336-9d5243ae17a0" />
+            <suppliersInternal>
+              <dependency Id="8a9cda3e-d797-4e68-9417-febb09c8e26b">
+                <providedInterfaceMoniker Id="2cceb76c-d98f-4fec-a638-71238df30b69" LastKnownName="Port1" />
+                <elementDefinition Id="584da888-82a6-43cd-8333-b62992aad65f" />
+              </dependency>
+            </suppliersInternal>
+            <type_NamedElement>
+              <interfaceMoniker Id="98ea5473-b271-41bd-aed7-3414c26fe0d3" LastKnownName="DriverDataAquisitionInterface" />
+            </type_NamedElement>
+          </requiredInterface>
+          <requiredInterface Id="edc983b8-79e2-4883-9c70-c72f1dae1e3d" name="Port1" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isService="false" isBehavior="false">
+            <elementDefinition Id="e85b1c31-b380-4f14-9564-ce089812c844" />
+            <suppliersInternal>
+              <dependency Id="1b8a7389-2966-47c8-9e0e-7aded31f5afb">
+                <providedInterfaceMoniker Id="83857917-822e-4cab-8f91-d16110c631a0" LastKnownName="Port1" />
+                <elementDefinition Id="73152a4b-5746-4c29-8fe2-2602006ad66e" />
+              </dependency>
+            </suppliersInternal>
+            <type_NamedElement>
+              <interfaceMoniker Id="90bb0281-0908-46bc-b9a2-4c4edde6ee05" LastKnownName="LogicalComponentInterface" />
+            </type_NamedElement>
+          </requiredInterface>
+        </ownedAttributesInternal>
+      </component>
+    </componentModelHasComponents>
+    <componentModelHasComponents>
+      <component Id="334355f3-8890-4f5b-a86f-95b7a8b684cd" name="ModelConstructor" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <description>Etape de préparation lors de l'initialisation du modèle.
+
+0. Lecture des la description XML du circuit.
+1. Création des objects du circuit.
+2. Set des valeurs initials.
+3. Création des liens entre les divers composant.</description>
+        <appliedStereotypesInternal>
+          <stereotypeInstance Id="06b5f5f8-8e82-4685-a208-1255f4899a75" name="auxiliary" profile="StandardProfileL2">
+            <elementDefinition Id="c1ae5c65-534d-4738-a0bd-40b3e9081fbf" />
+          </stereotypeInstance>
+          <stereotypeInstance Id="9a996b08-d41a-458c-b162-b5ba4130026b" name="process" profile="StandardProfileL2">
+            <elementDefinition Id="56f8c403-9f6e-4c1c-ab90-1b7c79ba7a69" />
+          </stereotypeInstance>
+        </appliedStereotypesInternal>
+        <elementDefinition Id="74ce79a6-2393-4443-a0a0-fe7b080aa2e9" />
+        <ownedAttributesInternal>
+          <requiredInterface Id="806a476d-380d-484d-bee9-c11c0d68c042" name="Port1" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isService="false" isBehavior="false">
+            <elementDefinition Id="9c42d6fa-383c-4b45-83c7-564cfe6c0d88" />
+            <suppliersInternal>
+              <dependency Id="88f68fb3-7919-4a77-a2f5-faf7510a18f9">
+                <providedInterfaceMoniker Id="83857917-822e-4cab-8f91-d16110c631a0" LastKnownName="Port1" />
+                <elementDefinition Id="c557fb05-5a0e-47f7-8365-e085b90b5eba" />
+              </dependency>
+            </suppliersInternal>
+            <type_NamedElement>
+              <interfaceMoniker Id="9f1be329-f1af-45e8-a9db-23fc81f1de12" LastKnownName="LogicalComponentInterface" />
+            </type_NamedElement>
+          </requiredInterface>
+        </ownedAttributesInternal>
+      </component>
+    </componentModelHasComponents>
+    <componentModelHasComponents>
+      <component Id="187541a6-1b06-42fc-9123-c1de9419acec" name="ServiceSol2Reg" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <description>Service windows.
+
+Initialise
+Démare les cycles avec ProcessManager.
+</description>
+        <appliedStereotypesInternal>
+          <stereotypeInstance Id="22a0100f-b5f5-4811-a47b-ad3acb7bfed4" name="process" profile="StandardProfileL2">
+            <elementDefinition Id="91203de9-c6de-40cd-9f0f-a08642db62e0" />
+          </stereotypeInstance>
+          <stereotypeInstance Id="e4caa3cf-6f7d-4282-a67a-29f600e9b244" name="service" profile="StandardProfileL2">
+            <elementDefinition Id="3e765353-0639-4fd7-84b7-6f399ca9b06f" />
+          </stereotypeInstance>
+        </appliedStereotypesInternal>
+        <elementDefinition Id="7cde5dfa-e0f7-416a-9ec2-47c4f0c05e2f" />
+        <suppliersInternal>
+          <dependency Id="7ca47cf7-746e-4469-bb46-219c5d883e82">
+            <componentMoniker Id="8e0bf8e5-3707-4430-9201-e9b68ba86208" LastKnownName="ProcessManager" />
+            <elementDefinition Id="edcdea22-9954-430d-a317-d6d0306b3515" />
+          </dependency>
+        </suppliersInternal>
+      </component>
+    </componentModelHasComponents>
+    <modelContainsNamedElements>
+      <Interface Id="98ea5473-b271-41bd-aed7-3414c26fe0d3" name="DriverDataAquisitionInterface" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="43a01e75-3e17-472e-8c49-174feeaf4826" />
+      </Interface>
+    </modelContainsNamedElements>
+    <modelContainsNamedElements>
+      <Interface Id="9f1be329-f1af-45e8-a9db-23fc81f1de12" name="LogicalComponentInterface" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="fe2703ad-e299-4ae5-aee4-9b0ee28ca04f" />
+      </Interface>
+    </modelContainsNamedElements>
+    <componentModelHasComponents>
+      <component Id="18dbe05c-c85e-41bd-984c-b9dcb54138a3" name="ModelStatus" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <description>Reçoit les données des Components aprés calculations et les stocks.</description>
+        <appliedStereotypesInternal>
+          <stereotypeInstance Id="8794b49f-33e4-427c-949b-ddbbf6466190" name="metaclass" profile="StandardProfileL2">
+            <elementDefinition Id="5dd90a7b-f559-4a47-a53f-eec86d424a6c" />
+          </stereotypeInstance>
+          <stereotypeInstance Id="99bcdb82-36e9-4300-a098-d7f35026b42e" name="realization" profile="StandardProfileL2">
+            <elementDefinition Id="e1e0d22c-f582-437e-aaf4-970b4fee9e9e" />
+          </stereotypeInstance>
+        </appliedStereotypesInternal>
+        <elementDefinition Id="05934785-eb2f-450f-9e3b-1ea3676800c8" />
+        <ownedAttributesInternal>
+          <requiredInterface Id="75185296-6c2d-4a41-9523-98b299251c24" name="Port11" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isService="false" isBehavior="false">
+            <elementDefinition Id="e827861e-411b-445b-a8cc-8e868110bd07" />
+            <suppliersInternal>
+              <dependency Id="19127244-8116-4675-a6fa-97dae191a678">
+                <providedInterfaceMoniker Id="20c104e8-4092-4d9e-a43f-88ef67ebc0a4" LastKnownName="Port1" />
+                <elementDefinition Id="a25a2ae8-bcb0-4f20-bcbd-2b958807ca7b" />
+              </dependency>
+            </suppliersInternal>
+            <type_NamedElement>
+              <interfaceMoniker Id="fa322282-e668-46b9-8eef-7ba911ced1df" LastKnownName="DataSaveInterface" />
+            </type_NamedElement>
+          </requiredInterface>
+          <providedInterface Id="4e41b820-ffbe-4f59-8f59-773679b3fca0" name="Port1" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isService="false" isBehavior="false">
+            <elementDefinition Id="ae5e2207-b9fb-4451-8dbd-1d8952ef2d56" />
+            <type_NamedElement>
+              <interfaceMoniker Id="d7189acd-c647-42cc-aa4d-a1b84ab5442a" LastKnownName="ModelStatusInterface" />
+            </type_NamedElement>
+          </providedInterface>
+        </ownedAttributesInternal>
+      </component>
+    </componentModelHasComponents>
+    <modelContainsNamedElements>
+      <Interface Id="ce7f8cbe-c56a-4bde-a7df-06de0ceb9eed" name="ModelStatusInterface" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="f5f77fb0-17b1-4623-870a-a0acdadcd8f2" />
+      </Interface>
+    </modelContainsNamedElements>
+    <componentModelHasComponents>
+      <component Id="7327435e-5595-4a0f-b676-a8e189cddf1a" name="DataSave" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <description>Sauvegarde les données.
+
+Spécialisation avec un type de stockage (SQL Serveur, MySql, XML, CSV ...)</description>
+        <appliedStereotypesInternal>
+          <stereotypeInstance Id="d16a879f-3905-4315-b0b9-5d17ccfc9501" name="metaclass" profile="StandardProfileL2">
+            <elementDefinition Id="245f5278-1b37-4617-ae7d-33b05bd58756" />
+          </stereotypeInstance>
+          <stereotypeInstance Id="64251b34-e65a-48f8-a2a3-365b715797b7" name="realization" profile="StandardProfileL2">
+            <elementDefinition Id="795139c4-4de8-4a15-ab75-dd6c162973be" />
+          </stereotypeInstance>
+        </appliedStereotypesInternal>
+        <elementDefinition Id="32f956df-a8d8-4634-9b36-3c15c6eb84c2" />
+        <ownedAttributesInternal>
+          <providedInterface Id="20c104e8-4092-4d9e-a43f-88ef67ebc0a4" name="Port1" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isService="false" isBehavior="false">
+            <elementDefinition Id="21a5d72f-aba8-4472-b7a7-7ff053d27ce1" />
+            <type_NamedElement>
+              <interfaceMoniker Id="f33a2460-3319-45c9-8e06-496156d4a5b7" LastKnownName="DataSaveInterface" />
+            </type_NamedElement>
+          </providedInterface>
+        </ownedAttributesInternal>
+      </component>
+    </componentModelHasComponents>
+    <modelContainsNamedElements>
+      <Interface Id="fa322282-e668-46b9-8eef-7ba911ced1df" name="DataSaveInterface" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="87181364-6dd2-4828-a6a7-e1a796d9f621" />
+      </Interface>
+    </modelContainsNamedElements>
+    <modelContainsNamedElements>
+      <Interface Id="364c17d0-dae9-4d1c-9f83-3d7f185f6b1a" name="LogicalComponentInterface" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="fe2703ad-e299-4ae5-aee4-9b0ee28ca04f" />
+      </Interface>
+    </modelContainsNamedElements>
+    <modelContainsNamedElements>
+      <Interface Id="90bb0281-0908-46bc-b9a2-4c4edde6ee05" name="LogicalComponentInterface" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="fe2703ad-e299-4ae5-aee4-9b0ee28ca04f" />
+      </Interface>
+    </modelContainsNamedElements>
+    <modelContainsNamedElements>
+      <Interface Id="f33a2460-3319-45c9-8e06-496156d4a5b7" name="DataSaveInterface" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="87181364-6dd2-4828-a6a7-e1a796d9f621" />
+      </Interface>
+    </modelContainsNamedElements>
+    <modelContainsNamedElements>
+      <Interface Id="d7189acd-c647-42cc-aa4d-a1b84ab5442a" name="ModelStatusInterface" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="f5f77fb0-17b1-4623-870a-a0acdadcd8f2" />
+      </Interface>
+    </modelContainsNamedElements>
+    <modelContainsNamedElements>
+      <Interface Id="43c4bada-35d9-4282-ae26-dffec0a0abe9" name="DriverDataAquisitionInterface" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="43a01e75-3e17-472e-8c49-174feeaf4826" />
+      </Interface>
+    </modelContainsNamedElements>
+  </packagedElements>
+  <package Id="a8245081-6515-4329-bf0b-6a63dc078b59" name="Sol2Reg_Model">
+    <elementDefinition Id="9dcb9343-289f-4cd7-8e78-b2d4f57c3000" />
+  </package>
+</componentModel>

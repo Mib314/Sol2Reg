@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{168ca163-e349-4cc6-99db-541cf9a67728}</ProjectGuid>
+    <ArchitectureToolsVersion>1.0.0.0</ArchitectureToolsVersion>
+    <Name>Sol2Reg_Model</Name>
+    <RootNamespace>Sol2Reg_Model</RootNamespace>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>bin\Debug\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>bin\Release\</OutputPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v10.0\ArchitectureTools\Microsoft.VisualStudio.TeamArchitect.ModelingProject.targets" />
+  <ItemGroup>
+    <Content Include="LogicalComponent.classdiagram">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="LogicalComponent.classdiagram.layout">
+      <SubType>Content</SubType>
+      <DependentUpon>LogicalComponent.classdiagram</DependentUpon>
+    </Content>
+    <Content Include="DataObject.classdiagram">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="DataObject.classdiagram.layout">
+      <SubType>Content</SubType>
+      <DependentUpon>DataObject.classdiagram</DependentUpon>
+    </Content>
+    <Content Include="ModelDesigner.classdiagram">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="ModelDesigner.classdiagram.layout">
+      <SubType>Content</SubType>
+      <DependentUpon>ModelDesigner.classdiagram</DependentUpon>
+    </Content>
+    <Content Include="ProcessManager.classdiagram">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="ProcessManager.classdiagram.layout">
+      <SubType>Content</SubType>
+      <DependentUpon>ProcessManager.classdiagram</DependentUpon>
+    </Content>
+    <Content Include="ProcessService.componentdiagram">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="ProcessService.componentdiagram.layout">
+      <SubType>Content</SubType>
+      <DependentUpon>ProcessService.componentdiagram</DependentUpon>
+    </Content>
+    <Content Include="SimpleLogicalSequence.sequencediagram">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="SimpleLogicalSequence.sequencediagram.layout">
+      <SubType>Content</SubType>
+      <DependentUpon>SimpleLogicalSequence.sequencediagram</DependentUpon>
+    </Content>
+    <Folder Include="ModelDefinition\" />
+    <Content Include="ModelDefinition\Sol2Reg_Model.uml">
+      <SubType>Content</SubType>
+    </Content>
+  </ItemGroup>
+</Project>

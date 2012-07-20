@@ -1,0 +1,233 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<logicalClassDesignerModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm4="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm5="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/ModelStore" xmlns:dm9="http://schemas.microsoft.com/VisualStudio/TeamArchitect/ComponentDesigner" dslVersion="1.0.0.0" Id="bd7513d7-860a-41c8-843b-f0a727d7d280" name="DataObject" linkedPackageId="967a9c17-57b3-4841-9a90-2e75c1a94dc1" xmlns="http://schemas.microsoft.com/dsltools/LogicalClassDesigner">
+  <profileInstances>
+    <packageHasProfileInstances Id="fce2ee58-921c-40f5-8b7c-138afc471758">
+      <profileInstance Id="a8a997d9-a3f1-4ad5-9425-83353cc19b3d" name="StandardProfileL2">
+        <elementDefinition Id="e34d544e-0fea-4ed6-ac5e-1b74119ac791" />
+      </profileInstance>
+      <elementDefinition Id="0caec977-1f8c-4ba3-a7db-8cc9ad9cc73b" />
+    </packageHasProfileInstances>
+    <packageHasProfileInstances Id="f2e1bcc4-fa28-41ed-b12e-375794ab2c7c">
+      <profileInstance Id="090db480-5892-4e05-9424-5af0e17d7c35" name="StandardProfileL3">
+        <elementDefinition Id="532ea607-fb19-44b8-8502-3351b05452be" />
+      </profileInstance>
+      <elementDefinition Id="29349502-908c-4fda-9054-c48619c59ed0" />
+    </packageHasProfileInstances>
+  </profileInstances>
+  <packagedElements>
+    <logicalClassDesignerModelHasTypes>
+      <class Id="7a479e4b-0227-4c36-9e79-87c3597dfc4c" name="AnalogValue" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <description>Support pour les données analogique.</description>
+        <appliedStereotypesInternal>
+          <stereotypeInstance Id="f37440ed-904c-45ff-b721-77b6300444c3" name="metaclass" profile="StandardProfileL2">
+            <elementDefinition Id="b0eca484-f30f-4db9-95c0-6c51ad19df88" />
+          </stereotypeInstance>
+        </appliedStereotypesInternal>
+        <elementDefinition Id="e655ddc2-4aa5-48fa-98ca-b6a9dd127d50" />
+        <ownedAttributesInternal>
+          <property Id="275f07cf-31dd-460b-bc71-5d6431e1a36e" name="Value" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="83769c85-20b0-4132-a08d-25fc31023124" />
+            <type_NamedElement>
+              <referencedTypeMoniker Id="209029d9-4fe9-4c6d-8c19-bac57dd16e85" LastKnownName="decimal" />
+            </type_NamedElement>
+          </property>
+        </ownedAttributesInternal>
+        <ownedOperationsInternal>
+          <operation Id="b89a63d8-06ab-42f7-8d58-98acf88f3b04" name="AdjustValue" isLeaf="false" isStatic="true" isAbstract="false" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="49d8557c-ee1b-4c12-b085-b8c0a5885985" />
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="86d6f1b7-c7f9-4422-8a7b-dd2a895167cc" name="value" direction="In">
+                  <elementDefinition Id="cdd0263a-fd72-48fb-a591-018b3c459f6a" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="3333f2c7-3968-4782-9fe5-3a84668c8440" LastKnownName="AnalogValue" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="53db80d4-bae5-4880-a1e4-6a0e0bcc504d" name="gain" direction="In">
+                  <elementDefinition Id="089057d7-6c6a-4cfe-8651-ecd2b5684f9a" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="3333f2c7-3968-4782-9fe5-3a84668c8440" LastKnownName="AnalogValue" />
+                  </type_NamedElement>
+                  <defaultValue>
+                    <literalString Id="65f0b866-597c-41d4-8c5e-0158f8201604" value="1">
+                      <elementDefinition Id="93f77283-083b-4b0f-8feb-3d106e3aa050" />
+                    </literalString>
+                  </defaultValue>
+                </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="d6710d11-8c99-422a-a1e6-ba68137480f4" name="offset" direction="In">
+                  <elementDefinition Id="8b051289-7bee-4a70-baaa-71a7f474f9f8" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="3333f2c7-3968-4782-9fe5-3a84668c8440" LastKnownName="AnalogValue" />
+                  </type_NamedElement>
+                  <defaultValue>
+                    <literalString Id="4188719a-6c79-4472-87ec-a16bac9850ff" value="0">
+                      <elementDefinition Id="d31ba5a4-2077-44fc-8ebe-32041153f178" />
+                    </literalString>
+                  </defaultValue>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+        </ownedOperationsInternal>
+      </class>
+    </logicalClassDesignerModelHasTypes>
+    <packageHasNamedElement>
+      <referencedType Id="209029d9-4fe9-4c6d-8c19-bac57dd16e85" name="decimal" isAbstract="false" isLeaf="false" cachedFullName="decimal">
+        <elementDefinition Id="f46e3a4b-0342-40e8-8178-cc5c28f7fd79" />
+      </referencedType>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="3333f2c7-3968-4782-9fe5-3a84668c8440" name="AnalogValue" isAbstract="false" isLeaf="false" cachedFullName="Sol2Reg_Model::AnalogValue">
+        <elementDefinition Id="e655ddc2-4aa5-48fa-98ca-b6a9dd127d50" />
+      </referencedType>
+    </packageHasNamedElement>
+    <logicalClassDesignerModelHasTypes>
+      <class Id="ecc35661-9095-4831-bc72-9066b055ba0b" name="AnalogInput" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <description>Objet de transfert d'une valeur analogique entre 2 Components.</description>
+        <elementDefinition Id="64811bb1-c714-4551-83ab-07bf6ba62656" />
+        <generalsInternal>
+          <generalization Id="93d98e86-6adc-4867-ace6-e74bc7ee6aac" isSubstitutable="false">
+            <classMoniker Id="cc6db10e-7ed3-485f-a368-9752af1d1acf" LastKnownName="BaseInput" />
+            <elementDefinition Id="46ea4fcf-a3b8-44ff-ac3d-8d7f07422316" />
+          </generalization>
+        </generalsInternal>
+        <ownedAttributesInternal>
+          <property Id="2981a2aa-daef-4087-9d4a-cd57b5790628" name="Value" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="60ebadb1-d725-4bc4-b9df-a7835f29b6e2" />
+            <type_NamedElement>
+              <referencedTypeMoniker Id="b0c790b0-26a9-4f5c-8530-9b0cd5394b4f" LastKnownName="AnalogValue" />
+            </type_NamedElement>
+          </property>
+        </ownedAttributesInternal>
+      </class>
+    </logicalClassDesignerModelHasTypes>
+    <packageHasNamedElement>
+      <referencedType Id="b0c790b0-26a9-4f5c-8530-9b0cd5394b4f" name="AnalogValue" isAbstract="false" isLeaf="false" cachedFullName="Sol2Reg_Model::AnalogValue">
+        <elementDefinition Id="e655ddc2-4aa5-48fa-98ca-b6a9dd127d50" />
+      </referencedType>
+    </packageHasNamedElement>
+    <logicalClassDesignerModelHasTypes>
+      <class Id="051323bb-f589-4f23-a841-b6589cf1cec2" name="DigitalValue" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="f759d742-4e37-4943-a6fc-0a676ee850f9" />
+        <ownedAttributesInternal>
+          <property Id="f652ebe0-bded-4117-9bf0-cd07632c9e3f" name="Value" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="cfc1ff41-c9a2-4331-bb35-61acedeb8d7a" />
+            <type_NamedElement>
+              <referencedTypeMoniker Id="c5955251-f85e-49c0-97f8-f4acc87a324c" LastKnownName="Boolean" />
+            </type_NamedElement>
+          </property>
+        </ownedAttributesInternal>
+      </class>
+    </logicalClassDesignerModelHasTypes>
+    <packageHasNamedElement>
+      <referencedType Id="c5955251-f85e-49c0-97f8-f4acc87a324c" name="Boolean" isAbstract="false" isLeaf="false" cachedFullName="Boolean">
+        <elementDefinition Id="8943dc84-709e-4f62-b15a-a3273aa6f165" />
+      </referencedType>
+    </packageHasNamedElement>
+    <logicalClassDesignerModelHasTypes>
+      <class Id="9b039997-091c-4531-b594-e27ed3fcda4f" name="DigitalInput" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="7c4fb9c9-ad37-487b-84b0-fcf58c051a4b" />
+        <generalsInternal>
+          <generalization Id="433cd33e-fc14-408b-a626-ca3fb8886c43" isSubstitutable="false">
+            <classMoniker Id="cc6db10e-7ed3-485f-a368-9752af1d1acf" LastKnownName="BaseInput" />
+            <elementDefinition Id="a74b121f-c00e-4cec-af64-128ef748cf62" />
+          </generalization>
+        </generalsInternal>
+        <ownedAttributesInternal>
+          <property Id="5dea2515-dfd0-43d4-a5f9-f43c36491875" name="Value" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="49dd3881-c651-47a5-8dd4-fc6d838ce292" />
+            <type_NamedElement>
+              <referencedTypeMoniker Id="fe72c8dc-bbf3-455a-90d5-9006a003b826" LastKnownName="DigitalValue" />
+            </type_NamedElement>
+          </property>
+          <property Id="1c1b50e5-f70a-44ce-908d-64930f868487" name="InputInvert" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="32aadead-f0e5-47a2-89b6-d1f777f43015" />
+            <type_NamedElement>
+              <referencedTypeMoniker Id="2601a0e4-8a31-46a0-a86c-8ed796c9ad8f" LastKnownName="Boolean" />
+            </type_NamedElement>
+          </property>
+        </ownedAttributesInternal>
+      </class>
+    </logicalClassDesignerModelHasTypes>
+    <logicalClassDesignerModelHasTypes>
+      <class Id="cc6db10e-7ed3-485f-a368-9752af1d1acf" name="BaseInput" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="4e776222-c0a6-43b1-8f00-9ff41614a02b" />
+        <ownedAttributesInternal>
+          <property Id="56f453df-7b66-43a5-ae73-9c0cae82e139" name="Code" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="933347da-4155-481e-bfca-cf273b7d1a6f" />
+            <type_NamedElement>
+              <referencedTypeMoniker Id="13325f5a-370d-4df2-9d88-6057bc1e7027" LastKnownName="String" />
+            </type_NamedElement>
+          </property>
+          <property Id="62e47b71-2e5c-403d-a938-17fd6cd368b3" name="CycleNumber" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="ce9afb81-bd46-45e0-ba51-30cbbf4d279f" />
+            <type_NamedElement>
+              <referencedTypeMoniker Id="96c2ffe6-24b4-46ce-882e-4a8bcb4c2f17" LastKnownName="long" />
+            </type_NamedElement>
+          </property>
+          <property Id="8acd0493-d5db-4634-b6fc-3894877e7937" name="ExecutionType" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="b2a7884b-a9ca-4d63-80fc-0664e65291f2" />
+            <type_NamedElement>
+              <referencedTypeMoniker Id="3d89d04c-06b9-4ec6-9c77-4407588675f1" LastKnownName="EnumExecutionType" />
+            </type_NamedElement>
+          </property>
+        </ownedAttributesInternal>
+      </class>
+    </logicalClassDesignerModelHasTypes>
+    <packageHasNamedElement>
+      <referencedType Id="13325f5a-370d-4df2-9d88-6057bc1e7027" name="String" isAbstract="false" isLeaf="false" cachedFullName="String">
+        <elementDefinition Id="59259974-6d55-42c6-b7bd-763d77ac8ef9" />
+      </referencedType>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="96c2ffe6-24b4-46ce-882e-4a8bcb4c2f17" name="long" isAbstract="false" isLeaf="false" cachedFullName="long">
+        <elementDefinition Id="8a774752-a4e4-4837-a0f5-4a32e611dc81" />
+      </referencedType>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="fe72c8dc-bbf3-455a-90d5-9006a003b826" name="DigitalValue" isAbstract="false" isLeaf="false" cachedFullName="Sol2Reg_Model::DigitalValue">
+        <elementDefinition Id="f759d742-4e37-4943-a6fc-0a676ee850f9" />
+      </referencedType>
+    </packageHasNamedElement>
+    <logicalClassDesignerModelHasTypes>
+      <enumeration Id="02b3ad7f-bc83-40e1-bb73-377eba01d1a7" name="EnumExecutionType" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="72559697-2a79-48d6-b7d4-514af9d02538" />
+        <ownedLiterals>
+          <enumerationLiteral Id="c5ac5774-2f73-4086-bd7b-9a0166ec93f8" name="Initialize">
+            <elementDefinition Id="94a0bf8c-f981-42c5-997d-3da14ff93483" />
+            <specification>
+              <literalInteger Id="2f0e8664-79bc-4040-878c-cce60bf90ea5" name="Integer" value="1">
+                <elementDefinition Id="311c80de-02d8-4866-b0e0-e01246e24b0c" />
+              </literalInteger>
+            </specification>
+          </enumerationLiteral>
+          <enumerationLiteral Id="0bbce678-5212-48ba-921e-e6939c65a6fe" name="Calculate">
+            <elementDefinition Id="ed7f47ae-1bc1-4bb7-aa66-ed8e6d7f9996" />
+            <specification>
+              <literalInteger Id="ee5d3677-0aea-4c46-8493-ba43f43259f4" name="Integer" value="2">
+                <elementDefinition Id="c82114fa-92b4-41fc-b281-12077fcb7d8c" />
+              </literalInteger>
+            </specification>
+          </enumerationLiteral>
+        </ownedLiterals>
+      </enumeration>
+    </logicalClassDesignerModelHasTypes>
+    <packageHasNamedElement>
+      <referencedType Id="3d89d04c-06b9-4ec6-9c77-4407588675f1" name="EnumExecutionType" isAbstract="false" isLeaf="false" cachedFullName="Sol2Reg_Model::EnumExecutionType">
+        <elementDefinition Id="72559697-2a79-48d6-b7d4-514af9d02538" />
+      </referencedType>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="2601a0e4-8a31-46a0-a86c-8ed796c9ad8f" name="Boolean" isAbstract="false" isLeaf="false" cachedFullName="Boolean">
+        <elementDefinition Id="8943dc84-709e-4f62-b15a-a3273aa6f165" />
+      </referencedType>
+    </packageHasNamedElement>
+  </packagedElements>
+  <package Id="967a9c17-57b3-4841-9a90-2e75c1a94dc1" name="Sol2Reg_Model">
+    <elementDefinition Id="9dcb9343-289f-4cd7-8e78-b2d4f57c3000" />
+  </package>
+</logicalClassDesignerModel>

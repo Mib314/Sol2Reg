@@ -1,0 +1,367 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<logicalClassDesignerModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm4="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm5="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/ModelStore" xmlns:dm9="http://schemas.microsoft.com/VisualStudio/TeamArchitect/ComponentDesigner" xmlns:dm10="http://schemas.microsoft.com/VisualStudio/TeamArchitect/SequenceDesigner" dslVersion="1.0.0.0" Id="197f0583-d854-49bb-8c16-4da2e8d14c84" name="ProcessManager" linkedPackageId="addab0e9-6ced-4aaf-bf8b-e3008a9f7b06" xmlns="http://schemas.microsoft.com/dsltools/LogicalClassDesigner">
+  <description>Ce class diagram manage l'initialisation et la gestion des cycles du processus.</description>
+  <ownedCommentsInternal>
+    <comment Id="37b843de-75f2-4481-bcdb-b3c3e9ed955e">
+      <elementDefinition Id="58f675ac-a0cb-48bb-95a8-6c4fd3bcba44" />
+      <body>Le link :
+
+1 un event est généré par un output d'un coponent.
+Tous les input du meme type l'écoute et suivant son code chaque composant sait si c'est pour lui.
+
+
+2 chaque input  composant est aboné au seul output qui l'interesse.</body>
+    </comment>
+  </ownedCommentsInternal>
+  <profileInstances>
+    <packageHasProfileInstances Id="2a569862-6763-49b8-833d-ee177d7ca2f7">
+      <profileInstance Id="55c4774e-e01b-4bd4-b26e-5e0d48869e0b" name="StandardProfileL2">
+        <elementDefinition Id="e34d544e-0fea-4ed6-ac5e-1b74119ac791" />
+      </profileInstance>
+      <elementDefinition Id="0caec977-1f8c-4ba3-a7db-8cc9ad9cc73b" />
+    </packageHasProfileInstances>
+    <packageHasProfileInstances Id="82710201-0e0e-41c3-806c-bcd2eda0d9a1">
+      <profileInstance Id="bfd1030c-8079-42b4-8969-bf01d92da388" name="StandardProfileL3">
+        <elementDefinition Id="532ea607-fb19-44b8-8502-3351b05452be" />
+      </profileInstance>
+      <elementDefinition Id="29349502-908c-4fda-9054-c48619c59ed0" />
+    </packageHasProfileInstances>
+  </profileInstances>
+  <packagedElements>
+    <logicalClassDesignerModelHasTypes>
+      <class Id="d5270177-4035-44d1-a952-b5f4664d9edb" name="InitializeModel" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="9bf576b1-f5af-41be-9477-36b58b55e623" />
+        <ownedAttributesInternal>
+          <property Id="8bf2d32b-7d2e-45f9-9428-f30f854bfc71" name="ModelPath" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="e860dc14-1cfe-4544-ade5-5efcd26ab2e5" />
+            <type_NamedElement>
+              <referencedTypeMoniker Id="f95862e1-8b45-429e-83d3-64e72583a512" LastKnownName="String" />
+            </type_NamedElement>
+          </property>
+          <property Id="8fb2ad31-8fc7-438b-b0ca-5d7ae1f16cb4" name="ModelFormatVersion" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="7c6335a2-240f-4dfe-9702-24bb601bad4a" />
+            <type_NamedElement>
+              <referencedTypeMoniker Id="3886db13-b1a0-4257-ad48-5d114725354a" LastKnownName="Integer" />
+            </type_NamedElement>
+          </property>
+          <property Id="88145c30-a75c-4206-a7b0-c5be31f81196" name="MoelIsReaded" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="aa931e5a-b149-497a-8ef3-9f8a3c9f15e5" />
+            <type_NamedElement>
+              <referencedTypeMoniker Id="4364d3a6-b193-48c2-a4fb-3a9e42d99100" LastKnownName="Boolean" />
+            </type_NamedElement>
+          </property>
+          <property Id="aee58b1f-0d17-4728-b755-9106687e4e4e" name="Model" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="df000d0c-dd53-43bd-acdd-30b99d4e48ad" />
+            <type_NamedElement>
+              <referencedTypeMoniker Id="9b73860d-eefe-49e4-9392-05aba340c39e" LastKnownName="Model" />
+            </type_NamedElement>
+          </property>
+          <property Id="82160074-4019-4e8b-a936-f38361bb0eb7" name="ComponentIsInitialized" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="e1758545-1241-4e7f-a58b-5ed278d9aab1" />
+            <type_NamedElement>
+              <referencedTypeMoniker Id="96efe26e-4052-4d90-a7df-81af78aeea77" LastKnownName="Boolean" />
+            </type_NamedElement>
+          </property>
+          <property Id="caaf558e-5423-49aa-81d0-c15b91353fcf" name="LinkIsInitialized" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="e3f0a44c-9455-45fd-9f6a-8241cb07e9c6" />
+            <type_NamedElement>
+              <referencedTypeMoniker Id="dee9dd94-8486-4fd8-abe1-735c973b4ecf" LastKnownName="Boolean" />
+            </type_NamedElement>
+          </property>
+        </ownedAttributesInternal>
+        <ownedOperationsInternal>
+          <operation Id="64c64df8-a811-4536-9489-47412245f68f" name="ReadModel" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="a4d87d80-9e7b-44aa-b045-1b80054b2dfd" />
+          </operation>
+          <operation Id="c9604043-b958-4267-93ad-a8f0842647b4" name="InitializeComponants" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="bc98b003-c04e-4c89-ba6a-72cf7d520466" />
+          </operation>
+          <operation Id="5b4333fb-787f-4802-ac96-bbdb57604efc" name="LinkComponent" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="bbf5ffe0-5f8a-4ef1-98cc-ac616575300a" />
+          </operation>
+          <operation Id="4355ef32-a904-4b4e-82e6-ecc1db0913e0" name="StartCycle" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="4747e1e6-e88e-4bc6-81ae-7374cbfe9952" />
+          </operation>
+        </ownedOperationsInternal>
+      </class>
+    </logicalClassDesignerModelHasTypes>
+    <logicalClassDesignerModelHasTypes>
+      <class Id="63f2cc38-aed4-4355-8168-7628e85d68e9" name="CycleManager" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="b74cdf24-96a4-43dd-85c5-0a885b924074" />
+        <ownedAttributesInternal>
+          <property Id="cb997db5-0a7f-4778-b5b9-691eabff4b7e" name="StartCurrentCycle" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="5844b8ce-e10e-4621-ac20-030322ff45f0" />
+            <type_NamedElement>
+              <referencedTypeMoniker Id="d4cfc468-e071-4528-8f44-b1d7c9b96494" LastKnownName="DateTime" />
+            </type_NamedElement>
+          </property>
+          <property Id="56104c75-79d4-403e-932d-3c9eba31257e" name="Model" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="df7c372f-9a96-4566-871f-7fea233bb778" />
+            <type_NamedElement>
+              <referencedTypeMoniker Id="cafade0c-1053-4fae-8278-e2ac3810c058" LastKnownName="Model" />
+            </type_NamedElement>
+          </property>
+        </ownedAttributesInternal>
+        <ownedOperationsInternal>
+          <operation Id="db9c8c3c-7d93-47fb-bc3c-5ac185e6aa38" name="StratCycle" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+            <description>Démarage d'un cycle.
+
+1. Incrément le NumberCycle de 1.
+2. Set le status à Run.
+2. Demande à ExternalInputOutputManage la lecture des Input.</description>
+            <elementDefinition Id="c5486b16-5eac-4117-a727-dc5468608d7d" />
+          </operation>
+          <operation Id="8ade883e-e8dd-43e4-a882-6879f8c8a482" name="SaveModelStat" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="1b8cbe08-61a9-4530-858a-317862811476" />
+          </operation>
+          <operation Id="a7e2c51a-cee3-4f82-8ca6-3af79304e499" name="CheckModelStatus" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="874cad1d-a88b-4b71-906e-e2b92642c7f1" />
+          </operation>
+        </ownedOperationsInternal>
+      </class>
+    </logicalClassDesignerModelHasTypes>
+    <logicalClassDesignerModelHasTypes>
+      <class Id="d6432fc6-2868-40ef-ac30-e10d11a35f01" name="ExternalInputOutputManage" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <description>Cette classe fait le pont entre le driver qui va lire les I/O et le model.
+
+Il emet un event pour chaque input et écoute pour chaque output.
+
+Lors de la réception d'un output il donne la valeur au driver.</description>
+        <elementDefinition Id="18173de1-f50b-4df4-8977-36eb9e513a84" />
+        <ownedAttributesInternal>
+          <property Id="043257aa-4b9f-4d80-9b75-0880864ab706" name="ExternalInputLink" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="2463fb6b-8454-41e2-82e1-9068ae194a14" />
+          </property>
+        </ownedAttributesInternal>
+        <ownedOperationsInternal>
+          <operation Id="89503bdb-39cb-4526-abb7-f5e12ef6eb0c" name="ReadInput" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="02ca42c0-6f8a-41de-b76e-affcd3aeb41b" />
+          </operation>
+        </ownedOperationsInternal>
+      </class>
+    </logicalClassDesignerModelHasTypes>
+    <packageHasNamedElement>
+      <referencedType Id="f95862e1-8b45-429e-83d3-64e72583a512" name="String" isAbstract="false" isLeaf="false" cachedFullName="String">
+        <elementDefinition Id="59259974-6d55-42c6-b7bd-763d77ac8ef9" />
+      </referencedType>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="3886db13-b1a0-4257-ad48-5d114725354a" name="Integer" isAbstract="false" isLeaf="false" cachedFullName="Integer">
+        <elementDefinition Id="220a3521-e091-4221-bae9-3ef9018e845c" />
+      </referencedType>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="96efe26e-4052-4d90-a7df-81af78aeea77" name="Boolean" isAbstract="false" isLeaf="false" cachedFullName="Boolean">
+        <elementDefinition Id="8943dc84-709e-4f62-b15a-a3273aa6f165" />
+      </referencedType>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="dee9dd94-8486-4fd8-abe1-735c973b4ecf" name="Boolean" isAbstract="false" isLeaf="false" cachedFullName="Boolean">
+        <elementDefinition Id="8943dc84-709e-4f62-b15a-a3273aa6f165" />
+      </referencedType>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="4364d3a6-b193-48c2-a4fb-3a9e42d99100" name="Boolean" isAbstract="false" isLeaf="false" cachedFullName="Boolean">
+        <elementDefinition Id="8943dc84-709e-4f62-b15a-a3273aa6f165" />
+      </referencedType>
+    </packageHasNamedElement>
+    <logicalClassDesignerModelHasTypes>
+      <class Id="c115f5b1-7478-466d-91f0-2b673f9bcef0" name="Model" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <description>Cette class contient la liste des composant du model.
+
+Elle concerve le status du model pour le cycle en cours.
+
+Elle collectes l'état des composant en fin de cycle</description>
+        <elementDefinition Id="aa9de101-022b-412c-a157-f0063535162c" />
+        <ownedAttributesInternal>
+          <property Id="916783fb-3ff1-4eee-9270-1b6082aa13b7" name="Components" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <lowerValueInternal>
+              <literalString Id="b1a0decc-d2ca-4246-b225-4fc0a27ef760" name="Lower" value="1">
+                <elementDefinition Id="b14cb006-7a4f-4f2d-b96b-a6726e578ec1" />
+              </literalString>
+            </lowerValueInternal>
+            <upperValueInternal>
+              <literalString Id="77057fe5-a14d-4939-b320-9d46fff2f802" name="Upper" value="*">
+                <elementDefinition Id="109f1d68-2766-4a58-9052-0944831c00c0" />
+              </literalString>
+            </upperValueInternal>
+            <elementDefinition Id="5e7f4287-1c02-483d-a515-5c9847a11001" />
+            <type_NamedElement>
+              <referencedTypeMoniker Id="a37c8cc4-0974-48dd-86fe-368b94e7e051" LastKnownName="BasicComponent" />
+            </type_NamedElement>
+          </property>
+          <property Id="ee26caf2-92c5-43c7-b8f1-834c256689a0" name="CycleNumber" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="30a6bd32-d7c9-4a76-b134-1d4eedac375e" />
+            <type_NamedElement>
+              <referencedTypeMoniker Id="7d2c9cb7-d051-4c79-a500-27786ada6f89" LastKnownName="Integer" />
+            </type_NamedElement>
+          </property>
+          <property Id="70fc8a77-1590-4c9c-87f1-b17729715e78" name="ModelStatus" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="bfdef6b0-d6ae-4b93-8962-894ee73b819a" />
+            <type_NamedElement>
+              <referencedTypeMoniker Id="003b4760-efce-4203-9317-639c8e804d02" LastKnownName="EnumModelStatus" />
+            </type_NamedElement>
+          </property>
+        </ownedAttributesInternal>
+        <ownedOperationsInternal>
+          <operation Id="1fbf47ad-f543-42d3-bb12-08412196cb30" name="CancelCycle" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="2199849b-31ba-4646-abcd-f23a5bfaca81" />
+          </operation>
+          <operation Id="06554775-1bb3-4b2c-82af-72b6393523b3" name="ReInitiliseComponents" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="ca85f884-5004-43e7-b30f-5530835f72d7" />
+          </operation>
+          <operation Id="98d86bf7-f206-4b9b-9f9a-b5d58a2110ed" name="ReadAnalogComponentsIOValue" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="cac3440f-79f7-47a1-9bd8-f26493c4a931" />
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="f7178486-835f-4903-bda4-116ffa49b28c" direction="Return">
+                  <lowerValueInternal>
+                    <literalString Id="f998ef19-e2b2-4e71-b947-c5982bcac143" name="Lower" value="1">
+                      <elementDefinition Id="62ed1c18-bab7-4f92-b1b0-c078285a32ec" />
+                    </literalString>
+                  </lowerValueInternal>
+                  <upperValueInternal>
+                    <literalString Id="c75e193a-4f24-4c60-9c45-09256a64dacb" name="Upper" value="*">
+                      <elementDefinition Id="ef069714-ce2b-4ef2-b0bb-1dd8bf2cb8c2" />
+                    </literalString>
+                  </upperValueInternal>
+                  <elementDefinition Id="8218fa90-69a7-4c3e-8228-06ab68349100" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="23d6e08a-73ea-49a6-9d84-d331ee398d15" LastKnownName="AnalogValue" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation Id="81178650-2f84-4aba-89bd-466f1f391c98" name="ReadDigitalComponentsIOValue" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="1abad2ae-9512-41ce-9fa9-a3053b3fd699" />
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="ab32507b-2b05-4e3e-8659-5bf8a8f737a2" direction="Return">
+                  <lowerValueInternal>
+                    <literalString Id="b3a02e00-2f79-4c0e-98b0-c09d9e98272f" name="Lower" value="1">
+                      <elementDefinition Id="4dfe9433-241f-4e93-86ef-b5f8f92d83e6" />
+                    </literalString>
+                  </lowerValueInternal>
+                  <upperValueInternal>
+                    <literalString Id="782badac-f320-44db-b926-ae8efe02f191" name="Upper" value="*">
+                      <elementDefinition Id="9bc6b3c5-f064-48d1-9899-1d032309ab5e" />
+                    </literalString>
+                  </upperValueInternal>
+                  <elementDefinition Id="603fbb08-6df0-4711-b6c4-bf2a96504816" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="dfcdc663-f0eb-4111-8234-084eff3007c3" LastKnownName="DigitalValue" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+        </ownedOperationsInternal>
+      </class>
+    </logicalClassDesignerModelHasTypes>
+    <packageHasNamedElement>
+      <referencedType Id="9b73860d-eefe-49e4-9392-05aba340c39e" name="Model" isAbstract="false" isLeaf="false" cachedFullName="Sol2Reg_Model::Model">
+        <elementDefinition Id="aa9de101-022b-412c-a157-f0063535162c" />
+      </referencedType>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="a37c8cc4-0974-48dd-86fe-368b94e7e051" name="BasicComponent" isAbstract="false" isLeaf="false" cachedFullName="Sol2Reg_Model::BasicComponent">
+        <elementDefinition Id="3ff0d62c-8ee3-4d68-a527-be6f999b5918" />
+      </referencedType>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="d4cfc468-e071-4528-8f44-b1d7c9b96494" name="DateTime" isAbstract="false" isLeaf="false" cachedFullName="DateTime">
+        <elementDefinition Id="17bb8511-3e20-4e81-b8e1-c2f49fa5c6af" />
+      </referencedType>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="7d2c9cb7-d051-4c79-a500-27786ada6f89" name="Integer" isAbstract="false" isLeaf="false" cachedFullName="Integer">
+        <elementDefinition Id="220a3521-e091-4221-bae9-3ef9018e845c" />
+      </referencedType>
+    </packageHasNamedElement>
+    <logicalClassDesignerModelHasTypes>
+      <enumeration Id="f014c6af-7b91-4366-8dbc-f07666d07345" name="EnumModelStatus" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="0e14682f-db9f-4843-9aca-8e5c1e4073ad" />
+        <ownedLiterals>
+          <enumerationLiteral Id="c38a44cd-aedb-4d0f-af80-3c835c87e5a6" name="Sleep">
+            <description>The Model d'ont work</description>
+            <elementDefinition Id="cf38641e-ac54-427b-ac67-8dac23a859b4" />
+            <specification>
+              <literalInteger Id="fa96c7d8-0a15-4e10-ad17-6249874747f8" name="Integer" value="0">
+                <elementDefinition Id="96c1922a-1780-4b5e-b5c4-a0f4b80a789c" />
+              </literalInteger>
+            </specification>
+          </enumerationLiteral>
+          <enumerationLiteral Id="648fd9d3-e696-44c6-bd0a-8e4611863423" name="Run">
+            <elementDefinition Id="fc55dfa1-e0d6-4c98-ad6d-0f3b0f00a0fa" />
+            <specification>
+              <literalInteger Id="9a9dac01-8952-408e-ba34-57b6103baa3c" name="Integer" value="2">
+                <elementDefinition Id="7a786174-83df-448f-b39c-292af5caff9b" />
+              </literalInteger>
+            </specification>
+          </enumerationLiteral>
+          <enumerationLiteral Id="d7ef4055-cd15-4ee4-80cd-536d52c6cdee" name="Initialized">
+            <description>Initialisation du model</description>
+            <elementDefinition Id="5938a31a-f55c-4340-938e-80a28121ad04" />
+            <specification>
+              <literalInteger Id="6939e862-feaf-48b6-b20f-a0eec969df02" name="Integer" value="1">
+                <elementDefinition Id="1754d1f3-5c9f-4fec-b274-b6bb2806e83c" />
+              </literalInteger>
+            </specification>
+          </enumerationLiteral>
+          <enumerationLiteral Id="bcca09fd-132d-401f-90be-4a01dc25d9e5" name="Cancel">
+            <description>Remet les valeur du cycle précédant</description>
+            <elementDefinition Id="1ca0b15a-bc9e-46ba-9362-2ae723cd6c76" />
+            <specification>
+              <literalInteger Id="349bb433-4f45-48c1-9cf3-53b0458a3302" name="Integer" value="3">
+                <elementDefinition Id="3891edaa-87c5-440d-ac92-0bebcc588fb2" />
+              </literalInteger>
+            </specification>
+          </enumerationLiteral>
+          <enumerationLiteral Id="9b636090-bcbd-4793-8f7c-670445275410" name="Reset">
+            <description>Remet le system dans l'état de départ.</description>
+            <elementDefinition Id="dae909f4-9df3-49cc-bdc1-aecc70cebf39" />
+            <specification>
+              <literalInteger Id="28a742c9-d043-4808-9f50-196739ee4601" name="Integer" value="4">
+                <elementDefinition Id="16c1ef6e-22a7-42ce-bd67-c6df58c199ce" />
+              </literalInteger>
+            </specification>
+          </enumerationLiteral>
+        </ownedLiterals>
+      </enumeration>
+    </logicalClassDesignerModelHasTypes>
+    <packageHasNamedElement>
+      <referencedType Id="003b4760-efce-4203-9317-639c8e804d02" name="EnumModelStatus" isAbstract="false" isLeaf="false" cachedFullName="Sol2Reg_Model::EnumModelStatus">
+        <elementDefinition Id="0e14682f-db9f-4843-9aca-8e5c1e4073ad" />
+      </referencedType>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="cafade0c-1053-4fae-8278-e2ac3810c058" name="Model" isAbstract="false" isLeaf="false" cachedFullName="Sol2Reg_Model::Model">
+        <elementDefinition Id="aa9de101-022b-412c-a157-f0063535162c" />
+      </referencedType>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="23d6e08a-73ea-49a6-9d84-d331ee398d15" name="AnalogValue" isAbstract="false" isLeaf="false" cachedFullName="Sol2Reg_Model::AnalogValue">
+        <elementDefinition Id="e655ddc2-4aa5-48fa-98ca-b6a9dd127d50" />
+      </referencedType>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="dfcdc663-f0eb-4111-8234-084eff3007c3" name="DigitalValue" isAbstract="false" isLeaf="false" cachedFullName="Sol2Reg_Model::DigitalValue">
+        <elementDefinition Id="f759d742-4e37-4943-a6fc-0a676ee850f9" />
+      </referencedType>
+    </packageHasNamedElement>
+    <logicalClassDesignerModelHasTypes>
+      <class Id="beceaf76-4649-4d6e-88e6-894cf15205a1" name="OutputHandler" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="7a8829ee-827a-495f-9ef6-9de676290acd" />
+        <ownedAttributesInternal>
+          <property Id="c862ed4f-e190-4244-823c-2f5fe979fb18" name="Attribute1" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="8e72f1b3-2e32-47ab-bade-d11c2b87a104" />
+          </property>
+        </ownedAttributesInternal>
+      </class>
+    </logicalClassDesignerModelHasTypes>
+  </packagedElements>
+  <package Id="addab0e9-6ced-4aaf-bf8b-e3008a9f7b06" name="Sol2Reg_Model">
+    <elementDefinition Id="9dcb9343-289f-4cd7-8e78-b2d4f57c3000" />
+  </package>
+</logicalClassDesignerModel>
