@@ -48,6 +48,7 @@
     <Compile Include="IDateTimeNowProvider.cs" />
     <Compile Include="IValue.cs" />
     <Compile Include="DateTimeNowProvider.cs" />
+    <Compile Include="MappInputNameToOutput.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

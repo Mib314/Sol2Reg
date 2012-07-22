@@ -81,5 +81,12 @@ namespace Sol2Reg.LogicalComponent.Interface
 		/// </summary>
 		/// <returns>This instance.</returns>
 		IValueManager Initialize();
+
+		/// <summary>
+		/// Valids the cycle (Cycle and Date).
+		/// </summary>
+		/// <param name="value">The value.</param>
+		/// <returns>Is valid or not?</returns>
+		bool ValidCycle(IValue value);
 	}
 }

@@ -140,6 +140,11 @@
 			return this;
 		}
 
+		public bool ValidCycle(IValue value)
+		{
+			return this.Cycle == value.Cycle && this.CycleTime == value.CycleTime;
+		}
+
 		#region Setter & Getter for Analog and Digital params.
 		/// <summary>
 		/// Setters the param (Analog and Digital).

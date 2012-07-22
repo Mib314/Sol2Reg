@@ -46,6 +46,8 @@
     <Compile Include="ComponentBase\BasicComponent.cs" />
     <Compile Include="ComponentBase\DigitalBasicComponent.cs" />
     <Compile Include="ComponentBase\HelperHistoryIoValue.cs" />
+    <Compile Include="DigitalComponents\ComponentAnd.cs" />
+    <Compile Include="Helpers\ParametersManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ComponentBase\ValueManager.cs" />
   </ItemGroup>

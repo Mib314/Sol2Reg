@@ -16,7 +16,7 @@
 		{
 			this.InternalValueManager = (IInternalValueManager)valueManager;
 		}
-		
+
 		/// <summary>
 		/// Sets the param.
 		/// </summary>

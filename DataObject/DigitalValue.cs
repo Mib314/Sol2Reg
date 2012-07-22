@@ -16,7 +16,7 @@
 		/// Initializes a new instance of the <see cref="DigitalValue"/> class.
 		/// </summary>
 		/// <param name="value">if set to <c>true</c> [value].</param>
-		public DigitalValue(bool value)
+		public DigitalValue(bool? value)
 		{
 			this.Value = value;
 		}
@@ -42,7 +42,7 @@
 		/// <value>
 		///   <c>true</c> if value; otherwise, <c>false</c>.
 		/// </value>
-		public bool Value { get; set; }
+		public bool? Value { get; set; }
 
 		/// <summary>
 		/// Gets or sets the action time.
