@@ -43,14 +43,14 @@
     <Compile Include="AnalogComponants\IAnalogAmplifier.cs" />
     <Compile Include="AnalogComponants\IAnalogCompar.cs" />
     <Compile Include="ComponentBase\IHelperHistoryIOValue.cs" />
-    <Compile Include="ComponentBase\IBasicComponentForValueManager.cs" />
-    <Compile Include="ComponentBase\IValueManager.cs" />
+    <Compile Include="ComponentBase\IBasicComponentForParameterManager.cs" />
+    <Compile Include="ComponentBase\IParametersManager.cs" />
     <Compile Include="ComponentBase\IDigitalBasicComponent.cs" />
     <Compile Include="ComponentBase\IAnalogBasicComponent.cs" />
     <Compile Include="AnalogComponants\IAnalogImput.cs" />
     <Compile Include="ComponentBase\IBasicComponent.cs" />
     <Compile Include="ICounter.cs" />
-    <Compile Include="ComponentBase\IInternalValueManager.cs" />
+    <Compile Include="ComponentBase\IInternalParametersManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />

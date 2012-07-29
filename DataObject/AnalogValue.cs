@@ -23,45 +23,6 @@
 		}
 
 		/// <summary>
-		/// Initialize a new instance of the <see cref="AnalogValue"/> class.
-		/// </summary>
-		/// <param name="value">The value.</param>
-		/// <param name="cycle">The cycle.</param>
-		/// <param name="cycleTime">The cycle time.</param>
-		/// <param name="dynamicValue">if set to <c>true</c> [dynamic value].</param>
-		public AnalogValue(decimal value, long cycle, DateTime cycleTime, bool dynamicValue = true)
-		{
-			this.Value = value;
-			this.Cycle = cycle;
-			this.CycleTime = cycleTime;
-			this.DynamicValue = dynamicValue;
-		}
-
-		/// <summary>
-		/// Gets or sets the action time.
-		/// </summary>
-		/// <value>
-		/// The action time.
-		/// </value>
-		public DateTime CycleTime { get; set; }
-
-		/// <summary>
-		/// Gets or sets the cycle.
-		/// </summary>
-		/// <value>
-		/// The cycle.
-		/// </value>
-		public long Cycle { get; set; }
-
-		/// <summary>
-		/// Gets a value indicating whether [dynamic value].
-		/// </summary>
-		/// <value>
-		///   <c>true</c> if [dynamic value]; otherwise, <c>false</c>.
-		/// </value>
-		public bool DynamicValue { get; private set; }
-
-		/// <summary>
 		/// Gets or sets the value.
 		/// </summary>
 		/// <value>

@@ -7,7 +7,7 @@
 	using DateTime = System.DateTime;
 
 	/// <summary>
-	/// Helper class to calculate the history for ValueManager.
+	/// Helper class to calculate the history for parameterManager.
 	/// </summary>
 	public class HelperHistoryIoValue : IHelperHistoryIOValue
 	{
@@ -71,20 +71,21 @@
 			long cycle = 0;
 			foreach (var currentParam in currentParams)
 			{
-				if(!currentParam.Value.DynamicValue)
-				{
-					continue;
-				}
+				// Ne pas travailler avec les IValue mais avec Parameters.
+				//if(!currentParam.Value.DynamicValue)
+				//{
+				//    continue;
+				//}
 
-				if(cycle == 0)
-				{
-					cycle = currentParam.Value.Cycle;
-				}
+				//if(cycle == 0)
+				//{
+				//    cycle = currentParam.Value.Cycle;
+				//}
 
-				if (cycle != currentParam.Value.Cycle)
-				{
-					return false;
-				}
+				//if (cycle != currentParam.Value.Cycle)
+				//{
+				//    return false;
+				//}
 			}
 			return true;
 		}

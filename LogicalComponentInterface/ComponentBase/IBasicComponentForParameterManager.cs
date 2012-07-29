@@ -1,8 +1,8 @@
-﻿namespace Sol2Reg.LogicalComponent.Interface
+﻿namespace Sol2Reg.LogicalComponent.Interface.ComponentBase
 {
 	using System;
 
-	public interface IBasicComponentForValueManager
+	public interface IBasicComponentForParameterManager
 	{
 		/// <summary>
 		/// Gets the component code.
@@ -12,7 +12,7 @@
 		/// <summary>
 		/// Gets the input value manager.
 		/// </summary>
-		IValueManager ValueManager { get; }
+		IParametersManager ParametersManager { get; }
 
 		/// <summary>
 		/// Executes the calculation.

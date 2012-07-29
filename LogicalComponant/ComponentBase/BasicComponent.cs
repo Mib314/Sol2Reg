@@ -3,18 +3,19 @@
 	using System;
 	using DataObject;
 	using Interface;
+	using Interface.ComponentBase;
 
 	/// <summary>
 	/// Basic component for analog and digital component.
 	/// </summary>
-	public abstract class BasicComponent : ICounter, IBasicComponent, IBasicComponentForValueManager
+	public abstract class BasicComponent : ICounter, IBasicComponent, IBasicComponentForParameterManager
 	{
 		/// <summary>
 		/// Initializes a new instance of the <see cref="BasicComponent"/> class.
 		/// </summary>
-		protected BasicComponent(IValueManager valueManager)
+		protected BasicComponent(IParametersManager parametersManager)
 		{
-			this.InternalValueManager = (IInternalValueManager)valueManager;
+			this.InternalParametersManager = (IInternalParametersManager)parametersManager;
 		}
 
 		/// <summary>
@@ -24,7 +25,7 @@
 		/// <param name="paramName">Name of the param.</param>
 		protected void SetParam(IValue value, string paramName)
 		{
-			this.InternalValueManager.SetterParam(paramName, value);
+			this.InternalParametersManager.SetParameter(paramName, value);
 		}
 
 		/// <summary>
@@ -34,7 +35,7 @@
 		/// <returns></returns>
 		protected IValue GetParam(string paramName)
 		{
-			return this.InternalValueManager.CurrentParams[paramName];
+			return this.InternalParametersManager.CurrentParams[paramName];
 		}
 
 		/// <summary>
@@ -53,12 +54,12 @@
 		/// <summary>
 		/// Gets the input value manager.
 		/// </summary>
-		public IValueManager ValueManager { get { return this.InternalValueManager; }}
+		public IParametersManager ParametersManager { get { return this.InternalParametersManager; }}
 
 		/// <summary>
 		/// Gets the input value manager for internal ressource only.
 		/// </summary>
-		protected IInternalValueManager InternalValueManager { get; private set; }
+		protected IInternalParametersManager InternalParametersManager { get; private set; }
 
 		/// <summary>
 		/// Executes the calculation.
@@ -83,10 +84,10 @@
 		/// <param name="cycleTime">The cycle time.</param>
 		public bool SetCurrentCycle(long cycle, DateTime cycleTime)
 		{
-			if (this.InternalValueManager.Cycle < cycle && this.InternalValueManager.CycleTime < cycleTime)
+			if (this.InternalParametersManager.Cycle < cycle && this.InternalParametersManager.CycleTime < cycleTime)
 			{
-				this.InternalValueManager.Cycle = cycle;
-				this.InternalValueManager.CycleTime = cycleTime;
+				this.InternalParametersManager.Cycle = cycle;
+				this.InternalParametersManager.CycleTime = cycleTime;
 				return true;
 			}
 			return false;

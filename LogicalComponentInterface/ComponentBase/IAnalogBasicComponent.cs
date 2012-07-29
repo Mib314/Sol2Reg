@@ -1,5 +1,6 @@
 namespace Sol2Reg.LogicalComponent.Interface
 {
+	using ComponentBase;
 	using DataObject;
 
 	public interface IAnalogBasicComponent : IBasicComponent

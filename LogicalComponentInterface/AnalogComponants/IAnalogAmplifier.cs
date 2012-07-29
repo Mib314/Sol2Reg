@@ -1,5 +1,6 @@
 namespace Sol2Reg.LogicalComponent.Interface.AnalogComponants
 {
+	using ComponentBase;
 	using DataObject;
 
 	public interface IAnalogAmplifier : IAnalogBasicComponent

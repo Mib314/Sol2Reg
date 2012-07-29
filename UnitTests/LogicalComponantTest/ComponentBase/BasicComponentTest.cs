@@ -5,6 +5,7 @@
 	using FluentAssertions;
 	using Sol2Reg.LogicalComponent.Interface;
 	using Moq;
+	using Sol2Reg.LogicalComponent.Interface.ComponentBase;
 	using Xunit;
 
 	/// <summary>
@@ -14,7 +15,7 @@
 	{
 		private const decimal PARAM_ANALOGUE1 = 15.36M;
 
-		private readonly Mock<IInternalValueManager> valueManager;
+		private readonly Mock<IInternalParametersManager> valueManager;
 		private readonly BasicComponantImplementation testee;
 
 		/// <summary>
@@ -22,7 +23,7 @@
 		/// </summary>
 		public BasicComponentTest()
 		{
-			this.valueManager = new Mock<IInternalValueManager>();
+			this.valueManager = new Mock<IInternalParametersManager>();
 
 			this.testee = new BasicComponantImplementation(this.valueManager.Object);
 		}
@@ -36,7 +37,7 @@
 			var newParam = this.SetAnalogValue(PARAM_ANALOGUE1);
 			this.testee.SetParam(newParam, BasicComponantImplementation.INPUT1);
 
-			this.valueManager.Verify(foo => foo.SetterParam(BasicComponantImplementation.INPUT1, newParam));
+			this.valueManager.Verify(foo => foo.SetParameter(BasicComponantImplementation.INPUT1, newParam));
 		}
 
 		/// <summary>

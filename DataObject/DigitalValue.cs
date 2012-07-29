@@ -25,15 +25,9 @@
 		/// Initializes a new instance of the <see cref="DigitalValue"/> class.
 		/// </summary>
 		/// <param name="value">if set to <c>true</c> [value].</param>
-		/// <param name="cycle">The cycle.</param>
-		/// <param name="cycleTime">The cycle time.</param>
-		/// <param name="dynamicValue">if set to <c>true</c> [dynamic value].</param>
-		public DigitalValue(bool value, long cycle, DateTime cycleTime, bool dynamicValue = true)
+		public DigitalValue(bool value)
 		{
 			this.Value = value;
-			this.Cycle = cycle;
-			this.CycleTime = cycleTime;
-			this.DynamicValue = dynamicValue;
 		}
 
 		/// <summary>
@@ -43,30 +37,6 @@
 		///   <c>true</c> if value; otherwise, <c>false</c>.
 		/// </value>
 		public bool? Value { get; set; }
-
-		/// <summary>
-		/// Gets or sets the action time.
-		/// </summary>
-		/// <value>
-		/// The action time.
-		/// </value>
-		public DateTime CycleTime { get; set; }
-
-		/// <summary>
-		/// Gets or sets the cycle.
-		/// </summary>
-		/// <value>
-		/// The cycle.
-		/// </value>
-		public long Cycle { get; set; }
-
-		/// <summary>
-		/// Gets a value indicating whether [dynamic value].
-		/// </summary>
-		/// <value>
-		///   <c>true</c> if [dynamic value]; otherwise, <c>false</c>.
-		/// </value>
-		public bool DynamicValue { get; private set; }
 
 		public IValue Initialize()
 		{

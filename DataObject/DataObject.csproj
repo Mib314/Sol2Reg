@@ -41,6 +41,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AnalogValue.cs" />
+    <Compile Include="EnumParameterDirection.cs" />
+    <Compile Include="EnumParameterType.cs" />
+    <Compile Include="HistoryParameters.cs" />
+    <Compile Include="IParameter.cs" />
+    <Compile Include="IParameters.cs" />
+    <Compile Include="Parameter.cs" />
     <Compile Include="DigitalValue.cs" />
     <Compile Include="Events\ExternalSourceValueHandler.cs" />
     <Compile Include="Events\ValueEventArgs.cs" />
@@ -48,7 +54,8 @@
     <Compile Include="IDateTimeNowProvider.cs" />
     <Compile Include="IValue.cs" />
     <Compile Include="DateTimeNowProvider.cs" />
-    <Compile Include="MappInputNameToOutput.cs" />
+    <Compile Include="ParameterDigital.cs" />
+    <Compile Include="Parameters.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

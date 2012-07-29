@@ -5,13 +5,14 @@
 	using ComponentBase;
 	using DataObject;
 	using Interface;
+	using Interface.ComponentBase;
 
 	public class ComponentAnd : BasicComponent
 	{
 		private readonly List<MappInputNameToOutput> inputOutputNames;
 
-		public ComponentAnd(IValueManager pValueManager)
-			:base(pValueManager)
+		public ComponentAnd(IParametersManager pParametersManager)
+			:base(pParametersManager)
 		{
 			this.inputOutputNames = new List<MappInputNameToOutput>();
 		}

@@ -3,15 +3,16 @@
 	using ComponentBase;
 	using DataObject;
 	using Interface;
+	using Interface.ComponentBase;
 
 	public class Amplifier : AnalogBasicComponent 
 	{
 		/// <summary>
 		/// Initializes a new instance of the <see cref="Amplifier"/> class.
 		/// </summary>
-		/// <param name="valueManager"></param>
-		public Amplifier(IValueManager valueManager)
-			: base(valueManager)
+		/// <param name="parametersManager"></param>
+		public Amplifier(IParametersManager parametersManager)
+			: base(parametersManager)
 		{
 		}
 

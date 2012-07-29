@@ -3,6 +3,7 @@
 	using Interfaces;
 	using LogicalComponent.ComponentBase;
 	using LogicalComponent.Interface;
+	using LogicalComponent.Interface.ComponentBase;
 	using Microsoft.Practices.Unity;
 
 	public class SystemConfiguration : ISystemConfiguration
@@ -46,12 +47,12 @@
 		#endregion
 		private void Initialize()
 		{
-			this.unityContainer.RegisterType<IValueManager, ValueManager>();
-			this.unityContainer.RegisterType<IInternalValueManager, ValueManager>();
+			this.unityContainer.RegisterType<IParametersManager, ParameterManager>();
+			this.unityContainer.RegisterType<IInternalParametersManager, ParameterManager>();
 			this.unityContainer.RegisterType<IBasicComponent, BasicComponent>();
 			this.unityContainer.RegisterType<IAnalogBasicComponent, AnalogBasicComponent>();
 			this.unityContainer.RegisterType<IDigitalBasicComponent, DigitalBasicComponent>();
-			this.unityContainer.RegisterType<IBasicComponentForValueManager, BasicComponent>();
+			this.unityContainer.RegisterType<IBasicComponentForParameterManager, BasicComponent>();
 
 		}
 

@@ -41,7 +41,7 @@
 		[Fact]
 		public void ConstructorCheckInitialisationDigitalValueLongVersion()
 		{
-			var expected = new DigitalValue(true, this.cycle, this.cycleTime);
+			var expected = new DigitalValue(true);
 
 			this.testee = new ValueEventArgs(expected);
 

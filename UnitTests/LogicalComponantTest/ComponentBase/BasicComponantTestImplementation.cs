@@ -3,6 +3,7 @@
 	using DataObject;
 	using Sol2Reg.LogicalComponent.ComponentBase;
 	using Sol2Reg.LogicalComponent.Interface;
+	using Sol2Reg.LogicalComponent.Interface.ComponentBase;
 
 	public class BasicComponantImplementation : BasicComponent
 	{
@@ -12,9 +13,9 @@
 		/// <summary>
 		/// Initializes a new instance of the <see cref="BasicComponantImplementation"/> class.
 		/// </summary>
-		/// <param name="valueManager"></param>
-		public BasicComponantImplementation(IValueManager valueManager)
-			: base(valueManager)
+		/// <param name="parametersManager"></param>
+		public BasicComponantImplementation(IParametersManager parametersManager)
+			: base(parametersManager)
 		{
 			this.lastOutputValue = new AnalogValue();
 		}

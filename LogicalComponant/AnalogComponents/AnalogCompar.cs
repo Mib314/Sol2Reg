@@ -4,6 +4,7 @@
 	using DataObject;
 	using Interface;
 	using Interface.AnalogComponants;
+	using Interface.ComponentBase;
 
 	public sealed class AnalogCompar : AnalogBasicComponent, IAnalogCompar
 	{
@@ -14,8 +15,8 @@
 
 		private bool m_OutputState;
 
-		protected AnalogCompar(IValueManager valueManager)
-			: base(valueManager)
+		protected AnalogCompar(IParametersManager parametersManager)
+			: base(parametersManager)
 		{
 			this.m_OutputState = false;
 		}
@@ -28,8 +29,8 @@
 		/// </value>
 		public AnalogValue DeltaValueToSetOff
 		{
-			get { return (AnalogValue)this.InternalValueManager.CurrentParams[PARAM_D_OFF]; }
-			protected set { this.InternalValueManager.SetterParam(PARAM_D_OFF, value); }
+			get { return (AnalogValue)this.InternalParametersManager.CurrentParams[PARAM_D_OFF]; }
+			protected set { this.InternalParametersManager.SetParameter(PARAM_D_OFF, value); }
 		}
 
 		/// <summary>
@@ -40,8 +41,8 @@
 		/// </value>
 		public AnalogValue DeltaValueToSetOn
 		{
-			get { return (AnalogValue)this.InternalValueManager.CurrentParams[PARAM_D_ON]; }
-			protected set { this.InternalValueManager.SetterParam(PARAM_D_ON, value); }
+			get { return (AnalogValue)this.InternalParametersManager.CurrentParams[PARAM_D_ON]; }
+			protected set { this.InternalParametersManager.SetParameter(PARAM_D_ON, value); }
 		}
 
 		/// <summary>
@@ -52,8 +53,8 @@
 		/// </value>
 		public AnalogValue Output1
 		{
-			get { return (AnalogValue)this.InternalValueManager.CurrentParams[OUTPUT1]; }
-			protected set { this.InternalValueManager.SetterParam(OUTPUT1, value); }
+			get { return (AnalogValue)this.InternalParametersManager.CurrentParams[OUTPUT1]; }
+			protected set { this.InternalParametersManager.SetParameter(OUTPUT1, value); }
 		}
 
 		#region Overrides of BasicComponent
@@ -67,7 +68,7 @@
 			var input1 = this.GetParam(INPUT1);
 			var input2 = this.GetParam(INPUT2);
 			var output = new DigitalValue(false);
-			if ((input1 == null || input1.Cycle != this.ValueManager.Cycle) && (input2 == null || input2.Cycle != this.ValueManager.Cycle))
+			if (this.ParametersManager.IsAllInputParamUptodate())
 			{
 				return;
 			}
@@ -105,7 +106,7 @@
 				// OutputState = 1, si On ≤ (valeur réelle InputValue1 - valeur réelle InputValue2) < DeltaOff.
 				output.Value = (deltaValue >= this.DeltaValueToSetOn && deltaValue < this.DeltaValueToSetOff);
 			}
-			this.InternalValueManager.OnEventOutputChange(output, OUTPUT1);
+			this.InternalParametersManager.OnEventOutputChange(output, OUTPUT1);
 			this.StateChange();
 		}
 

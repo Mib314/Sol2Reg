@@ -2,6 +2,7 @@
 {
 	using DataObject;
 	using Interface;
+	using Interface.ComponentBase;
 
 	public abstract class AnalogBasicComponent : BasicComponent, IAnalogBasicComponent
 	{
@@ -9,8 +10,8 @@
 		public const string PARAM_GAIN = "gain  ";
 		public const string PARAM_OFFSET = "offset";
 
-		protected AnalogBasicComponent(IValueManager valueManager)
-			: base(valueManager) {}
+		protected AnalogBasicComponent(IParametersManager parametersManager)
+			: base(parametersManager) {}
 
 		/// <summary>
 		/// Gets or sets the input 1.
@@ -20,8 +21,8 @@
 		/// </value>
 		public AnalogValue Input1
 		{
-			get { return (AnalogValue)this.InternalValueManager.CurrentParams[PARAM_OFFSET]; }
-			protected set { this.InternalValueManager.SetterParam(PARAM_OFFSET, value); }
+			get { return (AnalogValue)this.InternalParametersManager.CurrentParams[PARAM_OFFSET]; }
+			protected set { this.InternalParametersManager.SetParameter(PARAM_OFFSET, value); }
 		}
 	
 		/// <summary>
@@ -30,8 +31,8 @@
 		/// <value>Par default = 1.</value>
 		public AnalogValue Gain
 		{
-			get { return (AnalogValue)this.InternalValueManager.CurrentParams[PARAM_GAIN]; }
-			protected set { this.InternalValueManager.SetterParam(PARAM_GAIN, value); }
+			get { return (AnalogValue)this.InternalParametersManager.CurrentParams[PARAM_GAIN]; }
+			protected set { this.InternalParametersManager.SetParameter(PARAM_GAIN, value); }
 		}
 
 		/// <summary>
@@ -40,8 +41,8 @@
 		/// <value>Par default = 0.</value>
 		public AnalogValue Offset
 		{
-			get { return (AnalogValue)this.InternalValueManager.CurrentParams[PARAM_OFFSET]; }
-			protected set { this.InternalValueManager.SetterParam(PARAM_OFFSET, value); }
+			get { return (AnalogValue)this.InternalParametersManager.CurrentParams[PARAM_OFFSET]; }
+			protected set { this.InternalParametersManager.SetParameter(PARAM_OFFSET, value); }
 		}
 
 		/// <summary>

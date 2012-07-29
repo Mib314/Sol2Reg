@@ -2,9 +2,10 @@
 {
 	using System;
 	using System.Collections.Generic;
+	using System.Linq;
 	using DataObject;
 	using DataObject.Events;
-	using Interface;
+	using Interface.ComponentBase;
 
 	/// <summary>
 	/// This class manage all input and ouput of all component.
@@ -15,12 +16,14 @@
 	///		- History info (for a number of cycle or a time.
 	///		- Initial information.
 	/// </summary>
-	public sealed class ValueManager : IInternalValueManager
+	public sealed class ParametersManager : IParametersManager
 	{
+		private readonly HistoryParameters historyParameters;
+
 		/// <summary>
-		/// Ref to the basic component <see cref="Sol2Reg.LogicalComponent.Interface.IBasicComponent"/>.
+		/// Ref to the basic component <see cref="IBasicComponent"/>.
 		/// </summary>
-		private readonly IBasicComponentForValueManager basicComponent;
+		private readonly IBasicComponentForParameterManager basicComponent;
 
 		/// <summary>
 		/// Helper history input value.
@@ -28,14 +31,16 @@
 		private readonly IHelperHistoryIOValue helperHistoryIoValue;
 
 		/// <summary>
-		/// Initializes a new instance of the <see cref="ValueManager"/> class.
+		/// Initializes a new instance of the <see cref="ParametersManager"/> class.
 		/// </summary>
 		/// <param name="basicComponent">The basic component.</param>
 		/// <param name="helperHistoryIoValue">The helper history input value.</param>
-		public ValueManager(IBasicComponentForValueManager basicComponent, IHelperHistoryIOValue helperHistoryIoValue)
+		/// <param name="historyParameters">The history parameters.</param>
+		public ParametersManager(IBasicComponentForParameterManager basicComponent, IHelperHistoryIOValue helperHistoryIoValue, HistoryParameters historyParameters)
 		{
 			this.basicComponent = basicComponent;
 			this.helperHistoryIoValue = helperHistoryIoValue;
+			this.historyParameters = historyParameters;
 		}
 
 		#region Properties
@@ -51,39 +56,6 @@
 		public event ValueChangeHandler EventInputChange;
 
 		/// <summary>
-		/// Gets the component code.
-		/// </summary>
-		public string Code { get { return this.basicComponent.Code; } }
-
-		/// <summary>
-		/// Gets the current cycle number.
-		/// </summary>
-		public long Cycle { get; set; }
-
-		/// <summary>
-		/// Gets or sets the cycle time.
-		/// </summary>
-		/// <value>
-		/// The cycle time.
-		/// </value>
-		public DateTime CycleTime { get; set; }
-
-		/// <summary>
-		/// Dictionary to register evry analog input and param for this component
-		/// </summary>
-		public Dictionary<string, IValue> CurrentParams { get; private set; }
-
-		/// <summary>
-		/// Gets the last params.
-		/// </summary>
-		public Dictionary<string, IValue> LastParams { get; private set; }
-
-		/// <summary>
-		/// Histroy of Analog/Digital params.
-		/// </summary>
-		public Dictionary<int, IDictionary<string, IValue>> HistoryValues { get; private set; }
-
-		/// <summary>
 		/// Gets or sets a value indicating whether [output state].
 		/// </summary>
 		/// <value>
@@ -91,58 +63,53 @@
 		/// </value>
 		public bool OutputState { get; set; }
 
-		/// <summary>
-		/// Gets or sets the duration of the history time.
-		/// If this value is null no history per time.
-		/// </summary>
-		/// <value>
-		/// The duration of the history time.
-		/// </value>
-		public DateTime? HistoryTimeDuration { get; set; }
-
-		/// <summary>
-		/// Gets or sets the duration of the history cycle.
-		/// If this value is null no history per cycle.
-		/// </summary>
-		/// <value>
-		/// The duration of the history cycle.
-		/// </value>
-		public int? HistoryCycleDuration { get; set; }
-
-		/// <summary>
-		/// Gets or sets the history frequency.
-		/// - If history duration is a time => frequency is [sec].
-		/// - If history duration is a cycle number => frequency is [number of cycle]
-		/// </summary>
-		/// <value>
-		/// The history frequency.
-		/// </value>
-		public int HistoryFrequency { get; set; }
-
 		#endregion
+
+		/// <summary>
+		/// Registers the link input.
+		/// </summary>
+		/// <param name="parameterName">Name of the parameter.</param>
+		/// <param name="parametersManagerEventSender">The value manager event sender.</param>
+		public void RegisterLinkInput(string parameterName, IParametersManager parametersManagerEventSender)
+		{
+			throw new NotImplementedException();
+		}
+
+		/// <summary>Getters the param.</summary>
+		/// <param name="code">The code.</param>
+		/// <returns>Return parameter.</returns>
+		public IParameter GetParameter(string code)
+		{
+			return this.historyParameters.CurrentParameters.GetParameter(code);
+		}
 
 		/// <summary>
 		/// Initializes this instance.
 		/// </summary>
 		/// <returns>This instance.</returns>
-		public IValueManager Initialize()
+		IParametersManager IParametersManager.Initialize()
 		{
-			this.CurrentParams = new Dictionary<string, IValue>();
+			throw new NotImplementedException();
+		}
 
-			this.Cycle = 0;
-			this.CycleTime = DateTime.MinValue;
-
-			// HistoryFrequency is by default disabled.
-			this.HistoryValues = new Dictionary<int, IDictionary<string, IValue>>();
-			this.HistoryCycleDuration = null;
-			this.HistoryTimeDuration = null;
-			this.HistoryFrequency = 0;
+		/// <summary>
+		/// Initializes this instance.
+		/// </summary>
+		/// <returns>This instance.</returns>
+		public IParametersManager Initialize()
+		{
 			return this;
 		}
 
-		public bool ValidCycle(IValue value)
+		/// <summary>
+		/// Determines whether [is all input param uptodate].
+		/// </summary>
+		/// <returns>
+		///   <c>true</c> if [is all input param uptodate]; otherwise, <c>false</c>.
+		/// </returns>
+		public bool IsAllInputParamUptodate()
 		{
-			return this.Cycle == value.Cycle && this.CycleTime == value.CycleTime;
+			return this.historyParameters.CurrentParameters.IsAllInputParamUptodate();
 		}
 
 		#region Setter & Getter for Analog and Digital params.
@@ -153,7 +120,7 @@
 		/// <param name="value">The value.</param>
 		public void SetterParam(string key, IValue value)
 		{
-			this.SetterParamWithoutEvent(key,value);
+			this.SetterParamWithoutEvent(key, value);
 			this.OnEventInputChange(value, key);
 		}
 
