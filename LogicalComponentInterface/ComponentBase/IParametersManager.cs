@@ -1,8 +1,7 @@
 namespace Sol2Reg.LogicalComponent.Interface.ComponentBase
 {
-	using System;
-	using Sol2Reg.DataObject;
-	using Sol2Reg.DataObject.Events;
+	using DataObject;
+	using DataObject.Events;
 
 	public interface IParametersManager
 	{

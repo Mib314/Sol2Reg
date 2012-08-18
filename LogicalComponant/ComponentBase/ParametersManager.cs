@@ -28,18 +28,18 @@
 		/// <summary>
 		/// Helper history input value.
 		/// </summary>
-		private readonly IHelperHistoryIOValue helperHistoryIoValue;
+		private readonly IHelperHistoryParameters helperHistoryParameters;
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="ParametersManager"/> class.
 		/// </summary>
 		/// <param name="basicComponent">The basic component.</param>
-		/// <param name="helperHistoryIoValue">The helper history input value.</param>
+		/// <param name="helperHistoryParameters">The helper history input value.</param>
 		/// <param name="historyParameters">The history parameters.</param>
-		public ParametersManager(IBasicComponentForParameterManager basicComponent, IHelperHistoryIOValue helperHistoryIoValue, HistoryParameters historyParameters)
+		public ParametersManager(IBasicComponentForParameterManager basicComponent, IHelperHistoryParameters helperHistoryParameters, HistoryParameters historyParameters)
 		{
 			this.basicComponent = basicComponent;
-			this.helperHistoryIoValue = helperHistoryIoValue;
+			this.helperHistoryParameters = helperHistoryParameters;
 			this.historyParameters = historyParameters;
 		}
 
@@ -64,17 +64,6 @@
 		public bool OutputState { get; set; }
 
 		#endregion
-
-		/// <summary>
-		/// Registers the link input.
-		/// </summary>
-		/// <param name="parameterName">Name of the parameter.</param>
-		/// <param name="parametersManagerEventSender">The value manager event sender.</param>
-		public void RegisterLinkInput(string parameterName, IParametersManager parametersManagerEventSender)
-		{
-			throw new NotImplementedException();
-		}
-
 		/// <summary>Getters the param.</summary>
 		/// <param name="code">The code.</param>
 		/// <returns>Return parameter.</returns>
@@ -120,7 +109,7 @@
 		/// <param name="value">The value.</param>
 		public void SetterParam(string key, IValue value)
 		{
-			this.SetterParamWithoutEvent(key, value);
+			this.SetParam(key, value);
 			this.OnEventInputChange(value, key);
 		}
 
@@ -135,21 +124,6 @@
 			{
 				this.SetterParam(key, args.Value);
 			}
-		}
-
-		/// <summary>
-		/// Getters the param.
-		/// </summary>
-		/// <param name="key">The key.</param>
-		/// <returns>Return parameter value (IValue).</returns>
-		public IValue GetterParam(string key)
-		{
-			if (this.CurrentParams.ContainsKey(key))
-			{
-				return this.CurrentParams[key];
-			}
-
-			return null;
 		}
 		#endregion
 
@@ -176,8 +150,8 @@
 		/// <param name="inputName">Name of the input.</param>
 		public void OnEventInputChange(IValue newInputValue, string inputName)
 		{
-			this.SetterParamWithoutEvent(inputName, newInputValue);
-			var args = new ValueEventArgs(newInputValue, this.Code, inputName);
+			this.SetParam(inputName, newInputValue);
+			var args = new ValueEventArgs(newInputValue, this.basicComponent.Code, inputName);
 			ValueChangeHandler handler = this.EventInputChange;
 			if (handler != null) handler(this, args);
 		}
@@ -187,37 +161,35 @@
 		/// </summary>
 		/// <param name="paramName">Name of the param.</param>
 		/// <param name="valueManagerEventSender">The value manager event sender.</param>
-		public void RegisterLinkInput(string paramName, IValueManager valueManagerEventSender)
+		public void RegisterLinkInput(string paramName, IParametersManager valueManagerEventSender)
 		{
 			valueManagerEventSender.EventOutputChange += (o, args) =>
-			{
-				this.SetterParamWithoutEvent(paramName, args);
-				this.helperHistoryIoValue.SaveTheLastParam(paramName, args, this.LastParams);
-				if (this.helperHistoryIoValue.CheckIfAllParamIsUpToDate(this.CurrentParams))
-				{
-					this.basicComponent.Calculate();
-				}
-			};
+														 {
+															 // Find the local parameter code with the recieve code (code of the output parameter)
+															 // Set the new value on current parameter list.
+															 // Check if all param is uptodate
+															 //		Calculate
+
+															 string code = this.historyParameters.CurrentParameters.GetParameterCode(paramName);
+															 this.SetParam(code, args);
+															 if (this.helperHistoryParameters.CheckIfAllParamIsUpToDate(this.historyParameters.CurrentParameters))
+															 {
+																 this.basicComponent.Calculate();
+															 }
+														 };
 		}
 		#endregion
 
-		private void SetterParamWithoutEvent(string key, IValue value)
+		private void SetParam(string key, IValue value)
 		{
-			if (!this.CurrentParams.ContainsKey(key))
-			{
-				this.CurrentParams.Add(key, value);
-			}
-			else
-			{
-				this.CurrentParams[key] = value;
-			}
+			this.historyParameters.CurrentParameters.SetParameter(key, value);
 		}
 
-		private void SetterParamWithoutEvent(string key, ValueEventArgs args)
+		private void SetParam(string key, ValueEventArgs args)
 		{
 			if (args != null && args.Value != null)
 			{
-				this.SetterParamWithoutEvent(key, args.Value);
+				this.SetParam(key, args.Value);
 			}
 		}
 

@@ -31,6 +31,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="log4net">
+      <HintPath>..\packages\log4net.2.0.0\lib\net40-full\log4net.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -42,7 +45,7 @@
   <ItemGroup>
     <Compile Include="AnalogComponants\IAnalogAmplifier.cs" />
     <Compile Include="AnalogComponants\IAnalogCompar.cs" />
-    <Compile Include="ComponentBase\IHelperHistoryIOValue.cs" />
+    <Compile Include="ComponentBase\IHelperHistoryParameters.cs" />
     <Compile Include="ComponentBase\IBasicComponentForParameterManager.cs" />
     <Compile Include="ComponentBase\IParametersManager.cs" />
     <Compile Include="ComponentBase\IDigitalBasicComponent.cs" />
@@ -52,13 +55,16 @@
     <Compile Include="ICounter.cs" />
     <Compile Include="ComponentBase\IInternalParametersManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="System\Diagnostics\Tracer\TracerManager.cs" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\DataObject\DataObject.csproj">
       <Project>{099485C1-3A52-49FE-9F27-AA05AFFBF948}</Project>
       <Name>DataObject</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -1,15 +1,16 @@
 ﻿namespace Sol2Reg.LogicalComponent.ComponentBase
 {
 	using System;
+	using System.Linq;
 	using System.Collections.Generic;
 	using DataObject;
 	using DataObject.Events;
-	using DateTime = System.DateTime;
+	using Interface.ComponentBase;
 
 	/// <summary>
 	/// Helper class to calculate the history for parameterManager.
 	/// </summary>
-	public class HelperHistoryIoValue : IHelperHistoryIOValue
+	public class HelperHistoryParameters : IHelperHistoryParameters
 	{
 		/// <summary>
 		/// Adds the digital current values to history.
@@ -56,9 +57,9 @@
 		/// <param name="paramName">Name of the param.</param>
 		/// <param name="args">The <see cref="Sol2Reg.DataObject.Events.ValueEventArgs"/> instance containing the event data.</param>
 		/// <param name="lastParams">The last params.</param>
-		public void SaveTheLastParam(string paramName, ValueEventArgs args, Dictionary<string, IValue> lastParams)
+		public void SaveTheLastParam(string paramName, ValueEventArgs args, IParameters lastParams)
 		{
-			lastParams[paramName] = args.Value;
+			lastParams.SetParameter(paramName, args.Value);
 		}
 
 		/// <summary>
@@ -66,28 +67,10 @@
 		/// </summary>
 		/// <param name="currentParams">The current params.</param>
 		/// <returns></returns>
-		public bool CheckIfAllParamIsUpToDate(Dictionary<string, IValue> currentParams)
+		public bool CheckIfAllParamIsUpToDate(IParameters currentParams)
 		{
-			long cycle = 0;
-			foreach (var currentParam in currentParams)
-			{
-				// Ne pas travailler avec les IValue mais avec Parameters.
-				//if(!currentParam.Value.DynamicValue)
-				//{
-				//    continue;
-				//}
-
-				//if(cycle == 0)
-				//{
-				//    cycle = currentParam.Value.Cycle;
-				//}
-
-				//if (cycle != currentParam.Value.Cycle)
-				//{
-				//    return false;
-				//}
-			}
-			return true;
+			// Check if all input dynamic (input param with a recieve code) param is up to date
+			return currentParams.Params.Where(param => (param.Value.ParameterDirection == EnumParameterDirection.Output) || (string.IsNullOrWhiteSpace(param.Value.RecieveCode))).All(currentParam => currentParam.Value.IsUptoDate);
 		}
 	}
 }

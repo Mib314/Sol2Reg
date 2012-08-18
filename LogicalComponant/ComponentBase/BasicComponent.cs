@@ -35,7 +35,7 @@
 		/// <returns></returns>
 		protected IValue GetParam(string paramName)
 		{
-			return this.InternalParametersManager.CurrentParams[paramName];
+			return this.InternalParametersManager.GetParameter(paramName).Value;
 		}
 
 		/// <summary>

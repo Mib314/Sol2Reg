@@ -13,12 +13,9 @@
 		public const string PARAM_D_OFF = "D_Off ";
 		public const string OUTPUT1 = "output1 ";
 
-		private bool m_OutputState;
-
 		protected AnalogCompar(IParametersManager parametersManager)
 			: base(parametersManager)
 		{
-			this.m_OutputState = false;
 		}
 
 		/// <summary>
@@ -29,7 +26,7 @@
 		/// </value>
 		public AnalogValue DeltaValueToSetOff
 		{
-			get { return (AnalogValue)this.InternalParametersManager.CurrentParams[PARAM_D_OFF]; }
+			get { return (AnalogValue)this.InternalParametersManager.GetParameter(PARAM_D_OFF).Value; }
 			protected set { this.InternalParametersManager.SetParameter(PARAM_D_OFF, value); }
 		}
 
@@ -41,7 +38,7 @@
 		/// </value>
 		public AnalogValue DeltaValueToSetOn
 		{
-			get { return (AnalogValue)this.InternalParametersManager.CurrentParams[PARAM_D_ON]; }
+			get { return (AnalogValue)this.InternalParametersManager.GetParameter(PARAM_D_ON).Value; }
 			protected set { this.InternalParametersManager.SetParameter(PARAM_D_ON, value); }
 		}
 
@@ -53,7 +50,7 @@
 		/// </value>
 		public AnalogValue Output1
 		{
-			get { return (AnalogValue)this.InternalParametersManager.CurrentParams[OUTPUT1]; }
+			get { return (AnalogValue)this.InternalParametersManager.GetParameter(OUTPUT1).Value; }
 			protected set { this.InternalParametersManager.SetParameter(OUTPUT1, value); }
 		}
 
@@ -65,16 +62,14 @@
 		public override void Calculate()
 		{
 			// Tous les input doivent avoir le cycle courrant pour pouvoir faire le calcule.
-			var input1 = this.GetParam(INPUT1);
-			var input2 = this.GetParam(INPUT2);
 			var output = new DigitalValue(false);
 			if (this.ParametersManager.IsAllInputParamUptodate())
 			{
 				return;
 			}
 
-			var realValue1 = AnalogValue.AdjustValue(input1, this.Gain, this.Offset);
-			var realValue2 = AnalogValue.AdjustValue(input1, this.Gain, this.Offset);
+			var realValue1 = AnalogValue.AdjustValue(this.GetParam(INPUT1), this.Gain, this.Offset);
+			var realValue2 = AnalogValue.AdjustValue(this.GetParam(INPUT2), this.Gain, this.Offset);
 			
 			/* 
 			 * Règle de calcul
@@ -120,7 +115,7 @@
 		/// <param name="deltaValueToSetOff">The delta value to set off.</param>
 		public void Initialize(string code, AnalogValue gain, AnalogValue offset, AnalogValue deltaValueToSetOn, AnalogValue deltaValueToSetOff)
 		{
-			base.Initialize(code, gain, offset);
+			Initialize(code, gain, offset);
 			this.DeltaValueToSetOff = deltaValueToSetOff;
 			this.DeltaValueToSetOn = deltaValueToSetOn;
 			this.DeltaValueToSetOff = (AnalogValue)new AnalogValue().Initialize();

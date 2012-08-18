@@ -18,7 +18,7 @@
 		private readonly IInternalParametersManager testee;
 		private readonly Mock<IBasicComponentForParameterManager> basicComponent;
 		private readonly Mock<IInternalParametersManager> valueManager2;
-		private readonly Mock<IHelperHistoryIOValue> helperHistoryInputValue;
+		private readonly Mock<IHelperHistoryParameters> helperHistoryInputValue;
 		private readonly DateTime cycleTime;
 		private readonly AnalogValue analogValue;
 		private readonly DigitalValue digitalValue;
@@ -30,7 +30,7 @@
 			this.cycleTime = new DateTime(2012, 12, 13, 13, 56, 56);
 			this.analogValue = new AnalogValue(123.256M, CYCLE, this.cycleTime, true);
 			this.digitalValue = new DigitalValue(true);
-			this.helperHistoryInputValue = new Mock<IHelperHistoryIOValue>();
+			this.helperHistoryInputValue = new Mock<IHelperHistoryParameters>();
 			this.basicComponent = new Mock<IBasicComponentForParameterManager>();
 			this.valueManager2 = new Mock<IInternalParametersManager>();
 			this.newValue = new AnalogValue(this.analogValue.Value + 25, CYCLE + 1, this.cycleTime.AddSeconds(1));

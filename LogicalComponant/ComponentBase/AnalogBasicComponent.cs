@@ -21,7 +21,7 @@
 		/// </value>
 		public AnalogValue Input1
 		{
-			get { return (AnalogValue)this.InternalParametersManager.CurrentParams[PARAM_OFFSET]; }
+			get { return (AnalogValue)this.InternalParametersManager.GetParameter(PARAM_OFFSET).Value; }
 			protected set { this.InternalParametersManager.SetParameter(PARAM_OFFSET, value); }
 		}
 	
@@ -31,7 +31,7 @@
 		/// <value>Par default = 1.</value>
 		public AnalogValue Gain
 		{
-			get { return (AnalogValue)this.InternalParametersManager.CurrentParams[PARAM_GAIN]; }
+			get { return (AnalogValue)this.InternalParametersManager.GetParameter(PARAM_GAIN).Value; }
 			protected set { this.InternalParametersManager.SetParameter(PARAM_GAIN, value); }
 		}
 
@@ -41,7 +41,7 @@
 		/// <value>Par default = 0.</value>
 		public AnalogValue Offset
 		{
-			get { return (AnalogValue)this.InternalParametersManager.CurrentParams[PARAM_OFFSET]; }
+			get { return (AnalogValue)this.InternalParametersManager.GetParameter(PARAM_OFFSET).Value; }
 			protected set { this.InternalParametersManager.SetParameter(PARAM_OFFSET, value); }
 		}
 

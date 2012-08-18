@@ -10,7 +10,7 @@ namespace Sol2Reg.LogicalComponent.Interface.ComponentBase
 		/// <summary>
 		/// Gets the current cycle number.
 		/// </summary>
-		new long Cycle { get; }
+		new long Cycle { get; set; }
 
 		/// <summary>
 		/// Gets or sets the cycle time.
@@ -18,7 +18,7 @@ namespace Sol2Reg.LogicalComponent.Interface.ComponentBase
 		/// <value>
 		/// The cycle time.
 		/// </value>
-		new DateTime CycleTime { get; }
+		new DateTime CycleTime { get; set; }
 
 		/// <summary>
 		/// Histroy of Analog/Digital params.

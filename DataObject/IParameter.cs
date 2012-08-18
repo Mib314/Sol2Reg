@@ -24,6 +24,11 @@ namespace Sol2Reg.DataObject
 		/// <value>The code.</value>
 		string Code { get; }
 
+		/// <summary>
+		/// Gets the recieve code.
+		/// </summary>
+		string RecieveCode { get; }
+
 		/// <summary>Gets or sets the comment.</summary>
 		/// <value>The comment.</value>
 		string Comment { get; }
@@ -34,10 +39,11 @@ namespace Sol2Reg.DataObject
 
 		/// <summary>Initializes the specified code.</summary>
 		/// <param name="code">The code.</param>
+		/// <param name="recieveCode">The recieve code.</param>
 		/// <param name="type">The type.</param>
 		/// <param name="direction">The direction.</param>
 		/// <param name="comment">The comment.</param>
 		/// <returns>This.</returns>
-		IParameter Initialize(string code, EnumParameterType type = EnumParameterType.Analog, EnumParameterDirection direction = EnumParameterDirection.Input, string comment = "");
+		IParameter Initialize(string code, string recieveCode, EnumParameterType type = EnumParameterType.Analog, EnumParameterDirection direction = EnumParameterDirection.Input, string comment = "");
 	}
 }

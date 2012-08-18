@@ -49,6 +49,13 @@ namespace Sol2Reg.DataObject
 		/// <returns>Return the parameter.</returns>
 		IParameter GetParameter(string code);
 
+		/// <summary>
+		/// Gets the parameter code with the recieve code.
+		/// </summary>
+		/// <param name="recieveCode">The recieve code.</param>
+		/// <returns>Return the parameter code.</returns>
+		string GetParameterCode(string recieveCode);
+
 		/// <summary>Determines whether [is all input param uptodate].</summary>
 		/// <returns>  <c>true</c> if [is all input param uptodate]; otherwise, <c>false</c>.</returns>
 		bool IsAllInputParamUptodate();

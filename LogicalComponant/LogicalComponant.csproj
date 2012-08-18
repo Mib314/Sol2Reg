@@ -31,6 +31,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="log4net">
+      <HintPath>..\packages\log4net.2.0.0\lib\net40-full\log4net.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -45,10 +48,11 @@
     <Compile Include="ComponentBase\AnalogBasicComponent.cs" />
     <Compile Include="ComponentBase\BasicComponent.cs" />
     <Compile Include="ComponentBase\DigitalBasicComponent.cs" />
-    <Compile Include="ComponentBase\HelperHistoryIoValue.cs" />
+    <Compile Include="ComponentBase\HelperHistoryParameters.cs" />
     <Compile Include="DigitalComponents\ComponentAnd.cs" />
     <Compile Include="ComponentBase\ParametersManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="System\Diagnostics\Tracer\TracerManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DataObject\DataObject.csproj">
@@ -62,6 +66,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Helpers\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

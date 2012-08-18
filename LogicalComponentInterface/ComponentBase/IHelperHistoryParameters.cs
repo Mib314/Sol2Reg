@@ -1,11 +1,14 @@
-namespace Sol2Reg.LogicalComponent.ComponentBase
+namespace Sol2Reg.LogicalComponent.Interface.ComponentBase
 {
 	using System;
 	using System.Collections.Generic;
-	using DataObject;
-	using DataObject.Events;
+	using Sol2Reg.DataObject;
+	using Sol2Reg.DataObject.Events;
 
-	public interface IHelperHistoryIOValue {
+	/// <summary>
+	/// 
+	/// </summary>
+	public interface IHelperHistoryParameters {
 		/// <summary>
 		/// Adds the digital current values to history.
 		/// </summary>
@@ -37,13 +40,13 @@ namespace Sol2Reg.LogicalComponent.ComponentBase
 		/// <param name="paramName">Name of the param.</param>
 		/// <param name="args">The <see cref="Sol2Reg.DataObject.Events.ValueEventArgs"/> instance containing the event data.</param>
 		/// <param name="lastParams">The last params.</param>
-		void SaveTheLastParam(string paramName, ValueEventArgs args, Dictionary<string, IValue> lastParams);
+		void SaveTheLastParam(string paramName, ValueEventArgs args, IParameters lastParams);
 
 		/// <summary>
 		/// Checks if all param is up to date (same cycle for DynamicValue).
 		/// </summary>
 		/// <param name="currentParams">The current params.</param>
 		/// <returns></returns>
-		bool CheckIfAllParamIsUpToDate(Dictionary<string, IValue> currentParams);
+		bool CheckIfAllParamIsUpToDate(IParameters currentParams);
 	}
 }

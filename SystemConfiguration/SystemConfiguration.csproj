@@ -32,7 +32,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="log4net">
-      <HintPath>..\..\ExternDlls\log4net.dll</HintPath>
+      <HintPath>..\packages\log4net.2.0.0\lib\net40-full\log4net.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Practices.ServiceLocation">
       <HintPath>..\..\ExternDlls\Microsoft.Practices.ServiceLocation.dll</HintPath>
@@ -51,6 +51,7 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SystemConfiguration.cs" />
+    <Compile Include="System\Diagnostics\Tracer\TracerManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DataObject\DataObject.csproj">
@@ -69,6 +70,9 @@
       <Project>{6443869C-F935-4E76-87E5-A6E19D3F6720}</Project>
       <Name>SystemConfigurationInterface</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

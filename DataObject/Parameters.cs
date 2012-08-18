@@ -80,6 +80,16 @@ namespace Sol2Reg.DataObject
 		}
 
 		/// <summary>
+		/// Gets the parameter code with the recieve code.
+		/// </summary>
+		/// <param name="recieveCode">The recieve code.</param>
+		/// <returns>Return the parameter code.</returns>
+		public string GetParameterCode(string recieveCode)
+		{
+			return this.Params.Where(param => param.Value.RecieveCode == recieveCode).Select(param => param.Value.Code).FirstOrDefault();
+		}
+
+		/// <summary>
 		/// Determines whether [is all input param uptodate].
 		/// </summary>
 		public bool IsAllInputParamUptodate()

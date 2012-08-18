@@ -1,7 +1,5 @@
 ﻿namespace Sol2Reg.DataObject
 {
-	using System.Linq;
-
 	/// <summary>
 	/// Parameter.
 	/// </summary>
@@ -32,6 +30,11 @@
 		/// <value>The code.</value>
 		public string Code { get; set; }
 
+		/// <summary>
+		/// Gets the recieve code.
+		/// </summary>
+		public string RecieveCode { get; set; }
+
 		/// <summary>Gets or sets the comment.</summary>
 		/// <value>The comment.</value>
 		public string Comment { get; set; }
@@ -42,13 +45,15 @@
 
 		/// <summary>Initializes the specified code.</summary>
 		/// <param name="code">The code.</param>
+		/// <param name="recieveCode">The recieve code.</param>
 		/// <param name="type">The type.</param>
 		/// <param name="direction">The direction.</param>
 		/// <param name="comment">The comment.</param>
 		/// <returns>This.</returns>
-		public IParameter Initialize(string code, EnumParameterType type = EnumParameterType.Analog, EnumParameterDirection direction = EnumParameterDirection.Input, string comment = "")
+		public IParameter Initialize(string code, string recieveCode, EnumParameterType type = EnumParameterType.Analog, EnumParameterDirection direction = EnumParameterDirection.Input, string comment = "")
 		{
 			this.Code = code;
+			this.RecieveCode = RecieveCode;
 			this.Comment = comment;
 			this.ParameterDirection = direction;
 			this.ParameterType = type;
