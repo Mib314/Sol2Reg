@@ -51,7 +51,6 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SystemConfiguration.cs" />
-    <Compile Include="System\Diagnostics\Tracer\TracerManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DataObject\DataObject.csproj">

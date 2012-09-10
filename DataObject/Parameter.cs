@@ -55,7 +55,17 @@
 
 		/// <summary>Gets a value indicating whether this instance is inverted.</summary>
 		/// <value>	<c>true</c> if this instance is inverted; otherwise, <c>false</c>.</value>
-		public bool IsInverted { get{ this.value.i}}
+		public bool IsInverted
+		{
+			get
+			{
+				if (this.ParameterType == EnumParameterType.Digital)
+				{
+					return ((DigitalValue)this.value).IsInverted;
+				}
+				return false;
+			}
+		}
 
 		/// <summary>Initializes the specified key.</summary>
 		/// <param name="key">The key.</param>
@@ -66,11 +76,11 @@
 		/// <param name="isInverted">if set to <c>true</c> [is inverted].</param>
 		/// <param name="comment">The comment.</param>
 		/// <returns>This.</returns>
-		public IParameter Initialize(string key, string recieveOutputComponentKey, string recieveOutputKey, EnumParameterType type = EnumParameterType.Analog, EnumParameterDirection direction = EnumParameterDirection.Input, bool isInverted = false, string comment = "")
+		public void Initialize(string key, string recieveOutputComponentKey, string recieveOutputKey, EnumParameterType type = EnumParameterType.Analog, EnumParameterDirection direction = EnumParameterDirection.Input, bool isInverted = false, string comment = "")
 		{
+			this.Initialize(key, type, direction, comment);
 			this.RecieveOutputComponentKey = recieveOutputComponentKey;
 			this.RecieveOutputKey = recieveOutputKey;
-			return this;
 		}
 
 		/// <summary>Initializes the specified key.</summary>
@@ -79,14 +89,13 @@
 		/// <param name="direction">The direction (Input / Output).</param>
 		/// <param name="comment">The comment.</param>
 		/// <returns>This.</returns>
-		public IParameter Initialize(string key, EnumParameterType type = EnumParameterType.Analog, EnumParameterDirection direction = EnumParameterDirection.Input, string comment = "")
+		public void Initialize(string key, EnumParameterType type = EnumParameterType.Analog, EnumParameterDirection direction = EnumParameterDirection.Input, string comment = "")
 		{
 			this.Key = key;
 			this.Comment = comment;
 			this.ParameterDirection = direction;
 			this.ParameterType = type;
 			this.IsUptoDate = false;
-			return this;
 		}
 
 		public void SetRecieveInfoForInputParam(string recieveComponentKey, string recieveOutputKey)

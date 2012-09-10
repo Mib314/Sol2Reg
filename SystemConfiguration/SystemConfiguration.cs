@@ -47,8 +47,8 @@
 		#endregion
 		private void Initialize()
 		{
-			this.unityContainer.RegisterType<IParametersManager, ParameterManager>();
-			this.unityContainer.RegisterType<IInternalParametersManager, ParameterManager>();
+			this.unityContainer.RegisterType<IParametersManager, ParametersManager>();
+			this.unityContainer.RegisterType<IInternalParametersManager, ParametersManager>();
 			this.unityContainer.RegisterType<IBasicComponent, BasicComponent>();
 			this.unityContainer.RegisterType<IAnalogBasicComponent, AnalogBasicComponent>();
 			this.unityContainer.RegisterType<IDigitalBasicComponent, DigitalBasicComponent>();

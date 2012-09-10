@@ -44,6 +44,7 @@
     <Compile Include="EnumParameterDirection.cs" />
     <Compile Include="EnumParameterType.cs" />
     <Compile Include="HistoryParameters.cs" />
+    <Compile Include="IHistoryParameters.cs" />
     <Compile Include="IParameter.cs" />
     <Compile Include="IParameters.cs" />
     <Compile Include="Parameter.cs" />

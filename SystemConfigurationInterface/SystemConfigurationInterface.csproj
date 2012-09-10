@@ -46,7 +46,6 @@
     <Compile Include="IResolver.cs" />
     <Compile Include="ISystemConfiguration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="System\Diagnostics\Tracer\TracerManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
