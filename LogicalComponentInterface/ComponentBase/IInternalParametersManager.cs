@@ -2,20 +2,47 @@ namespace Sol2Reg.LogicalComponent.Interface.ComponentBase
 {
 	using System;
 	using System.Collections.Generic;
-	using Sol2Reg.DataObject;
-	using Sol2Reg.DataObject.Events;
+	using DataObject;
 
 	public interface IInternalParametersManager : IParametersManager
 	{
 		/// <summary>
+		/// Gets or sets the duration of the history time.
+		/// If this value is null no history per time.
+		/// </summary>
+		/// <value>
+		/// The duration of the history time.
+		/// </value>
+		DateTime? HistoryTimeDuration { get; set; }
+
+		/// <summary>
+		/// Gets or sets the duration of the history cycle.
+		/// If this value is null no history per cycle.
+		/// </summary>
+		/// <value>
+		/// The duration of the history cycle.
+		/// </value>
+		long? HistoryCycleDuration { get; set; }
+
+		/// <summary>
+		/// Gets or sets the history frequency.
+		/// - If history duration is a time => frequency is [sec].
+		/// - If history duration is a cycle number => frequency is [number of cycle]
+		/// </summary>
+		/// <value>
+		/// The history frequency.
+		/// </value>
+		int HistoryFrequency { get; set; }
+
+		/// <summary>
 		/// Gets the current cycle number.
 		/// </summary>
-		new long Cycle { get; }
+		long Cycle { get; }
 
 		/// <summary>
 		/// Gets the current cycle time.
 		/// </summary>
-		new DateTime CycleTime { get; }
+		DateTime CycleTime { get; }
 
 		/// <summary>
 		/// Histroy of Analog/Digital params.
@@ -52,6 +79,6 @@ namespace Sol2Reg.LogicalComponent.Interface.ComponentBase
 		/// <param name="cycle">The cycle.</param>
 		/// <param name="cycleTime">The cycle time.</param>
 		/// <returns>True is the new cycle is set.</returns>
-		bool SetCurrentCycle(long cycle, DateTime cycleTime);
+		bool SetNewCycle(long cycle, DateTime cycleTime);
 	}
 }

@@ -49,9 +49,12 @@
     <Compile Include="ComponentBase\BasicComponent.cs" />
     <Compile Include="ComponentBase\DigitalBasicComponent.cs" />
     <Compile Include="ComponentBase\HelperHistoryParameters.cs" />
-    <Compile Include="DigitalComponents\ComponentAnd.cs" />
+    <Compile Include="ComponentBase\Components.cs" />
+    <Compile Include="DigitalComponents\And.cs" />
     <Compile Include="ComponentBase\ParametersManager.cs" />
-    <Compile Include="DigitalComponents\ComponentOr.cs" />
+    <Compile Include="DigitalComponents\Xor.cs" />
+    <Compile Include="DigitalComponents\Or.cs" />
+    <Compile Include="DigitalComponents\Not.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

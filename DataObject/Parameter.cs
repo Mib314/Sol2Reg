@@ -1,5 +1,7 @@
 ﻿namespace Sol2Reg.DataObject
 {
+	using Enum;
+
 	/// <summary>
 	/// Parameter.
 	/// </summary>
@@ -67,49 +69,53 @@
 			}
 		}
 
-		/// <summary>Initializes the specified key.</summary>
+		/// <summary>
+		/// Initializes the specified key.
+		/// </summary>
 		/// <param name="key">The key.</param>
+		/// <param name="initialValue">The initial value.</param>
 		/// <param name="recieveOutputComponentKey">The recieve output component key.</param>
 		/// <param name="recieveOutputKey">The recieve output key.</param>
-		/// <param name="type">The type.</param>
 		/// <param name="direction">The direction.</param>
 		/// <param name="isInverted">if set to <c>true</c> [is inverted].</param>
 		/// <param name="comment">The comment.</param>
 		/// <returns>This.</returns>
-		public void Initialize(string key, string recieveOutputComponentKey, string recieveOutputKey, EnumParameterType type = EnumParameterType.Analog, EnumParameterDirection direction = EnumParameterDirection.Input, bool isInverted = false, string comment = "")
+		public IParameter Initialize(string key, IValue initialValue, string recieveOutputComponentKey, string recieveOutputKey, EnumParameterDirection direction = EnumParameterDirection.Input, bool isInverted = false, string comment = "")
 		{
-			this.Initialize(key, type, direction, comment);
+			this.Initialize(key, initialValue, direction, comment);
 			this.RecieveOutputComponentKey = recieveOutputComponentKey;
 			this.RecieveOutputKey = recieveOutputKey;
+			return this;
 		}
 
-		/// <summary>Initializes the specified key.</summary>
+		/// <summary>
+		/// Initializes the specified key.
+		/// </summary>
 		/// <param name="key">The key.</param>
-		/// <param name="type">The type (Analog / Digital).</param>
+		/// <param name="initialValue">The initial value.</param>
 		/// <param name="direction">The direction (Input / Output).</param>
 		/// <param name="comment">The comment.</param>
 		/// <returns>This.</returns>
-		public void Initialize(string key, EnumParameterType type = EnumParameterType.Analog, EnumParameterDirection direction = EnumParameterDirection.Input, string comment = "")
+		public IParameter Initialize(string key, IValue initialValue, EnumParameterDirection direction = EnumParameterDirection.Input, string comment = "")
 		{
 			this.Key = key;
 			this.Comment = comment;
 			this.ParameterDirection = direction;
-			this.ParameterType = type;
+			this.ParameterType = initialValue.GetType() == typeof (DigitalValue) ? EnumParameterType.Digital : EnumParameterType.Analog;
 			this.IsUptoDate = false;
+			this.value = initialValue;
+			return this;
 		}
 
+		/// <summary>
+		/// Sets the recieve info for input param.
+		/// </summary>
+		/// <param name="recieveComponentKey">The recieve component key.</param>
+		/// <param name="recieveOutputKey">The recieve output key.</param>
 		public void SetRecieveInfoForInputParam(string recieveComponentKey, string recieveOutputKey)
 		{
 			this.RecieveOutputComponentKey = recieveComponentKey;
 			this.RecieveOutputKey = RecieveOutputKey;
-		}
-
-		/// <summary>
-		/// Sets the new cycle.
-		/// </summary>
-		public void SetNewCycle()
-		{
-			throw new System.NotImplementedException();
 		}
 	}
 }

@@ -41,8 +41,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AnalogValue.cs" />
-    <Compile Include="EnumParameterDirection.cs" />
-    <Compile Include="EnumParameterType.cs" />
+    <Compile Include="Enum\EnumParameterDirection.cs" />
+    <Compile Include="Enum\EnumParameterType.cs" />
     <Compile Include="HistoryParameters.cs" />
     <Compile Include="IHistoryParameters.cs" />
     <Compile Include="IParameter.cs" />

@@ -4,11 +4,13 @@
 	using System.Collections.Generic;
 	using System.Linq;
 	using DataObject;
+	using DataObject.Enum;
 	using DataObject.Events;
 	using Interface.ComponentBase;
+	using log4net;
 
 	/// <summary>
-	/// This class manage all input and ouput of all component.
+	/// This class manage all input and ouput parameters of a component.
 	/// Publisch input & ouptut event when a new info incoming or change.
 	///		- Analog & Digital I/O.
 	///		- Component input.
@@ -18,12 +20,20 @@
 	/// </summary>
 	public sealed class ParametersManager : IInternalParametersManager
 	{
-		private readonly IHistoryParameters historyParameters;
 		/// <summary>
-		/// List of parameters define from the compenent.
+		/// History of parameters.
 		/// </summary>
-		/// <remarks>Don't change this list.</remarks>
-		private IParameters componentParmateres;
+		private readonly List<IParameters> historyParameters;
+
+		/// <summary>
+		/// Current parameters.
+		/// </summary>
+		private IParameters currentParameters;
+
+		/// <summary>
+		/// Last parameters.
+		/// </summary>
+		private IParameters lastParameters;
 
 		/// <summary>
 		/// Ref to the basic component <see cref="IBasicComponent"/>.
@@ -36,19 +46,54 @@
 		private readonly IHelperHistoryParameters helperHistoryParameters;
 
 		/// <summary>
+		/// Log4Net.
+		/// </summary>
+		private readonly ILog loger;
+
+		/// <summary>
 		/// Initializes a new instance of the <see cref="ParametersManager"/> class.
 		/// </summary>
 		/// <param name="basicComponent">The basic component.</param>
 		/// <param name="helperHistoryParameters">The helper history input value.</param>
-		/// <param name="historyParameters">The history parameters.</param>
-		public ParametersManager(IBasicComponentForParameterManager basicComponent, IHelperHistoryParameters helperHistoryParameters, IHistoryParameters historyParameters)
+		/// <param name="loger">The loger.</param>
+		public ParametersManager(IBasicComponentForParameterManager basicComponent, IHelperHistoryParameters helperHistoryParameters, ILog loger)
 		{
 			this.basicComponent = basicComponent;
 			this.helperHistoryParameters = helperHistoryParameters;
+			this.loger = loger;
 			this.historyParameters = historyParameters;
+			this.historyParameters = new List<IParameters>();
 		}
 
 		#region Properties
+
+		/// <summary>
+		/// Gets or sets the duration of the history time.
+		/// If this value is null no history per time.
+		/// </summary>
+		/// <value>
+		/// The duration of the history time.
+		/// </value>
+		public DateTime? HistoryTimeDuration { get; set; }
+
+		/// <summary>
+		/// Gets or sets the duration of the history cycle.
+		/// If this value is null no history per cycle.
+		/// </summary>
+		/// <value>
+		/// The duration of the history cycle.
+		/// </value>
+		public long? HistoryCycleDuration { get; set; }
+
+		/// <summary>
+		/// Gets or sets the history frequency.
+		/// - If history duration is a time => frequency is [sec].
+		/// - If history duration is a cycle number => frequency is [number of cycle]
+		/// </summary>
+		/// <value>
+		/// The history frequency.
+		/// </value>
+		public int HistoryFrequency { get; set; }
 
 		/// <summary>
 		/// Occurs when [event output change].
@@ -66,17 +111,15 @@
 		/// <returns>Return parameter.</returns>
 		public IParameter GetParameter(string code)
 		{
-			return this.historyParameters.CurrentParameters.GetParameter(code);
+			return this.currentParameters.GetParameter(code);
 		}
 
 		/// <summary>
 		/// Initializes this instance.
 		/// </summary>
-		/// <returns>This instance.</returns>
-		public IParametersManager Initialize(IParameters componentParmeters)
+		public void Initialize(IParameters componentParmeters)
 		{
-			this.componentParmateres = componentParmeters;
-			return this;
+			this.currentParameters = componentParmeters;
 		}
 
 
@@ -88,7 +131,7 @@
 		/// </returns>
 		public bool IsAllInputParamUptodate()
 		{
-			return this.historyParameters.CurrentParameters.IsAllInputParamUptodate();
+			return this.currentParameters.IsAllInputParamUptodate();
 		}
 
 		#region Setter & Getter for Analog and Digital params.
@@ -98,7 +141,7 @@
 		/// </summary>
 		public long Cycle
 		{
-			get { return this.historyParameters.CurrentParameters.Cycle; }
+			get { return this.currentParameters.Cycle; }
 		}
 
 		/// <summary>
@@ -109,7 +152,7 @@
 		/// </value>
 		public DateTime CycleTime
 		{
-			get { return this.historyParameters.CurrentParameters.CycleTime; }
+			get { return this.currentParameters.CycleTime; }
 		}
 
 		/// <summary>
@@ -117,7 +160,7 @@
 		/// </summary>
 		public List<IParameters> HistoryValues
 		{
-			get { return this.historyParameters.HistoryValues; }
+			get { return this.historyParameters; }
 		}
 
 		/// <summary>
@@ -129,7 +172,7 @@
 		{
 			if (this.CheckParmaeterKey(key))
 			{
-				this.historyParameters.CurrentParameters.SetParameter(key, value);
+				this.currentParameters.SetParameter(key, value);
 			}
 		}
 
@@ -152,12 +195,12 @@
 		/// <returns></returns>
 		public IEnumerable<IParameter> GetOutputParameters()
 		{
-			return this.historyParameters.CurrentParameters.Params.Where(p => p.Value.ParameterDirection == EnumParameterDirection.Output).Select(p => p.Value);
+			return this.currentParameters.Where(p => p.ParameterDirection == EnumParameterDirection.Output);
 		}
 
 		public IList<IParameter> GetInputDynamicParameter()
 		{
-			return this.historyParameters.CurrentParameters.Params.Where(p => p.Value.ParameterDirection == EnumParameterDirection.Input && p.Value.IsDynamic).Select(p => p.Value).ToList();
+			return this.currentParameters.Where(p => p.ParameterDirection == EnumParameterDirection.Input && p.IsDynamic).ToList();
 		}
 		#endregion
 
@@ -197,18 +240,25 @@
 		}
 
 		/// <summary>
-		/// News the cycle.
+		/// Set a new cyle.
 		/// </summary>
 		/// <param name="cycle">The cycle.</param>
 		/// <param name="cycleTime">The cycle time.</param>
-		public bool SetCurrentCycle(long cycle, DateTime cycleTime)
+		/// <returns>
+		/// True is the new cycle is set.
+		/// </returns>
+		public bool SetNewCycle(long cycle, DateTime cycleTime)
 		{
-			if (this.historyParameters.CurrentParameters.Cycle < cycle && this.historyParameters.CurrentParameters.CycleTime < cycleTime)
+			if (this.currentParameters.Cycle < cycle && this.currentParameters.CycleTime < cycleTime)
 			{
-				this.historyParameters.CurrentParameters.Cycle = cycle;
-				this.historyParameters.CurrentParameters.CycleTime = CycleTime;
+				if (this.lastParameters != null) { this.historyParameters.Add(this.lastParameters); }
+				this.lastParameters = this.currentParameters;
+				this.CreateNewCurrentParameters(cycle, cycleTime);
+				this.loger.Debug(string.Format("Component {0} : The set new cycle was called succesfuly", this.basicComponent.Code));
 				return true;
 			}
+
+			this.loger.Warn(string.Format("Component {0} : The set new cycle was canceled why the current cycle and the cycletime was not ok", this.basicComponent.Code));
 			return false;
 		}
 
@@ -235,9 +285,9 @@
 															 // Check if all param is uptodate
 															 //		Calculate
 
-															 string code = this.historyParameters.CurrentParameters.GetParameterKey(componentKey, parameterKey);
+															 string code = this.currentParameters.GetParameterKey(componentKey, parameterKey);
 															 this.SetParameter(code, args);
-															 if (this.helperHistoryParameters.CheckIfAllParamIsUpToDate(this.historyParameters.CurrentParameters))
+															 if (this.helperHistoryParameters.CheckIfAllParamIsUpToDate(this.currentParameters))
 															 {
 																 this.basicComponent.Calculate();
 															 }
@@ -252,7 +302,29 @@
 		/// <returns>True if exist.</returns>
 		private bool CheckParmaeterKey(string key)
 		{
-			return this.componentParmateres.Params.Any(param => param.Key == key);
+			return this.currentParameters.Any(param => param.Key == key);
+		}
+
+		/// <summary>
+		/// Creates the new current parameters.
+		/// </summary>
+		private void CreateNewCurrentParameters(long cycle, DateTime cycleTime)
+		{
+			this.currentParameters = new Parameters(cycle, cycleTime);
+
+			foreach (var parameter in this.lastParameters)
+			{
+				var param = new Parameter
+				{
+					Key = parameter.Key,
+					Comment = parameter.Comment,
+					RecieveOutputKey = parameter.RecieveOutputKey,
+					RecieveOutputComponentKey = parameter.RecieveOutputComponentKey,
+					Value = parameter.Value
+				};
+				this.currentParameters.Add(param);
+			}
+
 		}
 	}
 }

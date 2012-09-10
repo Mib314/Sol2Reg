@@ -2,22 +2,22 @@
 {
 	using DataObject;
 	using Sol2Reg.LogicalComponent.ComponentBase;
-	using Sol2Reg.LogicalComponent.Interface;
 	using Sol2Reg.LogicalComponent.Interface.ComponentBase;
+	using log4net;
 
 	public class BasicComponantImplementation : BasicComponent
 	{
 		public const string INPUT1 = "input1";
-		private AnalogValue lastOutputValue;
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="BasicComponantImplementation"/> class.
 		/// </summary>
-		/// <param name="parametersManager"></param>
-		public BasicComponantImplementation(IParametersManager parametersManager)
-			: base(parametersManager)
+		/// <param name="components">The components.</param>
+		/// <param name="parametersManager">The parameters manager.</param>
+		/// <param name="loger">The loger.</param>
+		public BasicComponantImplementation(Components components, IParametersManager parametersManager, ILog loger)
+			: base(components, parametersManager, loger)
 		{
-			this.lastOutputValue = new AnalogValue();
 		}
 		
 		/// <summary>

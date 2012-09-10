@@ -23,8 +23,7 @@ namespace Sol2Reg.LogicalComponent.Interface.ComponentBase
 		/// <summary>Initializes this instance.</summary>
 		/// <param name="componentParmeters">The component parmeters list.</param>
 		/// <returns>This instance.</returns>
-		/// <remarks>This list doesn't change.</remarks>
-		IParametersManager Initialize(IParameters componentParmeters);
+		void Initialize(IParameters componentParmeters);
 
 		/// <summary>Determines whether [is all input param uptodate].</summary>
 		/// <returns><c>true</c> if [is all input param uptodate]; otherwise, <c>false</c>.</returns>

@@ -1,4 +1,4 @@
-namespace Sol2Reg.DataObject
+namespace Sol2Reg.DataObject.Enum
 {
 	/// <summary>
 	/// Parameter direction (in or out).

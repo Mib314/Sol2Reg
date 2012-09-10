@@ -3,10 +3,12 @@
 	using System.Collections.Generic;
 	using DataObject;
 	using FluentAssertions;
+	using Sol2Reg.LogicalComponent.ComponentBase;
 	using Sol2Reg.LogicalComponent.Interface;
 	using Moq;
 	using Sol2Reg.LogicalComponent.Interface.ComponentBase;
 	using Xunit;
+	using log4net;
 
 	/// <summary>
 	/// Test BasicComponent class
@@ -15,7 +17,9 @@
 	{
 		private const decimal PARAM_ANALOGUE1 = 15.36M;
 
-		private readonly Mock<IInternalParametersManager> valueManager;
+		private readonly Components components;
+		private readonly Mock<ILog> logger; 
+		private readonly Mock<IInternalParametersManager> ParametersManager;
 		private readonly BasicComponantImplementation testee;
 
 		/// <summary>
@@ -23,9 +27,10 @@
 		/// </summary>
 		public BasicComponentTest()
 		{
-			this.valueManager = new Mock<IInternalParametersManager>();
-
-			this.testee = new BasicComponantImplementation(this.valueManager.Object);
+			this.components = new Components();
+			this.logger = new Mock<ILog>();
+			this.ParametersManager = new Mock<IInternalParametersManager>();
+			this.testee = new BasicComponantImplementation(this.components, this.ParametersManager.Object, this.logger.Object);
 		}
 
 		/// <summary>
@@ -37,7 +42,7 @@
 			var newParam = this.SetAnalogValue(PARAM_ANALOGUE1);
 			this.testee.SetParam(newParam, BasicComponantImplementation.INPUT1);
 
-			this.valueManager.Verify(foo => foo.SetParameter(BasicComponantImplementation.INPUT1, newParam));
+			this.ParametersManager.Verify(foo => foo.SetParameter(BasicComponantImplementation.INPUT1, newParam));
 		}
 
 		/// <summary>
@@ -47,11 +52,11 @@
 		public void GetParamWhenReadAParamThenReadFromValueManager()
 		{
 			var newParam = this.SetAnalogValue(PARAM_ANALOGUE1);
-//			this.valueManager.SetupGet(foo => foo.CurrentParams).Returns(new Dictionary<string, IValue> { { BasicComponantImplementation.INPUT1, newParam } });
+//			this.ParametersManager.SetupGet(foo => foo.CurrentParams).Returns(new Dictionary<string, IValue> { { BasicComponantImplementation.INPUT1, newParam } });
 
 			var readValue = this.testee.GetParam(BasicComponantImplementation.INPUT1);
 
-			//this.valueManager.Verify(foo => foo.CurrentParams);
+			//this.ParametersManager.Verify(foo => foo.CurrentParams);
 		}
 
 		/// <summary>

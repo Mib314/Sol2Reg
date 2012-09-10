@@ -11,6 +11,7 @@ namespace Sol2Reg.LogicalComponent.Interface.ComponentBase
 		/// <param name="gain">The gain.</param>
 		/// <param name="offset">The offset.</param>
 		void Initialize(string code, IValue gain, IValue offset);
+		
 		/// <summary>
 		/// Valeur multiplicative d'une source analogique.
 		/// </summary>

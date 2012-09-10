@@ -3,29 +3,23 @@
 	using ComponentBase;
 	using DataObject;
 	using Interface.ComponentBase;
+	using log4net;
 
 	public class Amplifier : AnalogBasicComponent, IAmplifier
 	{
 		public const string INPUT1 = "Input1";
 
-		/// <summary>Initializes a new instance of the <see cref="Amplifier"/> class.</summary>
+		/// <summary>
+		/// Initializes a new instance of the <see cref="Amplifier"/> class.
+		/// </summary>
+		/// <param name="components">The components.</param>
 		/// <param name="parametersManager">The parameters manager.</param>
-		public Amplifier(IParametersManager parametersManager)
-			: base(parametersManager)
+		/// <param name="loger">The loger.</param>
+		public Amplifier(Components components, IParametersManager parametersManager, ILog loger)
+			: base(components, parametersManager,loger)
 		{
 		}
 
-		/// <summary>
-		/// Initializes the input1.
-		/// </summary>
-		/// <param name="parameter">The parameter.</param>
-		public void InitializeInput1(IParameter parameter)
-		{
-			if (!this.InitialParameters.Params.ContainsKey(INPUT1))
-			{
-				this.InitialParameters.Params.Add(INPUT1, parameter);
-			}
-		}
 		/// <summary>Initilises the specified code.</summary>
 		/// <param name="code">The code.</param>
 		/// <param name="gain">The gain.</param>
@@ -33,6 +27,12 @@
 		/// <returns>This.</returns>
 		public Amplifier Initilise(string code, IValue gain, IValue offser)
 		{
+			this.InitialParameters.Add(new Parameter
+									   {
+										   Key = INPUT1,
+										   Comment = "This input parmaeter",
+										   Value = new AnalogValue()
+									   });
 			base.Initialize(code, gain, offser);
 			return this;
 		}

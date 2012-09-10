@@ -54,6 +54,9 @@
 			this.unityContainer.RegisterType<IDigitalBasicComponent, DigitalBasicComponent>();
 			this.unityContainer.RegisterType<IBasicComponentForParameterManager, BasicComponent>();
 
+			// As Singelton
+			this.unityContainer.RegisterInstance<Components>(new Components());
+			
 		}
 
 		#region Implementation of ISystemConfiguration

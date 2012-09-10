@@ -11,24 +11,15 @@ namespace Sol2Reg.DataObject
 	/// Des fontions pour lire, modifier et ajouter des paramètres.
 	/// Une fonction pour verifier si tous les paramètres sont uptodate.
 	/// </summary>
-	public interface IParameters
+	public interface IParameters : IList<IParameter>
 	{
-		/// <summary>Gets or sets the params.</summary>
-		/// <value>The params.</value>
-		Dictionary<string, IParameter> Params { get; set; }
-
 		/// <summary>Gets the current cycle number.</summary>
 		/// <value>The cycle.</value>
-		long Cycle { get; set; }
+		long Cycle { get; }
 
 		/// <summary>Gets or sets the cycle time.</summary>
 		/// <value>The cycle time.</value>
-		DateTime CycleTime { get; set; }
-
-		/// <summary>Adds the specified parameter.</summary>
-		/// <param name="parameter">The new parameter.</param>
-		/// <returns>Ture if the parameter is new, otherwise returnn false.</returns>
-		bool Add(IParameter parameter);
+		DateTime CycleTime { get; }
 
 		/// <summary>
 		/// Gets the parameter value.
@@ -63,7 +54,21 @@ namespace Sol2Reg.DataObject
 		/// <param name="value">The value.</param>
 		void SetParameter(string key, IValue value);
 
+		/// <summary>
+		/// Sets the recieve info for input param.
+		/// </summary>
+		/// <param name="key">The key.</param>
+		/// <param name="recieveComponentKey">The recieve component key.</param>
+		/// <param name="recieveOutputKey">The recieve output key.</param>
 		void SetRecieveInfoForInputParam(string key, string recieveComponentKey, string recieveOutputKey);
-		void SetNewCycle(long cycle, DateTime cycleTime);
+
+		/// <summary>
+		/// Determines whether the specified key contains key.
+		/// </summary>
+		/// <param name="key">The key.</param>
+		/// <returns>
+		///   <c>true</c> if the specified key contains key; otherwise, <c>false</c>.
+		/// </returns>
+		bool ContainsKey(string key);
 	}
 }

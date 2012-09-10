@@ -4,6 +4,7 @@
 	using System.Linq;
 	using System.Collections.Generic;
 	using DataObject;
+	using DataObject.Enum;
 	using DataObject.Events;
 	using Interface.ComponentBase;
 
@@ -70,7 +71,7 @@
 		public bool CheckIfAllParamIsUpToDate(IParameters currentParams)
 		{
 			// Check if all input dynamic (input param with a recieve code) param is up to date
-			return currentParams.Params.Where(param => (param.Value.ParameterDirection == EnumParameterDirection.Input) || (!string.IsNullOrWhiteSpace(param.Value.RecieveOutputKey))).All(currentParam => currentParam.Value.IsUptoDate);
+			return currentParams.Where(param => (param.ParameterDirection == EnumParameterDirection.Input) || (!string.IsNullOrWhiteSpace(param.RecieveOutputKey))).All(currentParam => currentParam.IsUptoDate);
 		}
 	}
 }

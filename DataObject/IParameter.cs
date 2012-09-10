@@ -1,12 +1,14 @@
 namespace Sol2Reg.DataObject
 {
+	using Enum;
+
 	/// <summary>
 	/// Un paramètre est une entrée pour sortie d'un composant.
 	/// Il est constiruée
 	/// </summary>
 	public interface IParameter
 	{
-		/// <summary>Gets or sets the value.</summary>
+		/// <summary>Gets or sets the value and set IsUptodate = true.1.</summary>
 		/// <value>The value.</value>
 		IValue Value { get; set; }
 
@@ -49,32 +51,33 @@ namespace Sol2Reg.DataObject
 		/// <value>	<c>true</c> if this instance is inverted; otherwise, <c>false</c>.</value>
 		bool IsInverted { get; }
 
-		/// <summary>Initializes the specified key.</summary>
+		/// <summary>
+		/// Initializes the specified key.
+		/// </summary>
 		/// <param name="key">The key.</param>
+		/// <param name="initialValue">The initial value.</param>
 		/// <param name="recieveOutputComponentKey">The recieve output component key.</param>
 		/// <param name="recieveOutputKey">The recieve output key.</param>
-		/// <param name="type">The type.</param>
 		/// <param name="direction">The direction.</param>
 		/// <param name="isInverted">if set to <c>true</c> [is inverted].</param>
 		/// <param name="comment">The comment.</param>
 		/// <returns>This.</returns>
-		void Initialize(string key, string recieveOutputComponentKey, string recieveOutputKey, EnumParameterType type = EnumParameterType.Analog, EnumParameterDirection direction = EnumParameterDirection.Input, bool isInverted = false, string comment = "");
+		IParameter Initialize(string key, IValue initialValue, string recieveOutputComponentKey, string recieveOutputKey, EnumParameterDirection direction = EnumParameterDirection.Input, bool isInverted = false, string comment = "");
 
-		/// <summary>Initializes the specified key.</summary>
+		/// <summary>
+		/// Initializes the specified key.
+		/// </summary>
 		/// <param name="key">The key.</param>
-		/// <param name="type">The type (Analog / Digital).</param>
+		/// <param name="initialValue">The initial value.</param>
 		/// <param name="direction">The direction (Input / Output).</param>
 		/// <param name="comment">The comment.</param>
 		/// <returns>This.</returns>
-		void Initialize(string key, EnumParameterType type = EnumParameterType.Analog, EnumParameterDirection direction = EnumParameterDirection.Input, string comment = "");
+		IParameter Initialize(string key, IValue initialValue, EnumParameterDirection direction = EnumParameterDirection.Input, string comment = "");
 
 
 		/// <summary>Sets the recieve info for input param.</summary>
 		/// <param name="recieveComponentKey">The recieve component key.</param>
 		/// <param name="recieveOutputKey">The recieve output key.</param>
 		void SetRecieveInfoForInputParam(string recieveComponentKey, string recieveOutputKey);
-
-		/// <summary>Sets the new cycle.</summary>
-		void SetNewCycle();
 	}
 }

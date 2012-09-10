@@ -2,8 +2,10 @@
 {
 	using ComponentBase;
 	using DataObject;
+	using DataObject.Enum;
 	using Interface.AnalogComponants;
 	using Interface.ComponentBase;
+	using log4net;
 
 	public sealed class AnalogCompar : AnalogBasicComponent, IAnalogCompar
 	{
@@ -11,11 +13,40 @@
 		public const string INPUT2 = "input2";
 		public const string PARAM_D_ON = "D_On  ";
 		public const string PARAM_D_OFF = "D_Off ";
-		public const string OUTPUT1 = "output1 ";
 
-		public AnalogCompar(IParametersManager parametersManager)
-			: base(parametersManager)
+		/// <summary>
+		/// Initializes a new instance of the <see cref="AnalogCompar"/> class.
+		/// </summary>
+		/// <param name="components">The components.</param>
+		/// <param name="parametersManager">The parameters manager.</param>
+		/// <param name="loger">The loger.</param>
+		public AnalogCompar(Components components, IParametersManager parametersManager, ILog loger)
+			: base(components, parametersManager, loger)
 		{
+		}
+
+		/// <summary>
+		/// Gets or sets the delta value to set off.
+		/// </summary>
+		/// <value>
+		/// The delta value to set off.
+		/// </value>
+		public AnalogValue Input1
+		{
+			get { return (AnalogValue)this.InternalParametersManager.GetParameter(INPUT1).Value; }
+			protected set { this.InternalParametersManager.SetParameter(INPUT1, value); }
+		}
+
+		/// <summary>
+		/// Gets or sets the delta value to set off.
+		/// </summary>
+		/// <value>
+		/// The delta value to set off.
+		/// </value>
+		public AnalogValue Intput2
+		{
+			get { return (AnalogValue)this.InternalParametersManager.GetParameter(INPUT2).Value; }
+			protected set { this.InternalParametersManager.SetParameter(INPUT2, value); }
 		}
 
 		/// <summary>
@@ -48,9 +79,9 @@
 		/// <value>
 		/// The output 1.
 		/// </value>
-		public AnalogValue Output1
+		public DigitalValue Output1
 		{
-			get { return (AnalogValue)this.InternalParametersManager.GetParameter(OUTPUT1).Value; }
+			get { return (DigitalValue)this.InternalParametersManager.GetParameter(OUTPUT1).Value; }
 			protected set { this.InternalParametersManager.SetParameter(OUTPUT1, value); }
 		}
 
@@ -70,7 +101,7 @@
 
 			var realValue1 = AnalogValue.AdjustValue(this.GetParameter(INPUT1), this.Gain, this.Offset);
 			var realValue2 = AnalogValue.AdjustValue(this.GetParameter(INPUT2), this.Gain, this.Offset);
-			
+
 			/* 
 			 * Règle de calcul
 			 *      Si seuil d'enclenchement (DeltaOn) ≥ seuil de déclenchement (DeltaOff), on a :
@@ -106,30 +137,6 @@
 		}
 
 		/// <summary>
-		/// Initializes the input1.
-		/// </summary>
-		/// <param name="parameter">The parameter.</param>
-		public void InitializeInput1(IParameter parameter)
-		{
-			if(!this.InitialParameters.Params.ContainsKey(INPUT1))
-			{
-				this.InitialParameters.Params.Add(INPUT1, parameter);
-			}
-		}
-
-		/// <summary>
-		/// Initializes the input2.
-		/// </summary>
-		/// <param name="parameter">The parameter.</param>
-		public void InitializeInput2(IParameter parameter)
-		{
-			if (!this.InitialParameters.Params.ContainsKey(INPUT2))
-			{
-				this.InitialParameters.Params.Add(INPUT2, parameter);
-			}
-		}
-
-		/// <summary>
 		/// Initialize the specified name.
 		/// </summary>
 		/// <param name="code">The code.</param>
@@ -139,12 +146,13 @@
 		/// <param name="deltaValueToSetOff">The delta value to set off.</param>
 		public void Initialize(string code, AnalogValue gain, AnalogValue offset, AnalogValue deltaValueToSetOn, AnalogValue deltaValueToSetOff)
 		{
-			base.Initialize(code, gain, offset);
-			this.DeltaValueToSetOff = deltaValueToSetOff;
-			this.DeltaValueToSetOn = deltaValueToSetOn;
-			this.DeltaValueToSetOff = (AnalogValue)new AnalogValue().Initialize();
-			this.DeltaValueToSetOn = (AnalogValue)new AnalogValue().Initialize();
-			this.Output1 = (AnalogValue)new DigitalValue().Initialize();
+			this.InitialParameters.Add(new Parameter().Initialize(PARAM_D_OFF, new AnalogValue(), EnumParameterDirection.Input, "Delta value to set OFF."));
+			this.InitialParameters.Add(new Parameter().Initialize(PARAM_D_ON, new AnalogValue(), EnumParameterDirection.Input, "Delta value to set ON."));
+			this.InitialParameters.Add(new Parameter().Initialize(INPUT1, new AnalogValue(), EnumParameterDirection.Input, "Input value 1."));
+			this.InitialParameters.Add(new Parameter().Initialize(INPUT2, new AnalogValue(), EnumParameterDirection.Input, "Input value 2."));
+			this.InitialParameters.Add(new Parameter().Initialize(OUTPUT1, new AnalogValue(), EnumParameterDirection.Output, "Output value."));
+
+			this.Initialize(code, gain, offset);
 		}
 		#endregion
 	}

@@ -3,6 +3,7 @@ namespace Sol2Reg.DataObject
 	using System;
 	using System.Collections.Generic;
 	using System.Linq;
+	using Enum;
 
 	/// <summary>
 	/// La class Parameters contient la liste des paramètres d'un composant.
@@ -12,16 +13,12 @@ namespace Sol2Reg.DataObject
 	/// Des fontions pour lire, modifier et ajouter des paramètres.
 	/// Une fonction pour verifier si tous les paramètres sont uptodate.
 	/// </summary>
-	public class Parameters : IParameters
+	public class Parameters : List<IParameter>, IParameters
 	{
-		/// <summary>Gets or sets the params.</summary>
-		/// <value>The params.</value>
-		public Dictionary<string, IParameter> Params { get; set; }
-
 		/// <summary>
 		/// Gets the current cycle number.
 		/// </summary>
-		public long Cycle { get; set; }
+		public long Cycle { get; private set; }
 
 		/// <summary>
 		/// Gets or sets the cycle time.
@@ -29,27 +26,31 @@ namespace Sol2Reg.DataObject
 		/// <value>
 		/// The cycle time.
 		/// </value>
-		public DateTime CycleTime { get; set; }
+		public DateTime CycleTime { get; private set; }
+
+		public Parameters(long cycle, DateTime cycleTime)
+		{
+			this.Cycle = cycle;
+			this.CycleTime = cycleTime;
+		}
 
 		/// <summary>Adds the specified parameter.</summary>
 		/// <param name="parameter">The parameter.</param>
 		/// <returns>Ture if the parma is new and added, otherwise returnn false.</returns>
-		public bool Add(IParameter parameter)
+		public new void Add(IParameter parameter)
 		{
-			if (!this.Params.ContainsKey(parameter.Key))
+			if (!this.ContainsKey(parameter.Key))
 			{
-				this.Params.Add(parameter.Key, parameter);
-				return true;
+				base.Add(parameter);
 			}
-
-			return false;
 		}
 
 		public void SetParameter(string key, IValue value)
 		{
-			if (this.Params.ContainsKey(key))
+			var param = this.FirstOrDefault(p => p.Key == key);
+			if (param != null)
 			{
-				this.Params[key].Value = value;
+				param.Value = value;
 			}
 		}
 
@@ -71,9 +72,9 @@ namespace Sol2Reg.DataObject
 		/// <returns></returns>
 		public IParameter GetParameter(string key)
 		{
-			if (this.Params.ContainsKey(key))
+			if (this.ContainsKey(key))
 			{
-				return this.Params[key];
+				return this.FirstOrDefault(p => p.Key == key);
 			}
 
 			return null;
@@ -85,15 +86,16 @@ namespace Sol2Reg.DataObject
 		/// <returns>Return the parameter key.</returns>
 		public string GetParameterKey(string recieveOutpuComponentKey, string recieveOutputKey)
 		{
-			return this.Params.Where(param => param.Value.RecieveOutputComponentKey == recieveOutpuComponentKey && param.Value.RecieveOutputKey == recieveOutputKey).Select(param => param.Value.Key).FirstOrDefault();
+			return this.Where(p => p.RecieveOutputComponentKey == recieveOutpuComponentKey && p.RecieveOutputKey == recieveOutputKey).Select(p => p.Key).FirstOrDefault();
 		}
 
 		/// <summary>
 		/// Determines whether [is all input param uptodate].
+		/// Relevant is Dynamic parameters.
 		/// </summary>
 		public bool IsAllInputParamUptodate()
 		{
-			return Params.Any(param => !param.Value.IsUptoDate);
+			return this.Where(p => p.ParameterDirection == EnumParameterDirection.Input && p.IsDynamic).All(p => !p.IsUptoDate);
 		}
 
 		/// <summary>Sets the recieve info for input param.</summary>
@@ -102,7 +104,7 @@ namespace Sol2Reg.DataObject
 		/// <param name="recieveOutputKey">The recieve output key.</param>
 		public void SetRecieveInfoForInputParam(string key, string recieveComponentKey, string recieveOutputKey)
 		{
-			var param = this.Params.FirstOrDefault(p => p.Key == key).Value;
+			var param = this.FirstOrDefault(p => p.Key == key);
 			if (param != null)
 			{
 				param.RecieveOutputKey = recieveOutputKey;
@@ -110,17 +112,16 @@ namespace Sol2Reg.DataObject
 			}
 		}
 
-		/// <summary>Sets the new cycle.</summary>
-		/// <param name="cycle">The cycle.</param>
-		/// <param name="cycleTime">The cycle time.</param>
-		public void SetNewCycle(long cycle, DateTime cycleTime)
+		/// <summary>
+		/// Determines whether the specified key contains key.
+		/// </summary>
+		/// <param name="key">The key.</param>
+		/// <returns>
+		///   <c>true</c> if the specified key contains key; otherwise, <c>false</c>.
+		/// </returns>
+		public bool ContainsKey(string key)
 		{
-			this.Cycle = cycle;
-			this.CycleTime = cycleTime;
-			foreach (var parameter in Params)
-			{
-				parameter.Value.SetNewCycle();
-			}
+			return this.Any(p => p.Key == key);
 		}
 	}
 }

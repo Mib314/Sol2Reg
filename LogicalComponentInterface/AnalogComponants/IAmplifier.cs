@@ -5,6 +5,5 @@ namespace Sol2Reg.LogicalComponent.AnalogComponents
 
 	public interface IAmplifier: IAnalogBasicComponent
 	{
-		void InitializeInput1(IParameter parameter);
 	}
 }
