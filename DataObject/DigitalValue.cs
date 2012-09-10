@@ -1,7 +1,5 @@
 ﻿namespace Sol2Reg.DataObject
 {
-	using System;
-
 	public class DigitalValue : IValue
 	{
 		/// <summary>
@@ -10,6 +8,7 @@
 		public DigitalValue()
 			: this(false)
 		{
+			this.IsInverted = false;
 		}
 
 		/// <summary>
@@ -29,6 +28,29 @@
 		{
 			this.Value = value;
 		}
+
+		/// <summary>Gets the calculate value.</summary>
+		/// <returns>The value calculate with IsInverted.</returns>
+		public bool GetCalculateValue()
+		{
+			if(this.Value.HasValue)
+			if (IsInverted)
+				return this.Value.Value;
+
+			if (this.Value.HasValue)
+			{
+				return !this.Value.Value;
+			}
+
+			return false;
+		}
+		/// <summary>
+		/// Gets or sets a value indicating whether this instance is inverted.
+		/// </summary>
+		/// <value>
+		/// 	<c>true</c> if this instance is inverted; otherwise, <c>false</c>.
+		/// </value>
+		internal bool IsInverted { get; set; }
 
 		/// <summary>
 		/// Gets or sets a value indicating whether this <see cref="DigitalValue"/> is value.
@@ -102,7 +124,7 @@
 		private static bool? CheckEqualBase(DigitalValue value1, DigitalValue value2)
 		{
 			// If both are null, or both are same instance, return true.
-			if (System.Object.ReferenceEquals(value1, value2))
+			if (ReferenceEquals(value1, value2))
 			{
 				return true;
 			}

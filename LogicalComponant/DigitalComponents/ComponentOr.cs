@@ -5,14 +5,15 @@
 	using DataObject;
 	using Interface.ComponentBase;
 
-	public class ComponentAnd : BasicComponent
+	public class ComponentOr : BasicComponent
 	{
 		public const string OUTPUT1 = "Out1";
+
 		/// <summary>
 		/// Initializes a new instance of the <see cref="ComponentAnd"/> class.
 		/// </summary>
 		/// <param name="pParametersManager">The p parameters manager.</param>
-		public ComponentAnd(IParametersManager pParametersManager)
+		public ComponentOr(IParametersManager pParametersManager)
 			: base(pParametersManager)
 		{
 		}
@@ -38,7 +39,7 @@
 
 		public override void Calculate()
 		{
-			IValue val = new DigitalValue(this.ParametersManager.GetInputDynamicParameter().All(p => p.ParameterType == EnumParameterType.Digital && ((DigitalValue)p.Value).GetCalculateValue()));
+			IValue val = new DigitalValue(this.ParametersManager.GetInputDynamicParameter().Any(p => p.ParameterType == EnumParameterType.Digital && ((DigitalValue)p.Value).GetCalculateValue()));
 			this.InternalParametersManager.SetParameter(OUTPUT1, val);
 
 			base.Calculate();

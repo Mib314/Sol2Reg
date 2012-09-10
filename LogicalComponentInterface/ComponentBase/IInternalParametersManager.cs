@@ -10,34 +10,17 @@ namespace Sol2Reg.LogicalComponent.Interface.ComponentBase
 		/// <summary>
 		/// Gets the current cycle number.
 		/// </summary>
-		new long Cycle { get; set; }
+		new long Cycle { get; }
 
 		/// <summary>
-		/// Gets or sets the cycle time.
+		/// Gets the current cycle time.
 		/// </summary>
-		/// <value>
-		/// The cycle time.
-		/// </value>
-		new DateTime CycleTime { get; set; }
+		new DateTime CycleTime { get; }
 
 		/// <summary>
 		/// Histroy of Analog/Digital params.
 		/// </summary>
-		Dictionary<int, IParameters> HistoryValues { get; }
-
-		/// <summary>
-		/// Setters the param (Analog and Digital).
-		/// </summary>
-		/// <param name="code">The code.</param>
-		/// <param name="value">The value.</param>
-		void SetParameter(string code, IValue value);
-
-		/// <summary>
-		/// Setters the param (Analog and Digital).
-		/// </summary>
-		/// <param name="code">The code.</param>
-		/// <param name="args">The <see cref="Sol2Reg.DataObject.Events.ValueEventArgs"/> instance containing the event data.</param>
-		void SetParameter(string code, ValueEventArgs args);
+		List<IParameters> HistoryValues { get; }
 
 		/// <summary>
 		/// Called when [event output change].
@@ -59,10 +42,16 @@ namespace Sol2Reg.LogicalComponent.Interface.ComponentBase
 		void OverideCurrentParametersWithLastParameters();
 
 		/// <summary>
-		/// News the cycle.
+		/// Sends all output event.
+		/// </summary>
+		void SendAllOutputEvent();
+
+		/// <summary>
+		/// Sets the current cycle.
 		/// </summary>
 		/// <param name="cycle">The cycle.</param>
 		/// <param name="cycleTime">The cycle time.</param>
-		void NewCycle(long cycle, DateTime cycleTime);
+		/// <returns>True is the new cycle is set.</returns>
+		bool SetCurrentCycle(long cycle, DateTime cycleTime);
 	}
 }

@@ -21,7 +21,7 @@ namespace Sol2Reg.DataObject
 		/// <summary>
 		/// Gets the current cycle number.
 		/// </summary>
-		public long Cycle { get; private set; }
+		public long Cycle { get; set; }
 
 		/// <summary>
 		/// Gets or sets the cycle time.
@@ -29,64 +29,63 @@ namespace Sol2Reg.DataObject
 		/// <value>
 		/// The cycle time.
 		/// </value>
-		public DateTime CycleTime { get; private set; }
+		public DateTime CycleTime { get; set; }
 
 		/// <summary>Adds the specified parameter.</summary>
 		/// <param name="parameter">The parameter.</param>
 		/// <returns>Ture if the parma is new and added, otherwise returnn false.</returns>
 		public bool Add(IParameter parameter)
 		{
-			if (!this.Params.ContainsKey(parameter.Code))
+			if (!this.Params.ContainsKey(parameter.Key))
 			{
-				this.Params.Add(parameter.Code, parameter);
+				this.Params.Add(parameter.Key, parameter);
 				return true;
 			}
 
 			return false;
 		}
 
-		public void SetParameter(string code, IValue value)
+		public void SetParameter(string key, IValue value)
 		{
-			if (this.Params.ContainsKey(code))
+			if (this.Params.ContainsKey(key))
 			{
-				this.Params[code].Value = value;
+				this.Params[key].Value = value;
 			}
 		}
 
 		/// <summary>
 		/// Gets the parameter value.
 		/// </summary>
-		/// <param name="code">The code.</param>
+		/// <param name="key">The key.</param>
 		/// <returns>Value.</returns>
-		public IValue GetParameterValue(string code)
+		public IValue GetParameterValue(string key)
 		{
-			var param = this.GetParameter(code);
+			var param = this.GetParameter(key);
 			return param == null ? null : param.Value;
 		}
 
 		/// <summary>
 		/// Gets the parameter.
 		/// </summary>
-		/// <param name="code">The code.</param>
+		/// <param name="key">The key.</param>
 		/// <returns></returns>
-		public IParameter GetParameter(string code)
+		public IParameter GetParameter(string key)
 		{
-			if (this.Params.ContainsKey(code))
+			if (this.Params.ContainsKey(key))
 			{
-				return this.Params[code];
+				return this.Params[key];
 			}
 
 			return null;
 		}
 
-		/// <summary>
-		/// Gets the parameter code with the recieve code.
-		/// </summary>
-		/// <param name="recieveCode">The recieve code.</param>
-		/// <returns>Return the parameter code.</returns>
-		public string GetParameterCode(string recieveCode)
+		/// <summary>Gets the parameter key with the recieve key.</summary>
+		/// <param name="recieveOutpuComponentKey">The recieve outpu component key.</param>
+		/// <param name="recieveOutputKey">The recieve output key.</param>
+		/// <returns>Return the parameter key.</returns>
+		public string GetParameterKey(string recieveOutpuComponentKey, string recieveOutputKey)
 		{
-			return this.Params.Where(param => param.Value.RecieveCode == recieveCode).Select(param => param.Value.Code).FirstOrDefault();
+			return this.Params.Where(param => param.Value.RecieveOutputComponentKey == recieveOutpuComponentKey && param.Value.RecieveOutputKey == recieveOutputKey).Select(param => param.Value.Key).FirstOrDefault();
 		}
 
 		/// <summary>
@@ -95,6 +94,33 @@ namespace Sol2Reg.DataObject
 		public bool IsAllInputParamUptodate()
 		{
 			return Params.Any(param => !param.Value.IsUptoDate);
+		}
+
+		/// <summary>Sets the recieve info for input param.</summary>
+		/// <param name="key">The key.</param>
+		/// <param name="recieveComponentKey">The recieve component key.</param>
+		/// <param name="recieveOutputKey">The recieve output key.</param>
+		public void SetRecieveInfoForInputParam(string key, string recieveComponentKey, string recieveOutputKey)
+		{
+			var param = this.Params.FirstOrDefault(p => p.Key == key).Value;
+			if (param != null)
+			{
+				param.RecieveOutputKey = recieveOutputKey;
+				param.RecieveOutputComponentKey = recieveComponentKey;
+			}
+		}
+
+		/// <summary>Sets the new cycle.</summary>
+		/// <param name="cycle">The cycle.</param>
+		/// <param name="cycleTime">The cycle time.</param>
+		public void SetNewCycle(long cycle, DateTime cycleTime)
+		{
+			this.Cycle = cycle;
+			this.CycleTime = cycleTime;
+			foreach (var parameter in Params)
+			{
+				parameter.Value.SetNewCycle();
+			}
 		}
 	}
 }

@@ -1,9 +1,22 @@
 namespace Sol2Reg.LogicalComponent.Interface.AnalogComponants
 {
+	using ComponentBase;
 	using DataObject;
 
 	public interface IAnalogCompar : IAnalogBasicComponent
 	{
+		/// <summary>
+		/// Initializes the input1.
+		/// </summary>
+		/// <param name="parameter">The parameter.</param>
+		void InitializeInput1(IParameter parameter);
+
+		/// <summary>
+		/// Initializes the input2.
+		/// </summary>
+		/// <param name="parameter">The parameter.</param>
+		void InitializeInput2(IParameter parameter);
+
 		/// <summary>
 		/// Initialize the specified name.
 		/// </summary>

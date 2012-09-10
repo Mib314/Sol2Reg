@@ -1,6 +1,5 @@
-namespace Sol2Reg.LogicalComponent.Interface
+namespace Sol2Reg.LogicalComponent.Interface.ComponentBase
 {
-	using ComponentBase;
 	using DataObject;
 
 	public interface IAnalogBasicComponent : IBasicComponent
@@ -11,16 +10,7 @@ namespace Sol2Reg.LogicalComponent.Interface
 		/// <param name="code">The code.</param>
 		/// <param name="gain">The gain.</param>
 		/// <param name="offset">The offset.</param>
-		void Initialize(string code, AnalogValue gain, AnalogValue offset);
-
-		/// <summary>
-		/// Gets or sets the input 1.
-		/// </summary>
-		/// <value>
-		/// The input1.
-		/// </value>
-		AnalogValue Input1 { get; }
-
+		void Initialize(string code, IValue gain, IValue offset);
 		/// <summary>
 		/// Valeur multiplicative d'une source analogique.
 		/// </summary>

@@ -1,22 +1,18 @@
-﻿namespace Sol2Reg.DataObject
+namespace Sol2Reg.DataObject
 {
 	using System;
 	using System.Collections.Generic;
 
-	/// <summary>
-	/// History of parmaeters
-	/// </summary>
-	public class HistoryParameters : IHistoryParameters
-	{
+	public interface IHistoryParameters {
 		/// <summary>
 		/// Histroy of Analog/Digital params.
 		/// </summary>
-		public List<IParameters> HistoryValues { get; private set; }
+		List<IParameters> HistoryValues { get; }
 
 		/// <summary>
 		/// Gets the current parameters.
 		/// </summary>
-		public IParameters CurrentParameters { get; private set; }
+		IParameters CurrentParameters { get; }
 
 		/// <summary>
 		/// Gets or sets the duration of the history time.
@@ -25,7 +21,7 @@
 		/// <value>
 		/// The duration of the history time.
 		/// </value>
-		public DateTime? HistoryTimeDuration { get; set; }
+		DateTime? HistoryTimeDuration { get; set; }
 
 		/// <summary>
 		/// Gets or sets the duration of the history cycle.
@@ -34,7 +30,7 @@
 		/// <value>
 		/// The duration of the history cycle.
 		/// </value>
-		public long? HistoryCycleDuration { get; set; }
+		long? HistoryCycleDuration { get; set; }
 
 		/// <summary>
 		/// Gets or sets the history frequency.
@@ -44,6 +40,6 @@
 		/// <value>
 		/// The history frequency.
 		/// </value>
-		public int HistoryFrequency { get; set; }
+		int HistoryFrequency { get; set; }
 	}
 }

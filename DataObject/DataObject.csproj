@@ -50,11 +50,10 @@
     <Compile Include="DigitalValue.cs" />
     <Compile Include="Events\ExternalSourceValueHandler.cs" />
     <Compile Include="Events\ValueEventArgs.cs" />
-    <Compile Include="Events\ValueChangeHandler.cs" />
+    <Compile Include="Events\OutputChangeNotificationHandler.cs" />
     <Compile Include="IDateTimeNowProvider.cs" />
     <Compile Include="IValue.cs" />
     <Compile Include="DateTimeNowProvider.cs" />
-    <Compile Include="ParameterDigital.cs" />
     <Compile Include="Parameters.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -24,6 +24,7 @@
 		/// </summary>
 		/// <param name="cycle">The cycle.</param>
 		/// <param name="cycleTime">The cycle time.</param>
+		/// <remarks>The new cycle meed to be bigger than the current.</remarks>
 		bool SetCurrentCycle(long cycle, DateTime cycleTime);
 	}
 }

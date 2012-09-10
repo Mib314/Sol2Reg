@@ -18,24 +18,28 @@
 			this.InternalParametersManager = (IInternalParametersManager)parametersManager;
 		}
 
+		/// <summary>Gets or sets the parameters.</summary>
+		/// <value>The parameters.</value>
+		public IParameters InitialParameters { get; set; }
+
 		/// <summary>
 		/// Sets the param.
 		/// </summary>
+		/// <param name="key">Name of the param.</param>
 		/// <param name="value">The value.</param>
-		/// <param name="paramName">Name of the param.</param>
-		protected void SetParam(IValue value, string paramName)
+		public void SetParameter(string key, IValue value)
 		{
-			this.InternalParametersManager.SetParameter(paramName, value);
+			this.InternalParametersManager.SetParameter(key, value);
 		}
 
 		/// <summary>
 		/// Gets the param.
 		/// </summary>
-		/// <param name="paramName">Name of the param.</param>
+		/// <param name="key">Name of the param.</param>
 		/// <returns></returns>
-		protected IValue GetParam(string paramName)
+		protected IValue GetParameter(string key)
 		{
-			return this.InternalParametersManager.GetParameter(paramName).Value;
+			return this.InternalParametersManager.GetParameter(key).Value;
 		}
 
 		/// <summary>
@@ -54,7 +58,7 @@
 		/// <summary>
 		/// Gets the input value manager.
 		/// </summary>
-		public IParametersManager ParametersManager { get { return this.InternalParametersManager; }}
+		public IParametersManager ParametersManager { get { return this.InternalParametersManager; } }
 
 		/// <summary>
 		/// Gets the input value manager for internal ressource only.
@@ -64,8 +68,16 @@
 		/// <summary>
 		/// Executes the calculation.
 		/// </summary>
-		public abstract void Calculate();
+		public virtual void Calculate()
+		{
+			SendAllOutputEvent();
+		}
 
+		private void SendAllOutputEvent()
+		{
+			this.InternalParametersManager.SendAllOutputEvent();
+
+		}
 
 		/// <summary>
 		/// Initializes the specified code.
@@ -82,15 +94,10 @@
 		/// </summary>
 		/// <param name="cycle">The cycle.</param>
 		/// <param name="cycleTime">The cycle time.</param>
+		/// <remarks>The new cycle meed to be bigger than the current.</remarks>
 		public bool SetCurrentCycle(long cycle, DateTime cycleTime)
 		{
-			if (this.InternalParametersManager.Cycle < cycle && this.InternalParametersManager.CycleTime < cycleTime)
-			{
-				this.InternalParametersManager.Cycle = cycle;
-				this.InternalParametersManager.CycleTime = cycleTime;
-				return true;
-			}
-			return false;
+				return this.InternalParametersManager.SetCurrentCycle(cycle, cycleTime);
 		}
 
 		/// <summary>

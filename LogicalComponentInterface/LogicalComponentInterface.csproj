@@ -43,7 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AnalogComponants\IAnalogAmplifier.cs" />
+    <Compile Include="AnalogComponants\IAmplifier.cs" />
     <Compile Include="AnalogComponants\IAnalogCompar.cs" />
     <Compile Include="ComponentBase\IHelperHistoryParameters.cs" />
     <Compile Include="ComponentBase\IBasicComponentForParameterManager.cs" />

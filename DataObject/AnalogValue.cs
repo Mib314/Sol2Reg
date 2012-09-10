@@ -255,7 +255,6 @@
 			this.Value = 0M;
 			return this;
 		}
-
 		#region Private helper methode
 		private static bool? CheckEqualBase(AnalogValue value1, AnalogValue value2)
 		{

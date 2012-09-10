@@ -17,18 +17,13 @@ namespace Sol2Reg.DataObject
 		/// <value>The params.</value>
 		Dictionary<string, IParameter> Params { get; set; }
 
-		/// <summary>
-		/// Gets the current cycle number.
-		/// </summary>
-		long Cycle { get; }
+		/// <summary>Gets the current cycle number.</summary>
+		/// <value>The cycle.</value>
+		long Cycle { get; set; }
 
-		/// <summary>
-		/// Gets or sets the cycle time.
-		/// </summary>
-		/// <value>
-		/// The cycle time.
-		/// </value>
-		DateTime CycleTime { get; }
+		/// <summary>Gets or sets the cycle time.</summary>
+		/// <value>The cycle time.</value>
+		DateTime CycleTime { get; set; }
 
 		/// <summary>Adds the specified parameter.</summary>
 		/// <param name="parameter">The new parameter.</param>
@@ -38,23 +33,24 @@ namespace Sol2Reg.DataObject
 		/// <summary>
 		/// Gets the parameter value.
 		/// </summary>
-		/// <param name="code">The code.</param>
+		/// <param name="key">The key.</param>
 		/// <returns>Return the parameter value.</returns>
-		IValue GetParameterValue(string code);
+		IValue GetParameterValue(string key);
 
 		/// <summary>
 		/// Gets the parameter.
 		/// </summary>
-		/// <param name="code">The code.</param>
+		/// <param name="key">The key.</param>
 		/// <returns>Return the parameter.</returns>
-		IParameter GetParameter(string code);
+		IParameter GetParameter(string key);
 
 		/// <summary>
-		/// Gets the parameter code with the recieve code.
+		/// Gets the parameter key with the recieve key.
 		/// </summary>
-		/// <param name="recieveCode">The recieve code.</param>
-		/// <returns>Return the parameter code.</returns>
-		string GetParameterCode(string recieveCode);
+		/// <param name="recieveCode">The recieve key.</param>
+		/// <param name="recieveOutputKey"> </param>
+		/// <returns>Return the parameter key.</returns>
+		string GetParameterKey(string recieveCode, string recieveOutputKey);
 
 		/// <summary>Determines whether [is all input param uptodate].</summary>
 		/// <returns>  <c>true</c> if [is all input param uptodate]; otherwise, <c>false</c>.</returns>
@@ -63,8 +59,11 @@ namespace Sol2Reg.DataObject
 		/// <summary>
 		/// Sets the parameter.
 		/// </summary>
-		/// <param name="code">The code.</param>
+		/// <param name="key">The key.</param>
 		/// <param name="value">The value.</param>
-		void SetParameter(string code, IValue value);
+		void SetParameter(string key, IValue value);
+
+		void SetRecieveInfoForInputParam(string key, string recieveComponentKey, string recieveOutputKey);
+		void SetNewCycle(long cycle, DateTime cycleTime);
 	}
 }

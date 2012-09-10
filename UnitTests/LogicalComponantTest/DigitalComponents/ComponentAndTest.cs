@@ -19,7 +19,11 @@ namespace Sol2Reg.Test.LogicalComponent.ComponentBase.DigitalComponents
 			// TODO: ajoutez ici la logique du constructeur
 			//
 		}
+		
 		[Fact]
-public void CalaculateWhen
+		public void CalaculateWhen()
+		{
+
+		}
 	}
 }

@@ -2,18 +2,18 @@
 {
 	using ComponentBase;
 	using DataObject;
-	using Interface;
 	using Interface.AnalogComponants;
 	using Interface.ComponentBase;
 
 	public sealed class AnalogCompar : AnalogBasicComponent, IAnalogCompar
 	{
+		public const string INPUT1 = "input1";
 		public const string INPUT2 = "input2";
 		public const string PARAM_D_ON = "D_On  ";
 		public const string PARAM_D_OFF = "D_Off ";
 		public const string OUTPUT1 = "output1 ";
 
-		protected AnalogCompar(IParametersManager parametersManager)
+		public AnalogCompar(IParametersManager parametersManager)
 			: base(parametersManager)
 		{
 		}
@@ -68,8 +68,8 @@
 				return;
 			}
 
-			var realValue1 = AnalogValue.AdjustValue(this.GetParam(INPUT1), this.Gain, this.Offset);
-			var realValue2 = AnalogValue.AdjustValue(this.GetParam(INPUT2), this.Gain, this.Offset);
+			var realValue1 = AnalogValue.AdjustValue(this.GetParameter(INPUT1), this.Gain, this.Offset);
+			var realValue2 = AnalogValue.AdjustValue(this.GetParameter(INPUT2), this.Gain, this.Offset);
 			
 			/* 
 			 * Règle de calcul
@@ -106,6 +106,30 @@
 		}
 
 		/// <summary>
+		/// Initializes the input1.
+		/// </summary>
+		/// <param name="parameter">The parameter.</param>
+		public void InitializeInput1(IParameter parameter)
+		{
+			if(!this.InitialParameters.Params.ContainsKey(INPUT1))
+			{
+				this.InitialParameters.Params.Add(INPUT1, parameter);
+			}
+		}
+
+		/// <summary>
+		/// Initializes the input2.
+		/// </summary>
+		/// <param name="parameter">The parameter.</param>
+		public void InitializeInput2(IParameter parameter)
+		{
+			if (!this.InitialParameters.Params.ContainsKey(INPUT2))
+			{
+				this.InitialParameters.Params.Add(INPUT2, parameter);
+			}
+		}
+
+		/// <summary>
 		/// Initialize the specified name.
 		/// </summary>
 		/// <param name="code">The code.</param>
@@ -115,7 +139,7 @@
 		/// <param name="deltaValueToSetOff">The delta value to set off.</param>
 		public void Initialize(string code, AnalogValue gain, AnalogValue offset, AnalogValue deltaValueToSetOn, AnalogValue deltaValueToSetOff)
 		{
-			Initialize(code, gain, offset);
+			base.Initialize(code, gain, offset);
 			this.DeltaValueToSetOff = deltaValueToSetOff;
 			this.DeltaValueToSetOn = deltaValueToSetOn;
 			this.DeltaValueToSetOff = (AnalogValue)new AnalogValue().Initialize();

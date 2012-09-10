@@ -70,7 +70,7 @@
 		public bool CheckIfAllParamIsUpToDate(IParameters currentParams)
 		{
 			// Check if all input dynamic (input param with a recieve code) param is up to date
-			return currentParams.Params.Where(param => (param.Value.ParameterDirection == EnumParameterDirection.Output) || (string.IsNullOrWhiteSpace(param.Value.RecieveCode))).All(currentParam => currentParam.Value.IsUptoDate);
+			return currentParams.Params.Where(param => (param.Value.ParameterDirection == EnumParameterDirection.Input) || (!string.IsNullOrWhiteSpace(param.Value.RecieveOutputKey))).All(currentParam => currentParam.Value.IsUptoDate);
 		}
 	}
 }

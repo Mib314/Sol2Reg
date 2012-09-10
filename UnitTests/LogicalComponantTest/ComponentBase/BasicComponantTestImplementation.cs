@@ -27,7 +27,7 @@
 		/// <param name="paramName">Name of the param.</param>
 		public new void SetParam(IValue value, string paramName)
 		{
-			base.SetParam(value, paramName);
+			base.SetParameter(paramName, value);
 		}
 
 		/// <summary>
@@ -37,7 +37,7 @@
 		/// <returns></returns>
 		public new IValue GetParam(string paramName)
 		{
-			return base.GetParam(paramName);
+			return base.GetParameter(paramName);
 		}
 
 		/// <summary>
