@@ -13,7 +13,7 @@
 	public class AnalogValueTest
 	{
 		private static readonly AnalogValue s_NullValue = null;
-
+		#region Prepare data
 		/// <summary>
 		/// Gets the test value for operator property.
 		/// </summary>
@@ -51,8 +51,8 @@
 			}
 		}
 
-
 		private const decimal DEC = 152.36548523M;
+		#endregion
 
 		private readonly AnalogValue testee;
 

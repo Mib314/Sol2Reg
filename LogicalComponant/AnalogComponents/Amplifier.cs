@@ -2,6 +2,7 @@
 {
 	using ComponentBase;
 	using DataObject;
+	using DataObject.Enum;
 	using Interface.ComponentBase;
 	using log4net;
 
@@ -40,8 +41,8 @@
 		/// <summary>Executes the calculation.</summary>
 		public override void Calculate()
 		{
-			this.SetParameter(INPUT1, AnalogValue.AdjustValue(this.GetParameter(INPUT1), this.Gain, this.Offset));
-			base.Calculate();
+			this.InitialParameters.Add(new Parameter().Initialize(INPUT1, new AnalogValue(), EnumParameterDirection.Input, "Input value to amplifie."));
+			this.InitialParameters.Add(new Parameter().Initialize(OUTPUT1, new AnalogValue(), EnumParameterDirection.Output, "output value amplified."));
 		}
 	}
 }

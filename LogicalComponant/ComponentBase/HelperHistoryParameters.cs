@@ -55,12 +55,11 @@
 		/// <summary>
 		/// Saves the last param.
 		/// </summary>
-		/// <param name="paramName">Name of the param.</param>
-		/// <param name="args">The <see cref="Sol2Reg.DataObject.Events.ValueEventArgs"/> instance containing the event data.</param>
+		/// <param name="args">The <see cref="ParameterEventArgs"/> instance containing the event data.</param>
 		/// <param name="lastParams">The last params.</param>
-		public void SaveTheLastParam(string paramName, ValueEventArgs args, IParameters lastParams)
+		public void SaveTheLastParam(ParameterEventArgs args, IParameters lastParams)
 		{
-			lastParams.SetParameter(paramName, args.Value);
+			lastParams.SetParameter(args.Parameter.Key, args.Parameter.Value);
 		}
 
 		/// <summary>
@@ -68,7 +67,7 @@
 		/// </summary>
 		/// <param name="currentParams">The current params.</param>
 		/// <returns></returns>
-		public bool CheckIfAllParamIsUpToDate(IParameters currentParams)
+		public bool CheckIfAllParamIsUpToDate(IEnumerable<IParameter> currentParams)
 		{
 			// Check if all input dynamic (input param with a recieve code) param is up to date
 			return currentParams.Where(param => (param.ParameterDirection == EnumParameterDirection.Input) || (!string.IsNullOrWhiteSpace(param.RecieveOutputKey))).All(currentParam => currentParam.IsUptoDate);

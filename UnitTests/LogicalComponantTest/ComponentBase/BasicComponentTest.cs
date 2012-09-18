@@ -1,10 +1,8 @@
 ﻿namespace Sol2Reg.Test.LogicalComponent.ComponentBase.ComponentBase
 {
-	using System.Collections.Generic;
 	using DataObject;
 	using FluentAssertions;
 	using Sol2Reg.LogicalComponent.ComponentBase;
-	using Sol2Reg.LogicalComponent.Interface;
 	using Moq;
 	using Sol2Reg.LogicalComponent.Interface.ComponentBase;
 	using Xunit;
@@ -16,10 +14,11 @@
 	public class BasicComponentTest
 	{
 		private const decimal PARAM_ANALOGUE1 = 15.36M;
+		private const bool PARAM_DIGITAL1 = true;
 
 		private readonly Components components;
 		private readonly Mock<ILog> logger; 
-		private readonly Mock<IInternalParametersManager> ParametersManager;
+		private readonly Mock<IInternalParametersManager> parametersManager;
 		private readonly BasicComponantImplementation testee;
 
 		/// <summary>
@@ -29,57 +28,71 @@
 		{
 			this.components = new Components();
 			this.logger = new Mock<ILog>();
-			this.ParametersManager = new Mock<IInternalParametersManager>();
-			this.testee = new BasicComponantImplementation(this.components, this.ParametersManager.Object, this.logger.Object);
+			this.parametersManager = new Mock<IInternalParametersManager>();
+			this.testee = new BasicComponantImplementation(this.components, this.parametersManager.Object, this.logger.Object);
 		}
 
 		/// <summary>
-		/// Sets the param when anamlog param then is in value manager.
+		/// Sets the parameter when anamlog param then is in value manager.
 		/// </summary>
 		[Fact]
-		public void SetParamWhenAnamlogParamThenIsInValueManager()
+		public void SetParameterWhenAnamlogParamThenIsInParameterManager()
 		{
 			var newParam = this.SetAnalogValue(PARAM_ANALOGUE1);
-			this.testee.SetParam(newParam, BasicComponantImplementation.INPUT1);
+			this.testee.SetParameter(BasicComponantImplementation.INPUT1, newParam);
 
-			this.ParametersManager.Verify(foo => foo.SetParameter(BasicComponantImplementation.INPUT1, newParam));
+			this.parametersManager.Verify(foo => foo.SetParameter(BasicComponantImplementation.INPUT1, newParam));
 		}
 
 		/// <summary>
-		/// Gets the param when read A param then read from value manager.
+		/// Sets the parameter when digital param then is in value manager.
 		/// </summary>
 		[Fact]
-		public void GetParamWhenReadAParamThenReadFromValueManager()
+		public void SetParameterWhenDigitalParamThenIsInParameterManager()
 		{
-			var newParam = this.SetAnalogValue(PARAM_ANALOGUE1);
-//			this.ParametersManager.SetupGet(foo => foo.CurrentParams).Returns(new Dictionary<string, IValue> { { BasicComponantImplementation.INPUT1, newParam } });
+			var newParam = this.SetDigitalValue(PARAM_DIGITAL1);
+			this.testee.SetParameter(BasicComponantImplementation.INPUT1, newParam);
 
-			var readValue = this.testee.GetParam(BasicComponantImplementation.INPUT1);
+			this.parametersManager.Verify(foo => foo.SetParameter(BasicComponantImplementation.INPUT1, newParam));
+		}
 
-			//this.ParametersManager.Verify(foo => foo.CurrentParams);
+		[Fact]
+		public void GetParameterWhenCallThenReturnDataFromParameterManager()
+		{
+			string paramName = "ss";
+			var value = 15.63M;
+			var respValue = (DigitalValue)this.SetAnalogValue(value);
+
+			// this.parametersManager.Setup(foo => foo.GetParameter(paramName)).Returns()
+
+			var resp = (DigitalValue)this.testee.GetParameter(paramName);
+
+			resp.Value.Should().Be(respValue.Value);
 		}
 
 		/// <summary>
-		/// States the change when new object then count equal1.
+		/// States the change when call then count plus 1.
 		/// </summary>
 		[Fact]
-		public void StateChangeWhenNewObjectThenCountEqual1()
+		public void StateChangeWhenCallThenCountPlus1()
 		{
+			var initialCount = this.testee.Count;
 			this.testee.StateChange();
 
-			this.testee.Count.Should().Be(1, "After the first StateChange, count = 1.");
+			this.testee.Count.Should().Be(initialCount + 1, "After the StateChange, count + 1.");
 		}
 
 		/// <summary>
-		/// States the change when state change2 time then count equal1.
+		/// States the change when state change start 2 time then count plus 2.
 		/// </summary>
 		[Fact]
-		public void StateChangeWhenStateChange2TimeThenCountEqual1()
+		public void StateChangeWhenStateChange2TimeThenCountPlus2()
 		{
+			var initialCount = this.testee.Count;
 			this.testee.StateChange();
 			this.testee.StateChange();
 
-			this.testee.Count.Should().Be(2, "After the seconde StateChange, count = 2.");
+			this.testee.Count.Should().Be(initialCount + 2, "After the StateChange 2 time, count + 2.");
 		}
 
 		#region Private

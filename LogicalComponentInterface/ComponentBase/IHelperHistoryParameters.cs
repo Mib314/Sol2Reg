@@ -37,16 +37,15 @@ namespace Sol2Reg.LogicalComponent.Interface.ComponentBase
 		/// <summary>
 		/// Saves the last param.
 		/// </summary>
-		/// <param name="paramName">Name of the param.</param>
-		/// <param name="args">The <see cref="Sol2Reg.DataObject.Events.ValueEventArgs"/> instance containing the event data.</param>
+		/// <param name="args">The <see cref="ParameterEventArgs"/> instance containing the event data.</param>
 		/// <param name="lastParams">The last params.</param>
-		void SaveTheLastParam(string paramName, ValueEventArgs args, IParameters lastParams);
+		void SaveTheLastParam(ParameterEventArgs args, IParameters lastParams);
 
 		/// <summary>
 		/// Checks if all param is up to date (same cycle for DynamicValue).
 		/// </summary>
 		/// <param name="currentParams">The current params.</param>
 		/// <returns></returns>
-		bool CheckIfAllParamIsUpToDate(IParameters currentParams);
+		bool CheckIfAllParamIsUpToDate(IEnumerable<IParameter> currentParams);
 	}
 }

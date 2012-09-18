@@ -11,7 +11,7 @@
 		/// <summary>
 		/// Histroy of Analog/Digital params.
 		/// </summary>
-		public List<IParameters> HistoryValues { get; private set; }
+		public List<IParameters> HistoryParameters { get; private set; }
 
 		/// <summary>
 		/// Gets the current parameters.

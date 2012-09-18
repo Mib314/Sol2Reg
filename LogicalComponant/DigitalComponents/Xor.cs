@@ -3,7 +3,6 @@
 	using System.Linq;
 	using ComponentBase;
 	using DataObject;
-	using DataObject.Enum;
 	using Interface.ComponentBase;
 	using log4net;
 
@@ -30,8 +29,6 @@
 			var logAllTrue = this.ParametersManager.GetInputDynamicParameter().All(p => ((DigitalValue)p.Value).GetCalculateValue());
 			var logAllFalse = this.ParametersManager.GetInputDynamicParameter().All(p => !((DigitalValue)p.Value).GetCalculateValue());
 			this.InternalParametersManager.SetParameter(OUTPUT1, new DigitalValue(!(logAllTrue || logAllFalse)));
-
-			base.Calculate();
 		}
 	}
 }

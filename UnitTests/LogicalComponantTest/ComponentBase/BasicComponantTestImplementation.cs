@@ -1,6 +1,8 @@
 ﻿namespace Sol2Reg.Test.LogicalComponent.ComponentBase.ComponentBase
 {
+	using System.Linq;
 	using DataObject;
+	using DataObject.Enum;
 	using Sol2Reg.LogicalComponent.ComponentBase;
 	using Sol2Reg.LogicalComponent.Interface.ComponentBase;
 	using log4net;
@@ -19,13 +21,13 @@
 			: base(components, parametersManager, loger)
 		{
 		}
-		
+
 		/// <summary>
 		/// Sets the param.
 		/// </summary>
-		/// <param name="value">The value.</param>
 		/// <param name="paramName">Name of the param.</param>
-		public new void SetParam(IValue value, string paramName)
+		/// <param name="value">The value.</param>
+		public new void SetParameter(string paramName, IValue value)
 		{
 			base.SetParameter(paramName, value);
 		}
@@ -35,7 +37,7 @@
 		/// </summary>
 		/// <param name="paramName">Name of the param.</param>
 		/// <returns></returns>
-		public new IValue GetParam(string paramName)
+		public new IValue GetParameter(string paramName)
 		{
 			return base.GetParameter(paramName);
 		}
@@ -50,8 +52,7 @@
 		/// </summary>
 		public override void Calculate()
 		{
-			// Abstract methode => not implemented in BasicComponent
-			throw new System.NotImplementedException();
+			this.SetParameter(OUTPUT1, (AnalogValue)base.GetParameter(INPUT1) + new AnalogValue(15));
 		}
 
 		/// <summary>

@@ -64,6 +64,7 @@
   <ItemGroup>
     <Compile Include="ComponentBase\BasicComponantTestImplementation.cs" />
     <Compile Include="ComponentBase\BasicComponentTest.cs" />
+    <Compile Include="ComponentBase\ParametersManagerTest.cs" />
     <Compile Include="DigitalComponents\ComponentAndTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

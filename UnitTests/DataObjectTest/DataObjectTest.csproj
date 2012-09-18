@@ -57,9 +57,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AnalogValueTest.cs" />
-    <Compile Include="InputEventArgsTest.cs" />
     <Compile Include="DigitalValueTest.cs" />
-    <Compile Include="ValueEventArgsTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

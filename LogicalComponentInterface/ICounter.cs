@@ -19,6 +19,6 @@
 		/// <param name="key">The key.</param>
 		/// <param name="recieveOutputComponentKey">The recieve output component key.</param>
 		/// <param name="recieveOutputKey">The recieve output key.</param>
-		void SetRecieveOutputInfoForInputParam(string key, string recieveOutputComponentKey, string recieveOutputKey);
+		void SetRecieveOutputParameterInfoForInputParameter(string key, string recieveOutputComponentKey, string recieveOutputKey);
 	}
 }

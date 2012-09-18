@@ -40,8 +40,6 @@
 				val.Value = !val.Value;
 			}
 			this.InternalParametersManager.SetParameter(OUTPUT1, val);
-
-			base.Calculate();
 		}
 	}
 }

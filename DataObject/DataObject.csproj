@@ -43,14 +43,13 @@
     <Compile Include="AnalogValue.cs" />
     <Compile Include="Enum\EnumParameterDirection.cs" />
     <Compile Include="Enum\EnumParameterType.cs" />
-    <Compile Include="HistoryParameters.cs" />
     <Compile Include="IHistoryParameters.cs" />
     <Compile Include="IParameter.cs" />
     <Compile Include="IParameters.cs" />
     <Compile Include="Parameter.cs" />
     <Compile Include="DigitalValue.cs" />
     <Compile Include="Events\ExternalSourceValueHandler.cs" />
-    <Compile Include="Events\ValueEventArgs.cs" />
+    <Compile Include="Events\ParameterEventArgs.cs" />
     <Compile Include="Events\OutputChangeNotificationHandler.cs" />
     <Compile Include="IDateTimeNowProvider.cs" />
     <Compile Include="IValue.cs" />

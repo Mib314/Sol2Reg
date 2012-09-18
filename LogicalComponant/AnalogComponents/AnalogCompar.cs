@@ -24,76 +24,15 @@
 			: base(components, parametersManager, loger)
 		{
 		}
-
-		/// <summary>
-		/// Gets or sets the delta value to set off.
-		/// </summary>
-		/// <value>
-		/// The delta value to set off.
-		/// </value>
-		public AnalogValue Input1
-		{
-			get { return (AnalogValue)this.InternalParametersManager.GetParameter(INPUT1).Value; }
-			protected set { this.InternalParametersManager.SetParameter(INPUT1, value); }
-		}
-
-		/// <summary>
-		/// Gets or sets the delta value to set off.
-		/// </summary>
-		/// <value>
-		/// The delta value to set off.
-		/// </value>
-		public AnalogValue Intput2
-		{
-			get { return (AnalogValue)this.InternalParametersManager.GetParameter(INPUT2).Value; }
-			protected set { this.InternalParametersManager.SetParameter(INPUT2, value); }
-		}
-
-		/// <summary>
-		/// Gets or sets the delta value to set off.
-		/// </summary>
-		/// <value>
-		/// The delta value to set off.
-		/// </value>
-		public AnalogValue DeltaValueToSetOff
-		{
-			get { return (AnalogValue)this.InternalParametersManager.GetParameter(PARAM_D_OFF).Value; }
-			protected set { this.InternalParametersManager.SetParameter(PARAM_D_OFF, value); }
-		}
-
-		/// <summary>
-		/// Gets or sets the delta value to set off.
-		/// </summary>
-		/// <value>
-		/// The delta value to set off.
-		/// </value>
-		public AnalogValue DeltaValueToSetOn
-		{
-			get { return (AnalogValue)this.InternalParametersManager.GetParameter(PARAM_D_ON).Value; }
-			protected set { this.InternalParametersManager.SetParameter(PARAM_D_ON, value); }
-		}
-
-		/// <summary>
-		/// Gets or sets the output 1.
-		/// </summary>
-		/// <value>
-		/// The output 1.
-		/// </value>
-		public DigitalValue Output1
-		{
-			get { return (DigitalValue)this.InternalParametersManager.GetParameter(OUTPUT1).Value; }
-			protected set { this.InternalParametersManager.SetParameter(OUTPUT1, value); }
-		}
-
+		
 		#region Overrides of BasicComponent
-
 		/// <summary>
 		/// Executes the calculation.
 		/// </summary>
 		public override void Calculate()
 		{
 			// Tous les input doivent avoir le cycle courrant pour pouvoir faire le calcule.
-			var output = new DigitalValue(false);
+			var outputValue = new DigitalValue(false);
 			if (this.ParametersManager.IsAllInputParamUptodate())
 			{
 				return;
@@ -112,28 +51,30 @@
 			*/
 			var deltaValue = realValue1 - realValue2;
 
+			var deltaOn = (AnalogValue)this.InternalParametersManager.GetParameter(PARAM_D_ON).Value;
+			var deltaOff = (AnalogValue)this.InternalParametersManager.GetParameter(PARAM_D_OFF).Value;
+
 			// Si seuil d'enclenchement (DeltaOn) ≥ seuil de déclenchement (DeltaOff),
-			if (this.DeltaValueToSetOn >= this.DeltaValueToSetOff)
+			if (deltaOn >= deltaOff)
 			{
 				// OutputState = 1, si (valeur réelle InputValue1 - valeur réelle InputValue2) > DeltaOn
-				if (deltaValue > this.DeltaValueToSetOn)
+				if (deltaValue > deltaOn)
 				{
-					output.Value = true;
+					outputValue.Value = true;
 				}
 				// OutputState = 0, si (valeur réelle InputValue1 - valeur réelle InputValue2) ≤ DeltaOff
-				else if (deltaValue <= this.DeltaValueToSetOff)
+				else if (deltaValue <= deltaOff)
 				{
-					output.Value = false;
+					outputValue.Value = false;
 				}
 			}
 			// Si seuil d'enclenchement (DeltaOn) < seuil de déclenchement (DeltaOff),
 			else
 			{
 				// OutputState = 1, si On ≤ (valeur réelle InputValue1 - valeur réelle InputValue2) < DeltaOff.
-				output.Value = (deltaValue >= this.DeltaValueToSetOn && deltaValue < this.DeltaValueToSetOff);
+				outputValue.Value = (deltaValue >= deltaOn && deltaValue < deltaOff);
 			}
-			this.InternalParametersManager.OnEventOutputChange(output, OUTPUT1);
-			this.StateChange();
+			this.InternalParametersManager.SetParameter(OUTPUT1, outputValue);
 		}
 
 		/// <summary>

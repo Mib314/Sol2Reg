@@ -50,20 +50,6 @@ namespace Sol2Reg.LogicalComponent.Interface.ComponentBase
 		List<IParameters> HistoryValues { get; }
 
 		/// <summary>
-		/// Called when [event output change].
-		/// </summary>
-		/// <param name="newOutputValue">The new output value.</param>
-		/// <param name="outputName">Name of the output.</param>
-		void OnEventOutputChange(IValue newOutputValue, string outputName);
-
-		/// <summary>
-		/// Called when [event input change].
-		/// </summary>
-		/// <param name="newInputValue">The new input value.</param>
-		/// <param name="inputName">Name of the input.</param>
-		void OnEventInputChange(IValue newInputValue, string inputName);
-
-		/// <summary>
 		/// Overides the current parameters with last parameters.
 		/// </summary>
 		void OverideCurrentParametersWithLastParameters();
@@ -71,7 +57,7 @@ namespace Sol2Reg.LogicalComponent.Interface.ComponentBase
 		/// <summary>
 		/// Sends all output event.
 		/// </summary>
-		void SendAllOutputEvent();
+		void SendOutputsEvent();
 
 		/// <summary>
 		/// Sets the current cycle.

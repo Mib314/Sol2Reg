@@ -18,7 +18,7 @@
 	///		- History info (for a number of cycle or a time.
 	///		- Initial information.
 	/// </summary>
-	public sealed class ParametersManager : IInternalParametersManager
+	public class ParametersManager : IInternalParametersManager
 	{
 		/// <summary>
 		/// History of parameters.
@@ -96,16 +96,29 @@
 		public int HistoryFrequency { get; set; }
 
 		/// <summary>
+		/// Gets the current cycle number.
+		/// </summary>
+		public long Cycle { get { return this.currentParameters.Cycle; } }
+
+		/// <summary>
+		/// Gets or sets the cycle time.
+		/// </summary>
+		/// <value>
+		/// The cycle time.
+		/// </value>
+		public DateTime CycleTime { get { return this.currentParameters.CycleTime; } }
+
+		/// <summary>
+		/// Histroy of Analog/Digital params.
+		/// </summary>
+		public List<IParameters> HistoryValues { get { return this.historyParameters; } }
+
+		/// <summary>
 		/// Occurs when [event output change].
 		/// </summary>
 		public event OutputChangeNotificationHandler EventOutputChange;
-
-		/// <summary>
-		/// Occurs when [event input change].
-		/// </summary>
-		public event OutputChangeNotificationHandler EventInputChange;
-
 		#endregion
+
 		/// <summary>Getters the param.</summary>
 		/// <param name="code">The key.</param>
 		/// <returns>Return parameter.</returns>
@@ -137,33 +150,6 @@
 		#region Setter & Getter for Analog and Digital params.
 
 		/// <summary>
-		/// Gets the current cycle number.
-		/// </summary>
-		public long Cycle
-		{
-			get { return this.currentParameters.Cycle; }
-		}
-
-		/// <summary>
-		/// Gets or sets the cycle time.
-		/// </summary>
-		/// <value>
-		/// The cycle time.
-		/// </value>
-		public DateTime CycleTime
-		{
-			get { return this.currentParameters.CycleTime; }
-		}
-
-		/// <summary>
-		/// Histroy of Analog/Digital params.
-		/// </summary>
-		public List<IParameters> HistoryValues
-		{
-			get { return this.historyParameters; }
-		}
-
-		/// <summary>
 		/// Setters the param (Analog and Digital).
 		/// </summary>
 		/// <param name="key">The key.</param>
@@ -179,13 +165,12 @@
 		/// <summary>
 		/// Setters the param (Analog and Digital).
 		/// </summary>
-		/// <param name="key">The key.</param>
-		/// <param name="args">The <see cref="Sol2Reg.DataObject.Events.ValueEventArgs"/> instance containing the event data.</param>
-		public void SetParameter(string key, ValueEventArgs args)
+		/// <param name="args">The <see cref="ParameterEventArgs"/> instance containing the event data.</param>
+		public void SetParameter(ParameterEventArgs args)
 		{
-			if (args != null && args.Value != null)
+			if (args != null && args.Parameter != null && args.Parameter.Value != null)
 			{
-				this.SetParameter(key, args.Value);
+				this.SetParameter(args.Parameter.Key, args.Parameter.Value);
 			}
 		}
 
@@ -205,38 +190,15 @@
 		#endregion
 
 		#region Manage events.
-		/// <summary>
-		/// Called when [event output change].
-		/// </summary>
-		/// <param name="newOutputValue">The new output value.</param>
-		/// <param name="outputName">Name of the output.</param>
-		public void OnEventOutputChange(IValue newOutputValue, string outputName)
-		{
-			this.SetParameter(outputName, newOutputValue);
-			var output = new ValueEventArgs(newOutputValue, this.basicComponent.Code, outputName);
-			OutputChangeNotificationHandler notificationHandler = this.EventOutputChange;
-			if (notificationHandler != null) notificationHandler(this, output);
-		}
-
-		/// <summary>
-		/// Called when output value change to send .
-		/// </summary>
-		/// <param name="newInputValue">The new input value.</param>
-		/// <param name="inputName">Name of the input.</param>
-		public void OnEventInputChange(IValue newInputValue, string inputName)
-		{
-			this.SetParameter(inputName, newInputValue);
-			var args = new ValueEventArgs(newInputValue, this.basicComponent.Code, inputName);
-			OutputChangeNotificationHandler notificationHandler = this.EventInputChange;
-			if (notificationHandler != null) notificationHandler(this, args);
-		}
 
 		/// <summary>
 		/// Overides the current parameters with last parameters.
 		/// </summary>
 		public void OverideCurrentParametersWithLastParameters()
 		{
-			throw new NotImplementedException();
+			this.currentParameters = this.lastParameters;
+			this.lastParameters = this.historyParameters[0];
+			this.historyParameters.RemoveAt(0);
 		}
 
 		/// <summary>
@@ -251,7 +213,11 @@
 		{
 			if (this.currentParameters.Cycle < cycle && this.currentParameters.CycleTime < cycleTime)
 			{
-				if (this.lastParameters != null) { this.historyParameters.Add(this.lastParameters); }
+				if (this.lastParameters != null)
+				{
+					// Add on the first position to the list.
+					this.historyParameters.Insert(0, this.lastParameters);
+				}
 				this.lastParameters = this.currentParameters;
 				this.CreateNewCurrentParameters(cycle, cycleTime);
 				this.loger.Debug(string.Format("Component {0} : The set new cycle was called succesfuly", this.basicComponent.Code));
@@ -265,9 +231,12 @@
 		/// <summary>
 		/// Sends all output event.
 		/// </summary>
-		public void SendAllOutputEvent()
+		public void SendOutputsEvent()
 		{
-			throw new NotImplementedException();
+			foreach (var outputParameter in this.GetOutputParameters())
+			{
+				this.OnEventOutputParameterToSend(outputParameter);
+			}
 		}
 
 		/// <summary>
@@ -285,8 +254,7 @@
 															 // Check if all param is uptodate
 															 //		Calculate
 
-															 string code = this.currentParameters.GetParameterKey(componentKey, parameterKey);
-															 this.SetParameter(code, args);
+															 this.SetParameter(args);
 															 if (this.helperHistoryParameters.CheckIfAllParamIsUpToDate(this.currentParameters))
 															 {
 																 this.basicComponent.Calculate();
@@ -325,6 +293,18 @@
 				this.currentParameters.Add(param);
 			}
 
+		}
+
+		/// <summary>
+		/// Called when output parameter sended.
+		/// </summary>
+		/// <param name="outputParameter">The output parameter.</param>
+		private void OnEventOutputParameterToSend(IParameter outputParameter)
+		{
+			this.SetParameter(outputParameter.Key, outputParameter.Value);
+			var output = new ParameterEventArgs(this.basicComponent.Code, outputParameter);
+			OutputChangeNotificationHandler notificationHandler = this.EventOutputChange;
+			if (notificationHandler != null) notificationHandler(this, output);
 		}
 	}
 }

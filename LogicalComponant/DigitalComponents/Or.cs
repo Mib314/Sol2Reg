@@ -29,8 +29,6 @@
 			var logAllFalse = this.ParametersManager.GetInputDynamicParameter().All(p => !((DigitalValue)p.Value).GetCalculateValue());
 
 			this.InternalParametersManager.SetParameter(OUTPUT1, new DigitalValue(!logAllFalse));
-
-			base.Calculate();
 		}
 	}
 }

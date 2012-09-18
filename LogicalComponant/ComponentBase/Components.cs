@@ -4,6 +4,6 @@
 
 	public class Components : List<BasicComponent>
 	{
-
+		public bool IsInitialTime { get; set; }
 	}
 }

@@ -17,5 +17,7 @@
 		/// Executes the calculation.
 		/// </summary>
 		void Calculate();
+
+		void RegisterLinkForInputParameter(string inputParameterKey, string recieveOutputComponentKey, string recieveOutputParameterKey);
 	}
 }

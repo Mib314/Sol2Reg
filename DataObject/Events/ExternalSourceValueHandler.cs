@@ -4,6 +4,6 @@ namespace Sol2Reg.DataObject.Events
 	/// External analog/digital handler.
 	/// </summary>
 	/// <param name="obj">The obj. source.</param>
-	/// <param name="args">The args <see cref="Sol2Reg.DataObject.Events.ValueEventArgs"/>.</param>
-	public delegate void ExternalSourceValueHandler(object obj, ValueEventArgs args);
+	/// <param name="args">The args <see cref="ParameterEventArgs"/>.</param>
+	public delegate void ExternalSourceValueHandler(object obj, ParameterEventArgs args);
 }

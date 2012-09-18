@@ -55,7 +55,7 @@
 			this.unityContainer.RegisterType<IBasicComponentForParameterManager, BasicComponent>();
 
 			// As Singelton
-			this.unityContainer.RegisterInstance<Components>(new Components());
+			this.unityContainer.RegisterInstance(new Components());
 			
 		}
 

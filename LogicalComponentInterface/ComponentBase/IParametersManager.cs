@@ -46,9 +46,8 @@ namespace Sol2Reg.LogicalComponent.Interface.ComponentBase
 		/// <summary>
 		/// Setters the param (Analog and Digital).
 		/// </summary>
-		/// <param name="key">The key.</param>
-		/// <param name="args">The <see cref="Sol2Reg.DataObject.Events.ValueEventArgs"/> instance containing the event data.</param>
-		void SetParameter(string key, ValueEventArgs args);
+		/// <param name="args">The <see cref="ParameterEventArgs"/> instance containing the event data.</param>
+		void SetParameter(ParameterEventArgs args);
 
 		/// <summary>
 		/// Gets the out parameters.
